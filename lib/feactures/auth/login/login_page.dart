@@ -21,9 +21,7 @@ class LoginPage extends StatelessWidget {
           if (state is BlocLoginStateError) {
             Navigator.pop(context);
             const DialogError(
-              description:
-                  'error to login, '
-                  '\n Check your email to verify your account',
+              description: 'error to login',
             ).showDialogError(context);
           }
           if (state is BlocLoginStateSuccess) {
@@ -35,6 +33,11 @@ class LoginPage extends StatelessWidget {
           }
           if (state is BlocLoginStateForgotPassword) {
             Navigator.pop(context);
+            Navigator.pop(context);
+            DialogSuccess(
+              description: 'Check your email to reset your password.',
+              onOk: () => Navigator.pop(context),
+            ).showDialogSuccess(context);
           }
         },
         child: Column(

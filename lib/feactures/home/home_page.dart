@@ -1,30 +1,25 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_flutter_supabase/auto_route/auto_route.gr.dart';
-import 'package:chat_flutter_supabase/feactures/home/bloc/bloc_home.dart';
+import 'package:chat_flutter_supabase/feactures/dashboard/bloc/bloc_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 @RoutePage()
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<BlocHome, BlocHomeState>(
+      body: BlocBuilder<BlocDashboard, BlocDashboardState>(
         builder: (context, state) {
-          if (state is BlocHomeStateLoading) {
+          if (state is BlocDashboardStateLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
-          if (state is BlocHomeStateError) {
+          if (state is BlocDashboardStateError) {
             return Center(
               child: Text(state.errorMessage),
             );

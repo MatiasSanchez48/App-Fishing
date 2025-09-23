@@ -3,8 +3,8 @@ import 'package:chat_flutter_supabase/feactures/auth/auth_observer.dart';
 import 'package:chat_flutter_supabase/feactures/auth/login/bloc/bloc_login.dart';
 import 'package:chat_flutter_supabase/feactures/auth/register/bloc/bloc_register.dart';
 import 'package:chat_flutter_supabase/feactures/auth/reset_password/bloc/bloc_reset_password.dart';
-import 'package:chat_flutter_supabase/feactures/home/bloc/bloc_home.dart';
-import 'package:chat_flutter_supabase/feactures/message/bloc/bloc_message.dart';
+import 'package:chat_flutter_supabase/feactures/dashboard/bloc/bloc_dashboard.dart';
+import 'package:chat_flutter_supabase/feactures/dashboard/message/bloc/bloc_message.dart';
 import 'package:chat_flutter_supabase/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,8 +36,8 @@ class App extends StatelessWidget {
               supabase: _supabase,
             ),
           ),
-          BlocProvider<BlocHome>(
-            create: (context) => BlocHome(
+          BlocProvider<BlocDashboard>(
+            create: (context) => BlocDashboard(
               supabase: _supabase,
             ),
           ),

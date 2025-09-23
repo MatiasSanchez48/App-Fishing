@@ -15,13 +15,22 @@ class AppRouter extends RootStackRouter {
     // HomeScreen is generated as HomeRoute because
     // of the replaceInRouteName property
     AutoRoute(
-      page: HomeRoute.page,
+      page: DashboardRoute.page,
       initial: true,
       path: '/',
       guards: [AuthGuard(supabase)],
+      children: [
+        AutoRoute(
+          page: HomeRoute.page,
+          path: 'home',
+          initial: true,
+        ),
+        AutoRoute(
+          page: MessageRoute.page,
+          path: 'message/:id',
+        ),
+      ],
     ),
-
-    AutoRoute(page: MessageRoute.page, path: '/message/:id'),
 
     /// TODO : Cambiar nombres son horribles algunas
     AutoRoute(page: LoginRoute.page),
