@@ -6,3 +6,11 @@ class BlocHomeEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class BlocHomeEventGetUsers extends BlocHomeEvent {
+  const BlocHomeEventGetUsers();
+}
+
+class BlocHomeEventLogOut extends BlocHomeEvent {
+  const BlocHomeEventLogOut();
+}

@@ -2,18 +2,12 @@ part of 'bloc_dashboard.dart';
 
 @immutable
 abstract class BlocDashboardState extends Equatable {
-  const BlocDashboardState._({
-    this.users = const [],
-  });
+  const BlocDashboardState._();
 
   BlocDashboardState.from(
-    BlocDashboardState state, {
-    List<Usuario>? users,
-  }) : this._(
-         users: users ?? state.users,
+    BlocDashboardState state, ) : this._(
        );
 
-  final List<Usuario> users;
   @override
   List<Object?> get props => [];
 }
@@ -23,7 +17,7 @@ class BlocDashboardStateInitial extends BlocDashboardState {
 }
 
 class BlocDashboardStateSuccess extends BlocDashboardState {
-  BlocDashboardStateSuccess.from(super.state, {super.users}) : super.from();
+  BlocDashboardStateSuccess.from(super.state, ) : super.from();
 }
 
 class BlocDashboardStateForgotPassword extends BlocDashboardState {

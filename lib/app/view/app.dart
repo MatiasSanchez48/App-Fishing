@@ -1,49 +1,36 @@
 import 'package:chat_flutter_supabase/auto_route/auto_route.dart';
+import 'package:chat_flutter_supabase/extensions/extensions.dart';
 import 'package:chat_flutter_supabase/feactures/auth/auth_observer.dart';
 import 'package:chat_flutter_supabase/feactures/auth/login/bloc/bloc_login.dart';
 import 'package:chat_flutter_supabase/feactures/auth/register/bloc/bloc_register.dart';
 import 'package:chat_flutter_supabase/feactures/auth/reset_password/bloc/bloc_reset_password.dart';
-import 'package:chat_flutter_supabase/feactures/dashboard/bloc/bloc_dashboard.dart';
-import 'package:chat_flutter_supabase/feactures/dashboard/message/bloc/bloc_message.dart';
 import 'package:chat_flutter_supabase/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
 
-  /// The Supabase client
-  SupabaseClient get _supabase => Supabase.instance.client;
-
   @override
   Widget build(BuildContext context) {
+    final supabase = context.supabase;
+
     return AuthObserver(
       child: MultiBlocProvider(
         providers: [
           BlocProvider<BlocLogin>(
             create: (context) => BlocLogin(
-              supabase: _supabase,
+              supabase: supabase,
             ),
           ),
           BlocProvider<BlocResetPassword>(
             create: (context) => BlocResetPassword(
-              supabase: _supabase,
+              supabase: supabase,
             ),
           ),
           BlocProvider<BlocRegister>(
             create: (context) => BlocRegister(
-              supabase: _supabase,
-            ),
-          ),
-          BlocProvider<BlocDashboard>(
-            create: (context) => BlocDashboard(
-              supabase: _supabase,
-            ),
-          ),
-          BlocProvider<BlocMessage>(
-            create: (context) => BlocMessage(
-              supabase: _supabase,
+              supabase: supabase,
             ),
           ),
         ],
