@@ -1,6 +1,5 @@
 part of 'bloc_profile.dart';
 
-@freezed
 class BlocProfileState extends Equatable {
   const BlocProfileState._();
 

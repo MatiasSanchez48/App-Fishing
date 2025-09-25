@@ -1,6 +1,5 @@
 part of 'bloc_home.dart';
 
-@freezed
 class BlocHomeState extends Equatable {
   const BlocHomeState._({
     this.users = const [],

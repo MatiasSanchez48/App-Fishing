@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:chat_flutter_supabase/models/user/user_model.dart';
 import 'package:equatable/equatable.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'bloc_home_event.dart';

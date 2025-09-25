@@ -1,6 +1,5 @@
 part of 'bloc_social.dart';
 
-@freezed
 class BlocSocialState extends Equatable {
   const BlocSocialState._();
 
