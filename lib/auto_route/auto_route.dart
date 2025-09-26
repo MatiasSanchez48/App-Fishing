@@ -24,11 +24,9 @@ class AppRouter extends RootStackRouter {
           page: HomeRoute.page,
           path: 'home',
           initial: true,
+          children: const [],
         ),
-        AutoRoute(
-          page: MessageRoute.page,
-          path: 'message/:id',
-        ),
+
         AutoRoute(
           page: SocialRoute.page,
           path: 'social',
@@ -36,6 +34,10 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
           page: ProfileRoute.page,
           path: 'profile',
+        ),
+        AutoRoute(
+          page: MessageRoute.page,
+          path: 'message/:id',
         ),
       ],
     ),

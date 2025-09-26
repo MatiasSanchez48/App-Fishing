@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:chat_flutter_supabase/auto_route/auto_route.gr.dart';
 import 'package:chat_flutter_supabase/extensions/extensions.dart';
 import 'package:chat_flutter_supabase/feactures/dashboard/bloc/bloc_dashboard.dart';
-import 'package:chat_flutter_supabase/feactures/message/bloc/bloc_message.dart';
 import 'package:chat_flutter_supabase/feactures/home/bloc/bloc_home.dart';
+import 'package:chat_flutter_supabase/feactures/message/bloc/bloc_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,10 +16,12 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  final GlobalKey<AutoRouterState> dashboardTabsRouterKey =
+      GlobalKey<AutoRouterState>();
   @override
   Widget build(BuildContext context) {
     final supabase = context.supabase;
-
+    AutoRouter.of(context);
     return MultiBlocProvider(
       providers: [
         BlocProvider<BlocDashboard>(
@@ -37,6 +39,7 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
       ],
       child: AutoTabsRouter(
+        key: dashboardTabsRouterKey,
         // list of your tab routes
         // routes used here must be declared as children
         // routes of /dashboard

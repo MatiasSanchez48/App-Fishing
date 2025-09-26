@@ -11,6 +11,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dashboardTabsRouterKey = GlobalKey<AutoRouterState>();
+
     return BlocBuilder<BlocHome, BlocHomeState>(
       builder: (context, state) {
         if (state is BlocHomeStateLoading) {
@@ -29,9 +31,9 @@ class HomePage extends StatelessWidget {
           children: [
             ...state.users.map(
               (usuario) => InkWell(
-                onTap: () => context.pushRoute(
-                  MessageRoute(idPerson: usuario.uuid),
-                ),
+                onTap: () {
+                  context.router.pushPath('/message/${usuario.uuid}');
+                },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 10,

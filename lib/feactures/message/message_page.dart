@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:chat_flutter_supabase/extensions/context.dart';
 import 'package:chat_flutter_supabase/feactures/message/bloc/bloc_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,12 +24,12 @@ class _MessagePageState extends State<MessagePage> {
   final ScrollController _scrollController = ScrollController();
   final SupabaseClient supabase = Supabase.instance.client;
 
-  void _onSendMessage(String? v) {
-    context.read<BlocMessage>().add(
+  void _onSendMessage(String? v, BuildContext _context) {
+    _context.read<BlocMessage>().add(
       BlocMessageSendMessagesEvent(
         text: _controller.text,
         idPerson: widget.idPerson,
-      ), 
+      ),
     );
     _controller.clear();
     _hacerScrollAlFinal();
@@ -54,12 +55,6 @@ class _MessagePageState extends State<MessagePage> {
   @override
   void initState() {
     super.initState();
-    context.read<BlocMessage>().add(
-      BlocMessageGetMessagesEvent(idPerson: widget.idPerson),
-    );
-    context.read<BlocMessage>().add(
-      BlocMessageHearMessagesEvent(idPerson: widget.idPerson),
-    );
   }
 
   @override
@@ -79,13 +74,14 @@ class _MessagePageState extends State<MessagePage> {
 
   @override
   Widget build(BuildContext context) {
+    final supabase = context.supabase;
     final user = supabase.auth.currentUser;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Chat Realtime'),
-      ),
-      body: BlocBuilder<BlocMessage, BlocMessageState>(
+    return BlocProvider(
+      create: (context) => BlocMessage(supabase: supabase)
+        ..add(BlocMessageGetMessagesEvent(idPerson: widget.idPerson))
+        ..add(BlocMessageHearMessagesEvent(idPerson: widget.idPerson)),
+      child: BlocBuilder<BlocMessage, BlocMessageState>(
         builder: (context, state) {
           if (state is BlocMessageStateLoading) {
             return const Center(child: CircularProgressIndicator());
@@ -127,7 +123,10 @@ class _MessagePageState extends State<MessagePage> {
               ),
               const Divider(height: 1),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 5,
+                ),
                 child: Row(
                   children: [
                     Expanded(
@@ -138,12 +137,12 @@ class _MessagePageState extends State<MessagePage> {
                           border: OutlineInputBorder(),
                           isDense: true,
                         ),
-                        onSubmitted: _onSendMessage,
+                        onSubmitted: (v) => _onSendMessage(v, context),
                       ),
                     ),
                     IconButton(
                       icon: const Icon(Icons.send),
-                      onPressed: () => _onSendMessage(null),
+                      onPressed: () => _onSendMessage(null, context),
                     ),
                   ],
                 ),
