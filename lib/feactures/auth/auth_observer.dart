@@ -22,8 +22,8 @@ class _AuthObserverState extends State<AuthObserver> {
     super.initState();
     Supabase.instance.client.auth.onAuthStateChange.listen((data) {
       final event = data.event;
+      final _context = context;
 
-    final _context = context;
       ///
 
       if (event == AuthChangeEvent.passwordRecovery) {
@@ -32,7 +32,6 @@ class _AuthObserverState extends State<AuthObserver> {
       }
 
       if (event == AuthChangeEvent.signedIn) {
-        print('Home');
         context.router.replace(const HomeRoute());
       }
     });

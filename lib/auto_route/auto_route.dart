@@ -26,7 +26,6 @@ class AppRouter extends RootStackRouter {
           initial: true,
           children: const [],
         ),
-
         AutoRoute(
           page: SocialRoute.page,
           path: 'social',
