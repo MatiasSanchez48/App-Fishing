@@ -22,21 +22,20 @@ class AppRouter extends RootStackRouter {
       children: [
         AutoRoute(
           page: HomeRoute.page,
-          path: 'home',
+          path: 'Home',
           initial: true,
-          children: const [],
         ),
         AutoRoute(
-          page: SocialRoute.page,
-          path: 'social',
+          page: CreateEventRoute.page,
+          path: 'CreateEvent',
         ),
         AutoRoute(
           page: ProfileRoute.page,
-          path: 'profile',
+          path: 'Profile',
         ),
         AutoRoute(
           page: MessageRoute.page,
-          path: 'message/:id',
+          path: 'Message/:id',
         ),
       ],
     ),

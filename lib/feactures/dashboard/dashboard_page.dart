@@ -22,8 +22,9 @@ class _DashboardPageState extends State<DashboardPage> {
     setState(() => _currentIndex = index);
     return switch (index) {
       0 => context.router.push(const HomeRoute()),
-      1 => context.router.push(const SocialRoute()),
-      2 => context.router.push(const ProfileRoute()),
+      1 => context.router.push(const CreateEventRoute()),
+      2 => context.router.push(const SocialRoute()),
+      3 => context.router.push(const ProfileRoute()),
       _ => context.router.push(const HomeRoute()),
     };
   }
@@ -102,13 +103,18 @@ class CustomBottomBar extends StatelessWidget {
             title: 'Home',
           ),
           _buildTabItem(
-            icon: Icons.store_mall_directory_sharp,
+            icon: Icons.add_box_outlined,
             index: 1,
+            title: 'New Event',
+          ),
+          _buildTabItem(
+            icon: Icons.store_mall_directory_sharp,
+            index: 3,
             title: 'Social',
           ),
           _buildTabItem(
             icon: Icons.person,
-            index: 2,
+            index: 4,
             title: 'Profile',
           ),
         ],
