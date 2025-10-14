@@ -34,6 +34,10 @@ class AppRouter extends RootStackRouter {
           path: 'Profile',
         ),
         AutoRoute(
+          page: SocialRoute.page,
+          path: 'Profile',
+        ),
+        AutoRoute(
           page: MessageRoute.page,
           path: 'Message/:id',
         ),

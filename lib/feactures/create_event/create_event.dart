@@ -26,7 +26,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
     if (picked != null) {
       setState(() {
         _selectedDate = picked;
-        _controllerDate.text = "${picked.day}/${picked.month}/${picked.year}";
+        _controllerDate.text = '${picked.day}/${picked.month}/${picked.year}';
       });
     }
   }
@@ -60,7 +60,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
             Row(
               children: [
                 IconButton(
-                  icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                  icon: const Icon(Icons.close_outlined),
                   onPressed: () {},
                 ),
                 const Expanded(
@@ -68,7 +68,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Home',
+                        'Create Event',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -81,122 +81,432 @@ class _CreateEventPageState extends State<CreateEventPage> {
               ],
             ),
             const SizedBox(height: 30),
-            SizedBox(
-              height: 50,
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: Colors.white,
-                  hintText: 'Name event',
-                  hintStyle: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
+            InkWell(
+              onTap: () {
+                /// TODO: Add image
+              },
+              child: Container(
+                height: 200,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.white,
+                  border: Border.all(
+                    color: Colors.grey.shade300,
                   ),
                 ),
-                keyboardType: TextInputType.text,
+                child: const Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.image_outlined,
+                        color: Colors.grey,
+                        size: 50,
+                      ),
+                      SizedBox(height: 15),
+                      Text(
+                        'Add Image',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 10),
             SizedBox(
               height: 50,
               child: TextFormField(
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.calendar_today, color: Colors.grey),
-                  border: InputBorder.none,
-                  fillColor: Colors.white,
-                  hintText: 'Fecha',
-                  hintStyle: TextStyle(
+                decoration: InputDecoration(
+                  hintText: 'Name',
+                  hintStyle: const TextStyle(
                     color: Colors.grey,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey.shade300),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey.shade300),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.blue, width: 2),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 16,
+                    horizontal: 12,
+                  ),
                 ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            SizedBox(
+              height: 50,
+              child: TextFormField(
                 controller: _controllerDate,
                 readOnly: true,
                 onTap: _pickDate,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(
+                    Icons.calendar_today,
+                    color: Colors.grey,
+                  ),
+                  hintText: 'Fecha',
+                  hintStyle: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey.shade300),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey.shade300),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.blue, width: 2),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 16,
+                    horizontal: 12,
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 10),
             SizedBox(
               height: 50,
               child: TextFormField(
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.access_time, color: Colors.grey),
-                  border: InputBorder.none,
-                  fillColor: Colors.white,
-                  hintText: 'Time',
-                  hintStyle: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
                 controller: _controllerTime,
                 readOnly: true,
                 onTap: _pickTime,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(
+                    Icons.access_time,
+                    color: Colors.grey,
+                  ),
+                  hintText: 'Time',
+                  hintStyle: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey.shade300),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey.shade300),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.blue, width: 2),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 16,
+                    horizontal: 12,
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 10),
             SizedBox(
               height: 50,
               child: TextFormField(
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(
                     Icons.location_on_outlined,
                     color: Colors.grey,
                   ),
-                  border: InputBorder.none,
-                  fillColor: Colors.white,
                   hintText: 'Location',
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     color: Colors.grey,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey.shade300),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey.shade300),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.blue, width: 2),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 16,
+                    horizontal: 12,
+                  ),
                 ),
-                keyboardType: TextInputType.text,
-                // controller: _controllerTime,
               ),
             ),
             const SizedBox(height: 10),
+
             SizedBox(
-              height: 50,
+              height: 150,
               child: TextFormField(
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: Colors.white,
-                  hintText: 'Location',
-                  hintStyle: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                keyboardType: TextInputType.text,
                 maxLines: 5,
-                // controller: _controllerTime,
+                decoration: InputDecoration(
+                  hintText: 'Description',
+                  hintStyle: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey.shade300),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey.shade300),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.blue, width: 2),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 16,
+                    horizontal: 12,
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 10),
             SizedBox(
               height: 50,
               child: TextFormField(
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.people_outline, color: Colors.grey),
-                  border: InputBorder.none,
-                  fillColor: Colors.white,
-                  hintText: 'Maximum participants',
-                  hintStyle: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
                 keyboardType: TextInputType.number,
-                maxLines: 5,
-                // controller: _controllerTime,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly, // solo números
+                  _NumberRangeFormatter(0, 10), // validación del rango
+                ],
+                decoration: InputDecoration(
+                  hintText: 'Maximum participants',
+                  hintStyle: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey.shade300),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey.shade300),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.blue, width: 2),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 16,
+                    horizontal: 12,
+                  ),
+                ),
               ),
+            ),
+            const SizedBox(height: 10),
+            const PrivacySelector(),
+            const SizedBox(height: 15),
+            ElevatedButton(
+              onPressed: () {},
+              style: const ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(Colors.blue),
+                shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                  ),
+                ),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(vertical: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Create event',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 15),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _NumberRangeFormatter extends TextInputFormatter {
+  _NumberRangeFormatter(
+    this.min,
+    this.max,
+  );
+
+  ///
+  final int min;
+
+  ///
+  final int max;
+
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    if (newValue.text.isEmpty) return newValue;
+
+    final value = int.tryParse(newValue.text);
+    if (value == null) return oldValue;
+
+    // Si es menor que el mínimo, devuelve el mínimo
+    if (value < min) {
+      return TextEditingValue(
+        text: min.toString(),
+        selection: TextSelection.collapsed(offset: min.toString().length),
+      );
+    }
+
+    // Si es mayor que el máximo, lo corrige automáticamente
+    if (value > max) {
+      return TextEditingValue(
+        text: max.toString(),
+        selection: TextSelection.collapsed(offset: max.toString().length),
+      );
+    }
+
+    return newValue;
+  }
+}
+
+class PrivacySelector extends StatefulWidget {
+  const PrivacySelector({super.key});
+
+  @override
+  State<PrivacySelector> createState() => _PrivacySelectorState();
+}
+
+class _PrivacySelectorState extends State<PrivacySelector> {
+  String selectedOption = 'Público';
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Privacidad',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 12),
+        _buildOption(
+          title: 'Público',
+          subtitle: 'Cualquier persona puede unirse',
+          isSelected: selectedOption == 'Público',
+          onTap: () => setState(() => selectedOption = 'Público'),
+        ),
+        const SizedBox(height: 10),
+        _buildOption(
+          title: 'Privado',
+          subtitle: 'Solo los invitados pueden unirse',
+          isSelected: selectedOption == 'Privado',
+          onTap: () => setState(() => selectedOption = 'Privado'),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildOption({
+    required String title,
+    required String subtitle,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: isSelected ? Colors.blue : Colors.grey.shade300,
+            width: isSelected ? 2 : 1,
+          ),
+          borderRadius: BorderRadius.circular(12),
+          color: Colors.white,
+          boxShadow: [
+            if (isSelected)
+              BoxShadow(
+                color: Colors.blue.withValues(alpha: 0.1),
+                blurRadius: 6,
+                offset: const Offset(0, 2),
+              ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Icon(
+              isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
+              color: isSelected ? Colors.blue : Colors.grey,
+            ),
+            const SizedBox(width: 12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  subtitle,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey.shade600,
+                  ),
+                ),
+              ],
             ),
           ],
         ),

@@ -52,11 +52,13 @@ class _DashboardPageState extends State<DashboardPage> {
       child: AutoRouter(
         builder: (context, content) {
           return switch (context.router.current.name) {
-            _ => Scaffold(
-              body: content,
-              bottomNavigationBar: CustomBottomBar(
-                currentIndex: _currentIndex,
-                onTabSelected: _changePage,
+            _ => SafeArea(
+              child: Scaffold(
+                body: content,
+                bottomNavigationBar: CustomBottomBar(
+                  currentIndex: _currentIndex,
+                  onTabSelected: _changePage,
+                ),
               ),
             ),
           };
@@ -109,12 +111,12 @@ class CustomBottomBar extends StatelessWidget {
           ),
           _buildTabItem(
             icon: Icons.store_mall_directory_sharp,
-            index: 3,
+            index: 2,
             title: 'Social',
           ),
           _buildTabItem(
             icon: Icons.person,
-            index: 4,
+            index: 3,
             title: 'Profile',
           ),
         ],
