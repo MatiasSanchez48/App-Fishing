@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 
 @RoutePage()
 class CreateEventPage extends StatefulWidget {
@@ -11,12 +15,23 @@ class CreateEventPage extends StatefulWidget {
 }
 
 class _CreateEventPageState extends State<CreateEventPage> {
+  final ImagePicker _picker = ImagePicker();
+  XFile? _image;
+
   final TextEditingController _controllerDate = TextEditingController();
   DateTime? _selectedDate;
 
+  /// PICK IMAGE
+  Future<void> _pickImage(ImageSource source) async {
+    final pickedFile = await _picker.pickImage(source: source);
+
+    if (pickedFile != null) setState(() => _image = pickedFile);
+  }
+
+  /// Pick Date
   Future<void> _pickDate() async {
-    DateTime initialDate = _selectedDate ?? DateTime.now();
-    final DateTime? picked = await showDatePicker(
+    final initialDate = _selectedDate ?? DateTime.now();
+    final picked = await showDatePicker(
       context: context,
       initialDate: initialDate,
       firstDate: DateTime(2000),
@@ -34,6 +49,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
   final TextEditingController _controllerTime = TextEditingController();
   TimeOfDay? _selectedDateTime;
 
+  /// Pick Time
   Future<void> _pickTime() async {
     final initialTime = _selectedDateTime ?? TimeOfDay.now();
     final picked = await showTimePicker(
@@ -47,6 +63,44 @@ class _CreateEventPageState extends State<CreateEventPage> {
         _controllerTime.text = picked.format(context); // muestra en AM/PM
       });
     }
+  }
+
+  Future<void> _showPickerOptions() async {
+    await showModalBottomSheet<bool>(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) {
+        return SafeArea(
+          child: Wrap(
+            children: [
+              ListTile(
+                leading: const Icon(Icons.photo_camera),
+                title: const Text('Tomar foto'),
+                onTap: () async {
+                  Navigator.pop(context);
+                  await _pickImage(ImageSource.camera);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Elegir desde galería'),
+                onTap: () async {
+                  Navigator.pop(context);
+                  await _pickImage(ImageSource.gallery);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.close),
+                title: const Text('Cancelar'),
+                onTap: () => Navigator.pop(context),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -82,9 +136,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
             ),
             const SizedBox(height: 30),
             InkWell(
-              onTap: () {
-                /// TODO: Add image
-              },
+              onTap: _showPickerOptions,
               child: Container(
                 height: 200,
                 decoration: BoxDecoration(
@@ -93,28 +145,59 @@ class _CreateEventPageState extends State<CreateEventPage> {
                   border: Border.all(
                     color: Colors.grey.shade300,
                   ),
+                  image: _image != null
+                      ? DecorationImage(
+                          onError: (exception, stackTrace) => const Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.image_outlined,
+                                  color: Colors.grey,
+                                  size: 50,
+                                ),
+                                SizedBox(height: 15),
+                                Text(
+                                  'Add Image',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          fit: BoxFit.cover,
+                          image: kIsWeb
+                              ? NetworkImage(_image!.path)
+                              : FileImage(File(_image!.path)),
+                        )
+                      : null,
                 ),
-                child: const Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.image_outlined,
-                        color: Colors.grey,
-                        size: 50,
-                      ),
-                      SizedBox(height: 15),
-                      Text(
-                        'Add Image',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                child: _image == null
+                    ? const Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.image_outlined,
+                              color: Colors.grey,
+                              size: 50,
+                            ),
+                            SizedBox(height: 15),
+                            Text(
+                              'Add Image',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
-                ),
+                      )
+                    : null,
               ),
             ),
             const SizedBox(height: 10),
