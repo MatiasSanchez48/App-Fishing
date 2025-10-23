@@ -21,11 +21,11 @@ class _DashboardPageState extends State<DashboardPage> {
   Future<void> _changePage(int index) {
     setState(() => _currentIndex = index);
     return switch (index) {
-      0 => context.router.push(const HomeRoute()),
-      1 => context.router.push(const CreateEventRoute()),
-      2 => context.router.push(const SocialRoute()),
-      3 => context.router.push(const ProfileRoute()),
-      _ => context.router.push(const HomeRoute()),
+      0 => context.router.replace(const HomeRoute()),
+      1 => context.router.replace(const CreateEventRoute()),
+      2 => context.router.replace(DetailsEventRoute(idEvent: '123')),
+      3 => context.router.replace(const ProfileRoute()),
+      _ => context.router.replace(const HomeRoute()),
     };
   }
 

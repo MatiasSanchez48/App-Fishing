@@ -26,10 +26,6 @@ class AppRouter extends RootStackRouter {
           initial: true,
         ),
         AutoRoute(
-          page: CreateEventRoute.page,
-          path: 'CreateEvent',
-        ),
-        AutoRoute(
           page: ProfileRoute.page,
           path: 'Profile',
         ),
@@ -40,6 +36,14 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
           page: MessageRoute.page,
           path: 'Message/:id',
+        ),
+        AutoRoute(
+          page: CreateEventRoute.page,
+          path: 'CreateEvent',
+        ),
+        AutoRoute(
+          page: DetailsEventRoute.page,
+          path: 'Details/:id',
         ),
       ],
     ),
