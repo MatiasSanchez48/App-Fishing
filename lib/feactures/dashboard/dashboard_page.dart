@@ -23,7 +23,7 @@ class _DashboardPageState extends State<DashboardPage> {
     return switch (index) {
       0 => context.router.replace(const HomeRoute()),
       1 => context.router.replace(const CreateEventRoute()),
-      2 => context.router.replace(DetailsEventRoute(idEvent: '123')),
+      2 => context.router.replace(const SocialRoute()),
       3 => context.router.replace(const ProfileRoute()),
       _ => context.router.replace(const HomeRoute()),
     };
@@ -80,14 +80,9 @@ class CustomBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      height: 80,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(25),
-          topRight: Radius.circular(25),
-        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.1),
