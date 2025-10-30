@@ -12,8 +12,11 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-    // HomeScreen is generated as HomeRoute because
-    // of the replaceInRouteName property
+    /// TODO : Cambiar nombres son horribles algunas
+    AutoRoute(page: LoginRoute.page),
+    AutoRoute(page: RegisterRoute.page),
+    AutoRoute(page: ResetPasswordRoute.page),
+
     AutoRoute(
       page: DashboardRoute.page,
       initial: true,
@@ -22,16 +25,16 @@ class AppRouter extends RootStackRouter {
       children: [
         AutoRoute(
           page: HomeRoute.page,
-          path: 'Home',
+          path: 'Home/',
           initial: true,
         ),
         AutoRoute(
           page: ProfileRoute.page,
-          path: 'Profile',
+          path: 'Profile/',
         ),
         AutoRoute(
           page: SocialRoute.page,
-          path: 'Profile',
+          path: 'Social/',
         ),
         AutoRoute(
           page: MessageRoute.page,
@@ -48,9 +51,6 @@ class AppRouter extends RootStackRouter {
       ],
     ),
 
-    /// TODO : Cambiar nombres son horribles algunas
-    AutoRoute(page: LoginRoute.page),
-    AutoRoute(page: RegisterRoute.page),
-    AutoRoute(page: ResetPasswordRoute.page),
+    AutoRoute(page: SettingsRoute.page),
   ];
 }

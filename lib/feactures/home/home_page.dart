@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:chat_flutter_supabase/auto_route/auto_route.gr.dart';
 import 'package:chat_flutter_supabase/extensions/extensions.dart';
 import 'package:chat_flutter_supabase/feactures/home/bloc/bloc_home.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,9 @@ class HomePage extends StatelessWidget {
                       ),
                       IconButton(
                         icon: const Icon(Icons.settings_outlined),
-                        onPressed: () {},
+                        onPressed: () {
+                          context.router.push(const SettingsRoute());
+                        },
                       ),
                     ],
                   ),
