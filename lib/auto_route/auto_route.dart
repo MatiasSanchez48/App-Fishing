@@ -37,6 +37,10 @@ class AppRouter extends RootStackRouter {
           path: 'Social/',
         ),
         AutoRoute(
+          page: CreateSocialRoute.page,
+          path: 'SocialCreate/',
+        ),
+        AutoRoute(
           page: MessageRoute.page,
           path: 'Message/:id',
         ),

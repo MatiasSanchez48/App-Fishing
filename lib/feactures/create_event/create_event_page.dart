@@ -1,10 +1,14 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:latlong2/latlong.dart';
 
 @RoutePage()
 class CreateEventPage extends StatefulWidget {
@@ -101,6 +105,56 @@ class _CreateEventPageState extends State<CreateEventPage> {
         );
       },
     );
+  }
+
+  final TextEditingController _controller = TextEditingController();
+  final MapController _mapController = MapController();
+  List<dynamic> _suggestions = [];
+  LatLng _center = const LatLng(-34.6037, -58.3816); // Buenos Aires
+
+  Future<void> _searchSuggestions(String query) async {
+    if (query.isEmpty) {
+      setState(() => _suggestions = []);
+      return;
+    }
+
+    final url =
+        'https://nominatim.openstreetmap.org/search?q=$query&countrycodes=ar&format=json&addressdetails=1&limit=5';
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'User-Agent': 'flutter_map_app',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      setState(
+        () => _suggestions = json.decode(response.body) as List<dynamic>,
+      );
+    }
+  }
+
+  void _selectSuggestion(dynamic suggestion) {
+    final lat = double.parse(suggestion['lat'] as String);
+    final lon = double.parse(suggestion['lon'] as String);
+    final name = suggestion['display_name'];
+
+    setState(() {
+      _center = LatLng(lat, lon);
+      _controller.text = name as String;
+      _suggestions = [];
+    });
+
+    _mapController.move(_center, 15);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _mapController.dispose();
+    _controllerDate.dispose();
+    _controllerTime.dispose();
+    super.dispose();
   }
 
   @override
@@ -314,6 +368,8 @@ class _CreateEventPageState extends State<CreateEventPage> {
             SizedBox(
               height: 50,
               child: TextFormField(
+                controller: _controller,
+                onChanged: _searchSuggestions,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(
                     Icons.location_on_outlined,
@@ -346,8 +402,67 @@ class _CreateEventPageState extends State<CreateEventPage> {
                 ),
               ),
             ),
-            const SizedBox(height: 10),
+            if (_suggestions.isNotEmpty)
+              Container(
+                margin: const EdgeInsets.only(top: 4),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.grey.shade300),
+                ),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: _suggestions.length,
+                  itemBuilder: (context, index) {
+                    final s = _suggestions[index];
 
+                    return ListTile(
+                      title: Text(
+                        s['display_name'] as String,
+                        style: const TextStyle(fontSize: 14),
+                      ),
+                      onTap: () => _selectSuggestion(s),
+                    );
+                  },
+                ),
+              ),
+            const SizedBox(height: 10),
+            SizedBox(
+              height: 200,
+              width: double.infinity,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: FlutterMap(
+                  mapController: _mapController,
+                  options: MapOptions(
+                    initialCenter: _center,
+                    initialZoom: 12,
+                  ),
+                  children: [
+                    TileLayer(
+                      urlTemplate:
+                          'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                      userAgentPackageName: 'com.example.app',
+                    ),
+                    MarkerLayer(
+                      markers: [
+                        Marker(
+                          point: _center,
+                          width: 40,
+                          height: 40,
+                          child: const Icon(
+                            Icons.location_pin,
+                            color: Colors.red,
+                            size: 40,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
             SizedBox(
               height: 150,
               child: TextFormField(
