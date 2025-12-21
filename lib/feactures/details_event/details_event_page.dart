@@ -1,5 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:chat_flutter_supabase/feactures/create_event/widgets/widgets.dart';
+import 'package:chat_flutter_supabase/feactures/details_event/widgets/widgets.dart';
+import 'package:chat_flutter_supabase/feactures/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 
 @RoutePage()
 class DetailsEventPage extends StatelessWidget {
@@ -13,36 +17,22 @@ class DetailsEventPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //! cuando se guarde una ubicacion dentro del mapa hacerla inicializar con
+    //! esa ubicacion
+    final controller = TextEditingController(
+      text:
+          'AZ Sanitarios, Pío XII, Villa María, Resistencia, Municipio de Resistencia, Departamento San Fernando, Chaco, H3500BXB, Argentina',
+    );
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 5),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.arrow_back_ios_outlined),
-                  onPressed: () {},
-                ),
-                const Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Details event',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(width: 50),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+          AppbarCustom(
+            title: 'Details event',
+            iconLeft: Icons.arrow_back_ios_outlined,
+            onPressed: () {
+              context.router.pop();
+            },
           ),
           const SizedBox(height: 15),
           Container(
@@ -83,17 +73,10 @@ class DetailsEventPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 5),
-                Container(
-                  height: 300,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZJBgxtNMIfmphWxouq7X7d0PAf51XP_JP2A&s',
-                      ),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                SelectLocation(
+                  controllerLotaion: controller,
+                  mapController: MapController(),
+                  withTextField: false,
                 ),
                 const SizedBox(height: 15),
                 const Text(
@@ -108,7 +91,7 @@ class DetailsEventPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                const ParticipantesWidget(
+                const ParticipantWidget(
                   participantes: [
                     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQQfxYpY2CJj9kLzsqFbToLmAFDHlaycyG8OKXmLwKLNL0OAKGbHL6nxJozMinyMvua3s&usqp=CAU',
                     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOb5I7AzYilmOUqrBDSTeRUZOLT5HXi6F0WyrgIlCVGkmEKG6lDH9zs4YpGA0JZ7SfQqI&usqp=CAU',
@@ -191,96 +174,6 @@ class DetailsEventPage extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class ParticipantGroup extends StatelessWidget {
-  const ParticipantGroup({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(
-          Radius.circular(8),
-        ),
-      ),
-      child: InkWell(
-        onTap: () {
-          /// TODO : Navegar a la pantalla del perfil
-        },
-        child: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          child: Row(
-            children: [
-              Text(
-                'Juan Perez',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              Spacer(),
-              Icon(
-                Icons.star,
-                size: 25,
-                color: Colors.orangeAccent,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ParticipantesWidget extends StatelessWidget {
-  const ParticipantesWidget({
-    required this.participantes,
-    super.key,
-  });
-
-  /// Participantes
-  final List<String> participantes;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Participantes',
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 12),
-        SizedBox(
-          height: 56, // alto del contenedor de avatares
-          child: Stack(
-            children: [
-              for (int i = 0; i < participantes.length; i++)
-                Positioned(
-                  left: i * 36,
-                  child: CircleAvatar(
-                    radius: 28,
-                    backgroundColor: Colors.white,
-                    child: CircleAvatar(
-                      radius: 26,
-                      backgroundImage: NetworkImage(participantes[i]),
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

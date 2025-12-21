@@ -24,11 +24,11 @@ class _SocialPageState extends State<SocialPage> {
               iconRight: Icons.add_a_photo_outlined,
               onPressed: () => context.pushRoute(const CreateSocialRoute()),
             ),
-            CardSocial(),
-            CardSocial(),
-            CardSocial(),
-            CardSocial(),
-            CardSocial(),
+            const CardSocial(),
+            const CardSocial(),
+            const CardSocial(),
+            const CardSocial(),
+            const CardSocial(),
           ],
         ),
       ),
@@ -51,9 +51,9 @@ class CardSocial extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 30,
-                  backgroundImage: const NetworkImage(
+                  backgroundImage: NetworkImage(
                     'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
                   ),
                 ),
@@ -61,7 +61,7 @@ class CardSocial extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 200,
                       child: Text(
                         'John Doe',
@@ -94,8 +94,8 @@ class CardSocial extends StatelessWidget {
             Container(
               width: double.infinity,
               height: 200,
-              decoration:const BoxDecoration(
-                image: const DecorationImage(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
                   image: NetworkImage(
                     'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
                   ),
@@ -107,7 +107,7 @@ class CardSocial extends StatelessWidget {
             Row(
               children: [
                 IconButton(
-                  icon: const Icon(Icons.heart_broken),
+                  icon: const Icon(Icons.favorite_border),
                   onPressed: () {},
                 ),
                 IconButton(

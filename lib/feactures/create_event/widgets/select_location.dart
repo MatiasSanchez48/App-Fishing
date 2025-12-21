@@ -9,6 +9,7 @@ class SelectLocation extends StatefulWidget {
   const SelectLocation({
     required this.controllerLotaion,
     required this.mapController,
+    this.withTextField = true,
     super.key,
   });
 
@@ -18,14 +19,19 @@ class SelectLocation extends StatefulWidget {
   ///
   final MapController mapController;
 
+  ///
+  final bool withTextField;
   @override
   State<SelectLocation> createState() => _SelectLocationState();
 }
 
 class _SelectLocationState extends State<SelectLocation> {
+  ///
   List<dynamic> _suggestions = [];
-  LatLng _center = const LatLng(-34.6037, -58.3816); // Buenos Aires
 
+  ///
+  LatLng _center = const LatLng(-34.6037, -58.3816); // Buenos Aires
+  ///
   Future<void> _searchSuggestions(String query) async {
     if (query.isEmpty) {
       setState(() => _suggestions = []);
@@ -42,12 +48,19 @@ class _SelectLocationState extends State<SelectLocation> {
     );
 
     if (response.statusCode == 200) {
+      final results = json.decode(response.body) as List<dynamic>;
       setState(
         () => _suggestions = json.decode(response.body) as List<dynamic>,
       );
+      // Si hay resultados y el texto coincide exactamente, seleccionar automáticamente
+      if (results.isNotEmpty && widget.controllerLotaion.text.isNotEmpty) {
+        // Opcional: auto-seleccionar el primer resultado si hay coincidencia exacta
+        // _selectSuggestion(results[0], autoSelected: true);
+      }
     }
   }
 
+  ///
   void _selectSuggestion(dynamic suggestion) {
     final lat = double.parse(suggestion['lat'] as String);
     final lon = double.parse(suggestion['lon'] as String);
@@ -63,46 +76,63 @@ class _SelectLocationState extends State<SelectLocation> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    // Si ya hay texto en el controlador, buscar esa ubicación
+    if (widget.controllerLotaion.text.isNotEmpty) {
+      _searchSuggestions(widget.controllerLotaion.text);
+    }
+  }
+
+  @override
+  void dispose() {
+    widget.controllerLotaion.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: 50,
-          child: TextFormField(
-            controller: widget.controllerLotaion,
-            onChanged: _searchSuggestions,
-            decoration: InputDecoration(
-              prefixIcon: const Icon(
-                Icons.location_on_outlined,
-                color: Colors.grey,
-              ),
-              hintText: 'Location',
-              hintStyle: const TextStyle(
-                color: Colors.grey,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-              filled: true,
-              fillColor: Colors.white,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Colors.grey.shade300),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Colors.grey.shade300),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Colors.blue, width: 2),
-              ),
-              contentPadding: const EdgeInsets.symmetric(
-                vertical: 16,
-                horizontal: 12,
+        if (widget.withTextField)
+          SizedBox(
+            height: 50,
+            child: TextFormField(
+              controller: widget.controllerLotaion,
+              onChanged: _searchSuggestions,
+              decoration: InputDecoration(
+                prefixIcon: const Icon(
+                  Icons.location_on_outlined,
+                  color: Colors.grey,
+                ),
+                hintText: 'Location',
+                hintStyle: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Colors.blue, width: 2),
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 12,
+                ),
               ),
             ),
           ),
-        ),
         if (_suggestions.isNotEmpty)
           Container(
             margin: const EdgeInsets.only(top: 4),
