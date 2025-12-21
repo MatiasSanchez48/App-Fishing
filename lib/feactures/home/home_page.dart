@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:chat_flutter_supabase/auto_route/auto_route.gr.dart';
 import 'package:chat_flutter_supabase/extensions/extensions.dart';
 import 'package:chat_flutter_supabase/feactures/home/bloc/bloc_home.dart';
+import 'package:chat_flutter_supabase/feactures/home/widgets/widgets.dart';
+import 'package:chat_flutter_supabase/feactures/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,50 +33,12 @@ class HomePage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      const Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(width: 50),
-                            Text(
-                              'Home',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.settings_outlined),
-                        onPressed: () {
-                          context.router.push(const SettingsRoute());
-                        },
-                      ),
-                    ],
+                  const AppbarCustom(
+                    title: 'Home',
+                    iconRight: Icons.settings_outlined,
                   ),
                   const SizedBox(height: 30),
-                  SearchBar(
-                    shape: WidgetStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    backgroundColor: const WidgetStatePropertyAll(Colors.white),
-                    leading: const Icon(Icons.search, color: Colors.grey),
-                    hintText: 'Search',
-                    hintStyle: const WidgetStatePropertyAll(
-                      TextStyle(color: Colors.grey),
-                    ),
-                    elevation: const WidgetStatePropertyAll(0),
-                    onChanged: (String value) {
-                      // lógica de búsqueda
-                    },
-                  ),
-                  const SizedBox(height: 30),
+
                   const Text(
                     'Proximas Salidas',
                     style: TextStyle(
@@ -89,55 +52,7 @@ class HomePage extends StatelessWidget {
                     height: 230,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.only(right: 25),
-                        child: InkWell(
-                          onTap: () {},
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 300,
-                                height: 150,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.red,
-                                  image: const DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: NetworkImage(
-                                      'data:image/jpeg;base64,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',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              const Text(
-                                'Pesca en el lago escondido',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 3),
-                              const Text(
-                                '12 de julio',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      itemBuilder: (context, index) => const CardLeave(),
                       itemCount: 3,
                     ),
                   ),
@@ -148,99 +63,7 @@ class HomePage extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Container(
-                    width: double.infinity,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Evento',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              const SizedBox(
-                                width: 250,
-                                child: Text(
-                                  'Torneo de pesca deportiva',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              const SizedBox(
-                                width: 250,
-                                child: Text(
-                                  'Club de pesca local',
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                  backgroundColor: Colors.blue,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(100),
-                                  ),
-                                ),
-                                onPressed: () {},
-                                child: const Padding(
-                                  padding: EdgeInsets.all(8),
-                                  child: Text(
-                                    'Ver',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            width: 150,
-                            height: 150,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: const DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                  'data:image/jpeg;base64,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',
-                                ),
-                              ),
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  const CardEventEarly(),
                   const SizedBox(height: 20),
                   const Text(
                     'Publicaciones',
@@ -250,96 +73,7 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  Container(
-                    width: double.infinity,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Row(
-                        children: [
-                          const Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CircleAvatar(
-                                radius: 25,
-                                backgroundColor: Colors.transparent,
-                                backgroundImage: NetworkImage(
-                                  'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(width: 15),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Row(
-                                children: [
-                                  Text(
-                                    'Ricardo',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  SizedBox(width: 5),
-                                  Text(
-                                    'Hace 2 horas',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 5),
-                              const SizedBox(
-                                width: 350,
-                                child: Text(
-                                  'Gran dia de pesca conb amigos, miren '
-                                  'esta captura!',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                              const Spacer(),
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                  backgroundColor: Colors.blue,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(100),
-                                  ),
-                                ),
-                                onPressed: () {},
-                                child: const Padding(
-                                  padding: EdgeInsets.all(8),
-                                  child: Text(
-                                    'Ver',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  const SocialCardEvent(),
                   const SizedBox(height: 20),
                 ],
               ),

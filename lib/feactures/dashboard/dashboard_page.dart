@@ -94,37 +94,66 @@ class CustomBottomBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildTabItem(
+          _TabItem(
             icon: Icons.home,
-            index: 0,
             title: 'Home',
+            index: 0,
+            currentIndex: currentIndex,
+            onTabSelected: onTabSelected,
           ),
-          _buildTabItem(
+          _TabItem(
             icon: Icons.add_box_outlined,
-            index: 1,
             title: 'New Event',
+            index: 1,
+            currentIndex: currentIndex,
+            onTabSelected: onTabSelected,
           ),
-          _buildTabItem(
+          _TabItem(
             icon: Icons.store_mall_directory_sharp,
-            index: 2,
             title: 'Social',
+            index: 2,
+            currentIndex: currentIndex,
+            onTabSelected: onTabSelected,
           ),
-          _buildTabItem(
+          _TabItem(
             icon: Icons.person,
-            index: 3,
             title: 'Profile',
+            index: 3,
+            currentIndex: currentIndex,
+            onTabSelected: onTabSelected,
           ),
         ],
       ),
     );
   }
+}
 
-  Widget _buildTabItem({
-    required IconData icon,
-    required int index,
-    required String title,
-  }) {
+class _TabItem extends StatelessWidget {
+  const _TabItem({
+    required this.icon,
+    required this.title,
+    required this.index,
+    required this.currentIndex,
+    required this.onTabSelected,
+  });
+  final int currentIndex;
+
+  ///
+  final String title;
+
+  ///
+  final int index;
+
+  ///
+  final IconData icon;
+
+  ///
+  final void Function(int) onTabSelected;
+
+  @override
+  Widget build(BuildContext context) {
     final isSelected = currentIndex == index;
+
     return GestureDetector(
       onTap: () => onTabSelected(index),
       child: AnimatedContainer(
