@@ -22,12 +22,11 @@ FishingEvent _$FishingEventFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$FishingEvent {
   int get id => throw _privateConstructorUsedError;
-  String get createdBy =>
-      throw _privateConstructorUsedError; // user_id del creador
+  String get createdBy => throw _privateConstructorUsedError;
+  String get imageUrl => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  List<FishingType> get fishingType =>
-      throw _privateConstructorUsedError; // bagre, surubí, etc.
+  List<FishingType> get fishingType => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
   DateTime get startDate => throw _privateConstructorUsedError;
   DateTime get endDate => throw _privateConstructorUsedError;
@@ -54,6 +53,7 @@ abstract class $FishingEventCopyWith<$Res> {
   $Res call({
     int id,
     String createdBy,
+    String imageUrl,
     String title,
     String description,
     List<FishingType> fishingType,
@@ -82,6 +82,7 @@ class _$FishingEventCopyWithImpl<$Res, $Val extends FishingEvent>
   $Res call({
     Object? id = null,
     Object? createdBy = null,
+    Object? imageUrl = null,
     Object? title = null,
     Object? description = null,
     Object? fishingType = null,
@@ -100,6 +101,10 @@ class _$FishingEventCopyWithImpl<$Res, $Val extends FishingEvent>
             createdBy: null == createdBy
                 ? _value.createdBy
                 : createdBy // ignore: cast_nullable_to_non_nullable
+                      as String,
+            imageUrl: null == imageUrl
+                ? _value.imageUrl
+                : imageUrl // ignore: cast_nullable_to_non_nullable
                       as String,
             title: null == title
                 ? _value.title
@@ -151,6 +156,7 @@ abstract class _$$FishingEventImplCopyWith<$Res>
   $Res call({
     int id,
     String createdBy,
+    String imageUrl,
     String title,
     String description,
     List<FishingType> fishingType,
@@ -178,6 +184,7 @@ class __$$FishingEventImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? createdBy = null,
+    Object? imageUrl = null,
     Object? title = null,
     Object? description = null,
     Object? fishingType = null,
@@ -196,6 +203,10 @@ class __$$FishingEventImplCopyWithImpl<$Res>
         createdBy: null == createdBy
             ? _value.createdBy
             : createdBy // ignore: cast_nullable_to_non_nullable
+                  as String,
+        imageUrl: null == imageUrl
+            ? _value.imageUrl
+            : imageUrl // ignore: cast_nullable_to_non_nullable
                   as String,
         title: null == title
             ? _value.title
@@ -240,6 +251,7 @@ class _$FishingEventImpl implements _FishingEvent {
   const _$FishingEventImpl({
     required this.id,
     required this.createdBy,
+    required this.imageUrl,
     required this.title,
     required this.description,
     required final List<FishingType> fishingType,
@@ -257,7 +269,8 @@ class _$FishingEventImpl implements _FishingEvent {
   final int id;
   @override
   final String createdBy;
-  // user_id del creador
+  @override
+  final String imageUrl;
   @override
   final String title;
   @override
@@ -270,7 +283,6 @@ class _$FishingEventImpl implements _FishingEvent {
     return EqualUnmodifiableListView(_fishingType);
   }
 
-  // bagre, surubí, etc.
   @override
   final String location;
   @override
@@ -284,7 +296,7 @@ class _$FishingEventImpl implements _FishingEvent {
 
   @override
   String toString() {
-    return 'FishingEvent(id: $id, createdBy: $createdBy, title: $title, description: $description, fishingType: $fishingType, location: $location, startDate: $startDate, endDate: $endDate, status: $status, createdAt: $createdAt)';
+    return 'FishingEvent(id: $id, createdBy: $createdBy, imageUrl: $imageUrl, title: $title, description: $description, fishingType: $fishingType, location: $location, startDate: $startDate, endDate: $endDate, status: $status, createdAt: $createdAt)';
   }
 
   @override
@@ -295,6 +307,8 @@ class _$FishingEventImpl implements _FishingEvent {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.createdBy, createdBy) ||
                 other.createdBy == createdBy) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -318,6 +332,7 @@ class _$FishingEventImpl implements _FishingEvent {
     runtimeType,
     id,
     createdBy,
+    imageUrl,
     title,
     description,
     const DeepCollectionEquality().hash(_fishingType),
@@ -346,6 +361,7 @@ abstract class _FishingEvent implements FishingEvent {
   const factory _FishingEvent({
     required final int id,
     required final String createdBy,
+    required final String imageUrl,
     required final String title,
     required final String description,
     required final List<FishingType> fishingType,
@@ -362,13 +378,15 @@ abstract class _FishingEvent implements FishingEvent {
   @override
   int get id;
   @override
-  String get createdBy; // user_id del creador
+  String get createdBy;
+  @override
+  String get imageUrl;
   @override
   String get title;
   @override
   String get description;
   @override
-  List<FishingType> get fishingType; // bagre, surubí, etc.
+  List<FishingType> get fishingType;
   @override
   String get location;
   @override

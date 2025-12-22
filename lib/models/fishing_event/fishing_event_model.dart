@@ -8,10 +8,11 @@ part 'fishing_event_model.g.dart';
 class FishingEvent with _$FishingEvent {
   const factory FishingEvent({
     required int id,
-    required String createdBy, // user_id del creador
+    required String createdBy, 
+    required String imageUrl,
     required String title,
     required String description,
-    required List<FishingType> fishingType, // bagre, surubí, etc.
+    required List<FishingType> fishingType,
     required String location,
     required DateTime startDate,
     required DateTime endDate,

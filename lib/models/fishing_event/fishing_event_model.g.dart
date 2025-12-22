@@ -10,6 +10,7 @@ _$FishingEventImpl _$$FishingEventImplFromJson(Map<String, dynamic> json) =>
     _$FishingEventImpl(
       id: (json['id'] as num).toInt(),
       createdBy: json['createdBy'] as String,
+      imageUrl: json['imageUrl'] as String,
       title: json['title'] as String,
       description: json['description'] as String,
       fishingType: (json['fishingType'] as List<dynamic>)
@@ -26,6 +27,7 @@ Map<String, dynamic> _$$FishingEventImplToJson(_$FishingEventImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'createdBy': instance.createdBy,
+      'imageUrl': instance.imageUrl,
       'title': instance.title,
       'description': instance.description,
       'fishingType': instance.fishingType
@@ -51,8 +53,6 @@ const _$FishingTypeEnumMap = {
 };
 
 const _$EventStatusEnumMap = {
-  EventStatus.open: 'open',
-  EventStatus.inProgress: 'inProgress',
-  EventStatus.closed: 'closed',
-  EventStatus.finished: 'finished',
+  EventStatus.public: 'public',
+  EventStatus.private: 'private',
 };

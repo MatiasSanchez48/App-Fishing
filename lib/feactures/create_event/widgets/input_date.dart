@@ -3,34 +3,50 @@ import 'package:flutter/material.dart';
 class InputDate extends StatefulWidget {
   const InputDate({
     required this.controllerDate,
+    required this.onDateSelected,
+    this.hintText = 'Select Date',
+    this.firstDate,
+    this.isDateSelected = false,
     super.key,
   });
 
+  ///
   final TextEditingController controllerDate;
+
+  ///
+  final void Function(DateTime date) onDateSelected;
+
+  ///
+  final DateTime? firstDate;
+
+  ///
+  final bool isDateSelected;
+
+  ///
+  final String hintText;
 
   @override
   State<InputDate> createState() => _InputDateState();
 }
 
 class _InputDateState extends State<InputDate> {
-  DateTime? _selectedDate;
-
   /// Pick Date
-  Future<void> _pickDate() async {
-    final initialDate = _selectedDate ?? DateTime.now();
+  Future<void> _pickDate(BuildContext context) async {
+    DateTime? selectedDate;
+
+    final initialDate = selectedDate ?? widget.firstDate;
     final picked = await showDatePicker(
       context: context,
       initialDate: initialDate,
-      firstDate: DateTime(2000),
+      firstDate: widget.firstDate ?? DateTime(2000),
       lastDate: DateTime(2100),
     );
 
     if (picked != null) {
-      setState(() {
-        _selectedDate = picked;
-        widget.controllerDate.text =
-            '${picked.day}/${picked.month}/${picked.year}';
-      });
+      selectedDate = picked;
+      widget.onDateSelected(selectedDate);
+      widget.controllerDate.text =
+          '${picked.day}/${picked.month}/${picked.year}';
     }
   }
 
@@ -38,16 +54,19 @@ class _InputDateState extends State<InputDate> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50,
+      width: 220,
       child: TextFormField(
+        enabled: widget.isDateSelected,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: widget.controllerDate,
         readOnly: true,
-        onTap: _pickDate,
+        onTap: () async => _pickDate(context),
         decoration: InputDecoration(
           prefixIcon: const Icon(
             Icons.calendar_today,
             color: Colors.grey,
           ),
-          hintText: 'Fecha',
+          hintText: widget.hintText,
           hintStyle: const TextStyle(
             color: Colors.grey,
             fontSize: 16,
