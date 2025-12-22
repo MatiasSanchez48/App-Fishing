@@ -1,6 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_flutter_supabase/auto_route/auto_route.gr.dart';
+import 'package:chat_flutter_supabase/extensions/extensions.dart';
+import 'package:chat_flutter_supabase/feactures/dashboard/bloc/bloc_dashboard.dart';
+import 'package:chat_flutter_supabase/feactures/home/bloc/bloc_home.dart';
+import 'package:chat_flutter_supabase/feactures/message/bloc/bloc_message.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
 class DashboardPage extends StatefulWidget {
@@ -11,45 +16,167 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  int _currentIndex = 0;
+
+  Future<void> _changePage(int index) {
+    setState(() => _currentIndex = index);
+    return switch (index) {
+      0 => context.router.replace(const HomeRoute()),
+      1 => context.router.replace(const CreateEventRoute()),
+      2 => context.router.replace(const SocialRoute()),
+      3 => context.router.replace(const ProfileRoute()),
+      _ => context.router.replace(const HomeRoute()),
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
-    return AutoTabsRouter(
-      // list of your tab routes
-      // routes used here must be declared as children
-      // routes of /dashboard
-      routes: const [
-        HomeRoute(),
-      ],
-      transitionBuilder: (context, child, animation) => FadeTransition(
-        opacity: animation,
-        // the passed child is technically our animated selected-tab page
-        child: child,
-      ),
-      builder: (context, child) {
-        // obtain the scoped TabsRouter controller using context
-        final tabsRouter = AutoTabsRouter.of(context);
-        // Here we're building our Scaffold inside of AutoTabsRouter
-        // to access the tabsRouter controller provided in this context
-        //
-        // alternatively, you could use a global key
-        return Scaffold(
-          body: child,
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: tabsRouter.activeIndex,
-            onTap: tabsRouter.setActiveIndex,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-              ),
-            ],
+    final supabase = context.supabase;
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<BlocDashboard>(
+          create: (context) => BlocDashboard(),
+        ),
+        BlocProvider<BlocHome>(
+          create: (context) => BlocHome(
+            supabase: supabase,
           ),
-        );
-      },
+        ),
+        BlocProvider<BlocMessage>(
+          create: (context) => BlocMessage(
+            supabase: supabase,
+          ),
+        ),
+      ],
+      child: AutoRouter(
+        builder: (context, content) {
+          return switch (context.router.current.name) {
+            _ => SafeArea(
+              child: Scaffold(
+                body: content,
+                bottomNavigationBar: CustomBottomBar(
+                  currentIndex: _currentIndex,
+                  onTabSelected: _changePage,
+                ),
+              ),
+            ),
+          };
+        },
+      ),
+    );
+  }
+}
+
+class CustomBottomBar extends StatelessWidget {
+  const CustomBottomBar({
+    required this.currentIndex,
+    required this.onTabSelected,
+    super.key,
+  });
+  final int currentIndex;
+  final void Function(int) onTabSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 80,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.1),
+            blurRadius: 8,
+            offset: const Offset(0, -3),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _TabItem(
+            icon: Icons.home,
+            title: 'Home',
+            index: 0,
+            currentIndex: currentIndex,
+            onTabSelected: onTabSelected,
+          ),
+          _TabItem(
+            icon: Icons.add_box_outlined,
+            title: 'New Event',
+            index: 1,
+            currentIndex: currentIndex,
+            onTabSelected: onTabSelected,
+          ),
+          _TabItem(
+            icon: Icons.store_mall_directory_sharp,
+            title: 'Social',
+            index: 2,
+            currentIndex: currentIndex,
+            onTabSelected: onTabSelected,
+          ),
+          _TabItem(
+            icon: Icons.person,
+            title: 'Profile',
+            index: 3,
+            currentIndex: currentIndex,
+            onTabSelected: onTabSelected,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _TabItem extends StatelessWidget {
+  const _TabItem({
+    required this.icon,
+    required this.title,
+    required this.index,
+    required this.currentIndex,
+    required this.onTabSelected,
+  });
+  final int currentIndex;
+
+  ///
+  final String title;
+
+  ///
+  final int index;
+
+  ///
+  final IconData icon;
+
+  ///
+  final void Function(int) onTabSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    final isSelected = currentIndex == index;
+
+    return GestureDetector(
+      onTap: () => onTabSelected(index),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Column(
+          children: [
+            Icon(
+              icon,
+              size: isSelected ? 30 : 26,
+              color: isSelected ? Colors.blue : Colors.grey,
+            ),
+            Text(
+              title,
+              style: TextStyle(
+                color: isSelected ? Colors.blue : Colors.grey,
+                fontSize: isSelected ? 16 : 14,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

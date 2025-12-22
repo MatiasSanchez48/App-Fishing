@@ -7,11 +7,3 @@ abstract class BlocDashboardEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
-
-class BlocDashboardEventGetUsers extends BlocDashboardEvent {
-  const BlocDashboardEventGetUsers();
-}
-
-class BlocDashboardEventLogOut extends BlocDashboardEvent {
-  const BlocDashboardEventLogOut();
-}

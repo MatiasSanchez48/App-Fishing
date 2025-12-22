@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:chat_flutter_supabase/models/models.dart';
+import 'package:chat_flutter_supabase/repository/repository_message.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -8,8 +9,12 @@ part 'bloc_message_event.dart';
 part 'bloc_message_state.dart';
 
 class BlocMessage extends Bloc<BlocMessageEvent, BlocMessageState> {
-  BlocMessage({required this.supabase})
-    : super(const BlocMessageStateInitial()) {
+  BlocMessage({
+    required this.supabase,
+  }) : _repositoryMessage = RepositoryMessage(supabase: supabase),
+       super(
+         const BlocMessageStateInitial(),
+       ) {
     on<BlocMessageHearMessagesEvent>(_onHearMessages);
     on<BlocMessageSendMessagesEvent>(_onSendMessage);
     on<BlocMessageGetMessagesEvent>(_onGetsMessage);
@@ -17,6 +22,8 @@ class BlocMessage extends Bloc<BlocMessageEvent, BlocMessageState> {
 
   /// Supabase
   final SupabaseClient supabase;
+  final RepositoryMessage _repositoryMessage;
+
   Future<void> _onSendMessage(
     BlocMessageSendMessagesEvent event,
     Emitter<BlocMessageState> emit,
@@ -27,11 +34,11 @@ class BlocMessage extends Bloc<BlocMessageEvent, BlocMessageState> {
       final user = supabase.auth.currentUser;
       if (user == null || event.text.trim().isEmpty) return;
 
-      await supabase.from('messages').insert({
-        'text': event.text.trim(),
-        'user_id': user.id,
-        'receiver_id': event.idPerson,
-      }).select();
+      await _repositoryMessage.addMessage(
+        event.text.trim(),
+        user.id,
+        event.idPerson,
+      );
 
       add(BlocMessageGetMessagesEvent(idPerson: event.idPerson));
     } on Exception catch (e, st) {
@@ -46,6 +53,7 @@ class BlocMessage extends Bloc<BlocMessageEvent, BlocMessageState> {
     try {
       emit(BlocMessageStateLoading.from(state));
       final user = supabase.auth.currentUser;
+
       if (user == null) {
         emit(
           BlocMessageStateError.from(
@@ -55,34 +63,25 @@ class BlocMessage extends Bloc<BlocMessageEvent, BlocMessageState> {
         );
         return;
       }
+      await _repositoryMessage.heartMessages((payload) {
+        final msg = payload.newRecord;
+        add(BlocMessageGetMessagesEvent(idPerson: event.idPerson));
 
-      supabase
-          .channel('messages_channel')
-          .onPostgresChanges(
-            event: PostgresChangeEvent.insert,
-            schema: 'public',
-            table: 'messages',
-            callback: (payload) {
-              final msg = payload.newRecord;
-              add(BlocMessageGetMessagesEvent(idPerson: event.idPerson));
-
-              if ((msg['user_id'] == user.id &&
-                      msg['receiver_id'] == event.idPerson) ||
-                  (msg['user_id'] == event.idPerson &&
-                      msg['receiver_id'] == user.id)) {
-                final newMessage = Message.fromJson(msg);
-                final updatedMessages = List<Message>.from(state.messages)
-                  ..add(newMessage);
-                emit(
-                  BlocMessageStateSuccess.from(
-                    state,
-                    messages: updatedMessages,
-                  ),
-                );
-              }
-            },
-          )
-          .subscribe();
+        if ((msg['user_id'] == user.id &&
+                msg['receiver_id'] == event.idPerson) ||
+            (msg['user_id'] == event.idPerson &&
+                msg['receiver_id'] == user.id)) {
+          final newMessage = Message.fromJson(msg);
+          final updatedMessages = List<Message>.from(state.messages)
+            ..add(newMessage);
+          emit(
+            BlocMessageStateSuccess.from(
+              state,
+              messages: updatedMessages,
+            ),
+          );
+        }
+      });
     } on Exception catch (e, st) {
       emit(BlocMessageStateError.from(state, errorMessage: '$e $st'));
     }
@@ -107,29 +106,11 @@ class BlocMessage extends Bloc<BlocMessageEvent, BlocMessageState> {
 
         return;
       }
+      final messages = await _repositoryMessage.getsMessages(
+        user.id,
+        event.idPerson,
+      );
 
-      final response = await supabase
-          .from('messages')
-          .select('id, user_id, receiver_id, text, created_at')
-          .or('user_id.eq.${user.id},receiver_id.eq.${user.id}')
-          .order('created_at')
-          .limit(100);
-
-      final filtrados = response
-          .where(
-            (msg) =>
-                (msg['user_id'] == user.id &&
-                    msg['receiver_id'] == event.idPerson) ||
-                (msg['user_id'] == event.idPerson &&
-                    msg['receiver_id'] == user.id),
-          )
-          .toList();
-
-      final messages = filtrados
-          .map(Message.fromJson)
-          .toList()
-          .reversed
-          .toList();
       emit(BlocMessageStateSuccess.from(state, messages: messages));
     } on Exception catch (e, st) {
       emit(BlocMessageStateError.from(state, errorMessage: '$e $st'));
