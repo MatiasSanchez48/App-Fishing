@@ -1,4 +1,6 @@
+import 'package:chat_flutter_supabase/feactures/create_event/bloc/bloc_create_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class InputDescription extends StatelessWidget {
   const InputDescription({
@@ -15,7 +17,18 @@ class InputDescription extends StatelessWidget {
       height: 150,
       child: TextFormField(
         controller: controllerDescription,
+        onChanged: (value) => context.read<BlocCreateEvent>().add(
+          BlocCreateEventSaveEvent(description: value),
+        ),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         keyboardType: TextInputType.multiline,
+        textInputAction: TextInputAction.newline,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter a description';
+          }
+          return null;
+        },
         maxLines: 5,
         decoration: InputDecoration(
           hintText: 'Description',

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_flutter_supabase/auto_route/auto_route.gr.dart';
 import 'package:chat_flutter_supabase/extensions/extensions.dart';
+import 'package:chat_flutter_supabase/feactures/create_event/bloc/bloc_create_event.dart';
 import 'package:chat_flutter_supabase/feactures/dashboard/bloc/bloc_dashboard.dart';
 import 'package:chat_flutter_supabase/feactures/home/bloc/bloc_home.dart';
 import 'package:chat_flutter_supabase/feactures/message/bloc/bloc_message.dart';
@@ -39,14 +40,13 @@ class _DashboardPageState extends State<DashboardPage> {
           create: (context) => BlocDashboard(),
         ),
         BlocProvider<BlocHome>(
-          create: (context) => BlocHome(
-            supabase: supabase,
-          ),
+          create: (context) => BlocHome(supabase: supabase),
         ),
         BlocProvider<BlocMessage>(
-          create: (context) => BlocMessage(
-            supabase: supabase,
-          ),
+          create: (context) => BlocMessage(supabase: supabase),
+        ),
+        BlocProvider<BlocCreateEvent>(
+          create: (context) => BlocCreateEvent(supabase: supabase),
         ),
       ],
       child: AutoRouter(

@@ -22,16 +22,32 @@ FishingEvent _$FishingEventFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$FishingEvent {
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_by')
   String get createdBy => throw _privateConstructorUsedError;
-  String get imageUrl => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  List<FishingType> get fishingType => throw _privateConstructorUsedError;
+
+  /// Ejemplo: ['freshwater', 'saltwater']
+  ///  Enum 'FishingType'
+  @JsonKey(name: 'fishing_type')
+  List<String> get fishingType => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
+  @JsonKey(name: 'start_date')
   DateTime get startDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'end_date')
   DateTime get endDate => throw _privateConstructorUsedError;
-  EventStatus get status => throw _privateConstructorUsedError;
-  DateTime get createdAt => throw _privateConstructorUsedError;
+
+  /// 0: planned, 1: ongoing, 2: completed, 3:
+  /// cancelled enum 'EventStatus'
+  int get status => throw _privateConstructorUsedError;
+  @JsonKey(name: 'departure_time')
+  String get departureTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'updated_at')
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_url')
+  String get imageUrl => throw _privateConstructorUsedError;
 
   /// Serializes this FishingEvent to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -52,16 +68,18 @@ abstract class $FishingEventCopyWith<$Res> {
   @useResult
   $Res call({
     int id,
-    String createdBy,
-    String imageUrl,
+    @JsonKey(name: 'created_by') String createdBy,
     String title,
     String description,
-    List<FishingType> fishingType,
+    @JsonKey(name: 'fishing_type') List<String> fishingType,
     String location,
-    DateTime startDate,
-    DateTime endDate,
-    EventStatus status,
-    DateTime createdAt,
+    @JsonKey(name: 'start_date') DateTime startDate,
+    @JsonKey(name: 'end_date') DateTime endDate,
+    int status,
+    @JsonKey(name: 'departure_time') String departureTime,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
+    @JsonKey(name: 'updated_at') DateTime? updatedAt,
+    @JsonKey(name: 'image_url') String imageUrl,
   });
 }
 
@@ -82,7 +100,6 @@ class _$FishingEventCopyWithImpl<$Res, $Val extends FishingEvent>
   $Res call({
     Object? id = null,
     Object? createdBy = null,
-    Object? imageUrl = null,
     Object? title = null,
     Object? description = null,
     Object? fishingType = null,
@@ -90,7 +107,10 @@ class _$FishingEventCopyWithImpl<$Res, $Val extends FishingEvent>
     Object? startDate = null,
     Object? endDate = null,
     Object? status = null,
-    Object? createdAt = null,
+    Object? departureTime = null,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? imageUrl = null,
   }) {
     return _then(
       _value.copyWith(
@@ -101,10 +121,6 @@ class _$FishingEventCopyWithImpl<$Res, $Val extends FishingEvent>
             createdBy: null == createdBy
                 ? _value.createdBy
                 : createdBy // ignore: cast_nullable_to_non_nullable
-                      as String,
-            imageUrl: null == imageUrl
-                ? _value.imageUrl
-                : imageUrl // ignore: cast_nullable_to_non_nullable
                       as String,
             title: null == title
                 ? _value.title
@@ -117,7 +133,7 @@ class _$FishingEventCopyWithImpl<$Res, $Val extends FishingEvent>
             fishingType: null == fishingType
                 ? _value.fishingType
                 : fishingType // ignore: cast_nullable_to_non_nullable
-                      as List<FishingType>,
+                      as List<String>,
             location: null == location
                 ? _value.location
                 : location // ignore: cast_nullable_to_non_nullable
@@ -133,11 +149,23 @@ class _$FishingEventCopyWithImpl<$Res, $Val extends FishingEvent>
             status: null == status
                 ? _value.status
                 : status // ignore: cast_nullable_to_non_nullable
-                      as EventStatus,
-            createdAt: null == createdAt
+                      as int,
+            departureTime: null == departureTime
+                ? _value.departureTime
+                : departureTime // ignore: cast_nullable_to_non_nullable
+                      as String,
+            createdAt: freezed == createdAt
                 ? _value.createdAt
                 : createdAt // ignore: cast_nullable_to_non_nullable
-                      as DateTime,
+                      as DateTime?,
+            updatedAt: freezed == updatedAt
+                ? _value.updatedAt
+                : updatedAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime?,
+            imageUrl: null == imageUrl
+                ? _value.imageUrl
+                : imageUrl // ignore: cast_nullable_to_non_nullable
+                      as String,
           )
           as $Val,
     );
@@ -155,16 +183,18 @@ abstract class _$$FishingEventImplCopyWith<$Res>
   @useResult
   $Res call({
     int id,
-    String createdBy,
-    String imageUrl,
+    @JsonKey(name: 'created_by') String createdBy,
     String title,
     String description,
-    List<FishingType> fishingType,
+    @JsonKey(name: 'fishing_type') List<String> fishingType,
     String location,
-    DateTime startDate,
-    DateTime endDate,
-    EventStatus status,
-    DateTime createdAt,
+    @JsonKey(name: 'start_date') DateTime startDate,
+    @JsonKey(name: 'end_date') DateTime endDate,
+    int status,
+    @JsonKey(name: 'departure_time') String departureTime,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
+    @JsonKey(name: 'updated_at') DateTime? updatedAt,
+    @JsonKey(name: 'image_url') String imageUrl,
   });
 }
 
@@ -184,7 +214,6 @@ class __$$FishingEventImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? createdBy = null,
-    Object? imageUrl = null,
     Object? title = null,
     Object? description = null,
     Object? fishingType = null,
@@ -192,7 +221,10 @@ class __$$FishingEventImplCopyWithImpl<$Res>
     Object? startDate = null,
     Object? endDate = null,
     Object? status = null,
-    Object? createdAt = null,
+    Object? departureTime = null,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? imageUrl = null,
   }) {
     return _then(
       _$FishingEventImpl(
@@ -203,10 +235,6 @@ class __$$FishingEventImplCopyWithImpl<$Res>
         createdBy: null == createdBy
             ? _value.createdBy
             : createdBy // ignore: cast_nullable_to_non_nullable
-                  as String,
-        imageUrl: null == imageUrl
-            ? _value.imageUrl
-            : imageUrl // ignore: cast_nullable_to_non_nullable
                   as String,
         title: null == title
             ? _value.title
@@ -219,7 +247,7 @@ class __$$FishingEventImplCopyWithImpl<$Res>
         fishingType: null == fishingType
             ? _value._fishingType
             : fishingType // ignore: cast_nullable_to_non_nullable
-                  as List<FishingType>,
+                  as List<String>,
         location: null == location
             ? _value.location
             : location // ignore: cast_nullable_to_non_nullable
@@ -235,11 +263,23 @@ class __$$FishingEventImplCopyWithImpl<$Res>
         status: null == status
             ? _value.status
             : status // ignore: cast_nullable_to_non_nullable
-                  as EventStatus,
-        createdAt: null == createdAt
+                  as int,
+        departureTime: null == departureTime
+            ? _value.departureTime
+            : departureTime // ignore: cast_nullable_to_non_nullable
+                  as String,
+        createdAt: freezed == createdAt
             ? _value.createdAt
             : createdAt // ignore: cast_nullable_to_non_nullable
-                  as DateTime,
+                  as DateTime?,
+        updatedAt: freezed == updatedAt
+            ? _value.updatedAt
+            : updatedAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime?,
+        imageUrl: null == imageUrl
+            ? _value.imageUrl
+            : imageUrl // ignore: cast_nullable_to_non_nullable
+                  as String,
       ),
     );
   }
@@ -250,16 +290,18 @@ class __$$FishingEventImplCopyWithImpl<$Res>
 class _$FishingEventImpl implements _FishingEvent {
   const _$FishingEventImpl({
     required this.id,
-    required this.createdBy,
-    required this.imageUrl,
+    @JsonKey(name: 'created_by') required this.createdBy,
     required this.title,
     required this.description,
-    required final List<FishingType> fishingType,
+    @JsonKey(name: 'fishing_type') required final List<String> fishingType,
     required this.location,
-    required this.startDate,
-    required this.endDate,
+    @JsonKey(name: 'start_date') required this.startDate,
+    @JsonKey(name: 'end_date') required this.endDate,
     required this.status,
-    required this.createdAt,
+    @JsonKey(name: 'departure_time') required this.departureTime,
+    @JsonKey(name: 'created_at') this.createdAt,
+    @JsonKey(name: 'updated_at') this.updatedAt,
+    @JsonKey(name: 'image_url') required this.imageUrl,
   }) : _fishingType = fishingType;
 
   factory _$FishingEventImpl.fromJson(Map<String, dynamic> json) =>
@@ -268,16 +310,22 @@ class _$FishingEventImpl implements _FishingEvent {
   @override
   final int id;
   @override
+  @JsonKey(name: 'created_by')
   final String createdBy;
-  @override
-  final String imageUrl;
   @override
   final String title;
   @override
   final String description;
-  final List<FishingType> _fishingType;
+
+  /// Ejemplo: ['freshwater', 'saltwater']
+  ///  Enum 'FishingType'
+  final List<String> _fishingType;
+
+  /// Ejemplo: ['freshwater', 'saltwater']
+  ///  Enum 'FishingType'
   @override
-  List<FishingType> get fishingType {
+  @JsonKey(name: 'fishing_type')
+  List<String> get fishingType {
     if (_fishingType is EqualUnmodifiableListView) return _fishingType;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_fishingType);
@@ -286,17 +334,32 @@ class _$FishingEventImpl implements _FishingEvent {
   @override
   final String location;
   @override
+  @JsonKey(name: 'start_date')
   final DateTime startDate;
   @override
+  @JsonKey(name: 'end_date')
   final DateTime endDate;
+
+  /// 0: planned, 1: ongoing, 2: completed, 3:
+  /// cancelled enum 'EventStatus'
   @override
-  final EventStatus status;
+  final int status;
   @override
-  final DateTime createdAt;
+  @JsonKey(name: 'departure_time')
+  final String departureTime;
+  @override
+  @JsonKey(name: 'created_at')
+  final DateTime? createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  final DateTime? updatedAt;
+  @override
+  @JsonKey(name: 'image_url')
+  final String imageUrl;
 
   @override
   String toString() {
-    return 'FishingEvent(id: $id, createdBy: $createdBy, imageUrl: $imageUrl, title: $title, description: $description, fishingType: $fishingType, location: $location, startDate: $startDate, endDate: $endDate, status: $status, createdAt: $createdAt)';
+    return 'FishingEvent(id: $id, createdBy: $createdBy, title: $title, description: $description, fishingType: $fishingType, location: $location, startDate: $startDate, endDate: $endDate, status: $status, departureTime: $departureTime, createdAt: $createdAt, updatedAt: $updatedAt, imageUrl: $imageUrl)';
   }
 
   @override
@@ -307,8 +370,6 @@ class _$FishingEventImpl implements _FishingEvent {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.createdBy, createdBy) ||
                 other.createdBy == createdBy) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -322,8 +383,14 @@ class _$FishingEventImpl implements _FishingEvent {
                 other.startDate == startDate) &&
             (identical(other.endDate, endDate) || other.endDate == endDate) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.departureTime, departureTime) ||
+                other.departureTime == departureTime) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -332,7 +399,6 @@ class _$FishingEventImpl implements _FishingEvent {
     runtimeType,
     id,
     createdBy,
-    imageUrl,
     title,
     description,
     const DeepCollectionEquality().hash(_fishingType),
@@ -340,7 +406,10 @@ class _$FishingEventImpl implements _FishingEvent {
     startDate,
     endDate,
     status,
+    departureTime,
     createdAt,
+    updatedAt,
+    imageUrl,
   );
 
   /// Create a copy of FishingEvent
@@ -360,16 +429,18 @@ class _$FishingEventImpl implements _FishingEvent {
 abstract class _FishingEvent implements FishingEvent {
   const factory _FishingEvent({
     required final int id,
-    required final String createdBy,
-    required final String imageUrl,
+    @JsonKey(name: 'created_by') required final String createdBy,
     required final String title,
     required final String description,
-    required final List<FishingType> fishingType,
+    @JsonKey(name: 'fishing_type') required final List<String> fishingType,
     required final String location,
-    required final DateTime startDate,
-    required final DateTime endDate,
-    required final EventStatus status,
-    required final DateTime createdAt,
+    @JsonKey(name: 'start_date') required final DateTime startDate,
+    @JsonKey(name: 'end_date') required final DateTime endDate,
+    required final int status,
+    @JsonKey(name: 'departure_time') required final String departureTime,
+    @JsonKey(name: 'created_at') final DateTime? createdAt,
+    @JsonKey(name: 'updated_at') final DateTime? updatedAt,
+    @JsonKey(name: 'image_url') required final String imageUrl,
   }) = _$FishingEventImpl;
 
   factory _FishingEvent.fromJson(Map<String, dynamic> json) =
@@ -378,25 +449,43 @@ abstract class _FishingEvent implements FishingEvent {
   @override
   int get id;
   @override
+  @JsonKey(name: 'created_by')
   String get createdBy;
-  @override
-  String get imageUrl;
   @override
   String get title;
   @override
   String get description;
+
+  /// Ejemplo: ['freshwater', 'saltwater']
+  ///  Enum 'FishingType'
   @override
-  List<FishingType> get fishingType;
+  @JsonKey(name: 'fishing_type')
+  List<String> get fishingType;
   @override
   String get location;
   @override
+  @JsonKey(name: 'start_date')
   DateTime get startDate;
   @override
+  @JsonKey(name: 'end_date')
   DateTime get endDate;
+
+  /// 0: planned, 1: ongoing, 2: completed, 3:
+  /// cancelled enum 'EventStatus'
   @override
-  EventStatus get status;
+  int get status;
   @override
-  DateTime get createdAt;
+  @JsonKey(name: 'departure_time')
+  String get departureTime;
+  @override
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  DateTime? get updatedAt;
+  @override
+  @JsonKey(name: 'image_url')
+  String get imageUrl;
 
   /// Create a copy of FishingEvent
   /// with the given fields replaced by the non-null parameter values.

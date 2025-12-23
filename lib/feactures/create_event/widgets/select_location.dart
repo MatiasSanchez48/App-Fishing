@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:http/http.dart' as http;
 import 'package:latlong2/latlong.dart';
@@ -85,13 +86,6 @@ class _SelectLocationState extends State<SelectLocation> {
   }
 
   @override
-  void dispose() {
-    widget.controllerLotaion.dispose();
-
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -99,8 +93,17 @@ class _SelectLocationState extends State<SelectLocation> {
           SizedBox(
             height: 50,
             child: TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               controller: widget.controllerLotaion,
               onChanged: _searchSuggestions,
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.text,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a location';
+                }
+                return null;
+              },
               decoration: InputDecoration(
                 prefixIcon: const Icon(
                   Icons.location_on_outlined,

@@ -1,15 +1,11 @@
 import 'package:chat_flutter_supabase/models/models.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:chat_flutter_supabase/repository/base_repository.dart';
 
-class RepositoryEventComment {
-  RepositoryEventComment({
-    required SupabaseClient supabase,
-  }) : _supabase = supabase;
-
-  final SupabaseClient _supabase;
+class RepositoryEventComment extends BaseRepository {
+  const RepositoryEventComment({required super.supabase});
 
   Future<List<EventComment>> getComments(String eventId) async {
-    final response = await _supabase
+    final response = await supabase
         .from('event_comments')
         .select()
         .eq('event_id', eventId)
@@ -19,6 +15,6 @@ class RepositoryEventComment {
   }
 
   Future<void> addComment(EventComment comment) async {
-    await _supabase.from('event_comments').insert(comment.toJson());
+    await supabase.from('event_comments').insert(comment.toJson());
   }
 }

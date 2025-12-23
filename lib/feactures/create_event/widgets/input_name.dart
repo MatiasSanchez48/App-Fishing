@@ -1,4 +1,6 @@
+import 'package:chat_flutter_supabase/feactures/create_event/bloc/bloc_create_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class InputName extends StatelessWidget {
   const InputName({
@@ -9,12 +11,25 @@ class InputName extends StatelessWidget {
   ///
   final TextEditingController controllerName;
 
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50,
       child: TextFormField(
         controller: controllerName,
+        autofillHints: const [AutofillHints.name],
+        textInputAction: TextInputAction.next,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        onChanged: (value) => context.read<BlocCreateEvent>().add(
+            BlocCreateEventSaveEvent(title: value),
+          ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter a name/title';
+          }
+          return null;
+        },
         keyboardType: TextInputType.name,
         maxLength: 50,
         decoration: InputDecoration(

@@ -1,4 +1,6 @@
+import 'package:chat_flutter_supabase/feactures/create_event/bloc/bloc_create_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ImputTime extends StatefulWidget {
   const ImputTime({
@@ -8,6 +10,7 @@ class ImputTime extends StatefulWidget {
 
   ///
   final TextEditingController controllerTime;
+
   @override
   State<ImputTime> createState() => _ImputTimeState();
 }
@@ -24,6 +27,9 @@ class _ImputTimeState extends State<ImputTime> {
     );
 
     if (picked != null) {
+      context.read<BlocCreateEvent>().add(
+        BlocCreateEventSaveEvent(departureTime: picked.format(context)),
+      );
       setState(() {
         _selectedDateTime = picked;
         widget.controllerTime.text = picked.format(context); // muestra en AM/PM
@@ -38,7 +44,15 @@ class _ImputTimeState extends State<ImputTime> {
       child: TextFormField(
         controller: widget.controllerTime,
         readOnly: true,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         onTap: _pickTime,
+        textInputAction: TextInputAction.next,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter a time';
+          }
+          return null;
+        },
         decoration: InputDecoration(
           prefixIcon: const Icon(
             Icons.access_time,

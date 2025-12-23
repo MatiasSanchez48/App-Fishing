@@ -1,15 +1,11 @@
 import 'package:chat_flutter_supabase/models/models.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:chat_flutter_supabase/repository/base_repository.dart';
 
-class RepositoryEventParticipant {
-  RepositoryEventParticipant({
-    required SupabaseClient supabase,
-  }) : _supabase = supabase;
-
-  final SupabaseClient _supabase;
+class RepositoryEventParticipant extends BaseRepository {
+  const RepositoryEventParticipant({required super.supabase});
 
   Future<List<EventParticipant>> getParticipants(String eventId) async {
-    final response = await _supabase
+    final response = await supabase
         .from('event_participants')
         .select()
         .eq('event_id', eventId);
@@ -25,6 +21,6 @@ class RepositoryEventParticipant {
       joinedAt: DateTime.now(),
     );
 
-    await _supabase.from('event_participants').insert(participant.toJson());
+    await supabase.from('event_participants').insert(participant.toJson());
   }
 }
