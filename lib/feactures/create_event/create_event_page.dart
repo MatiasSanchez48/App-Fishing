@@ -88,19 +88,27 @@ class _CreateEventPageState extends State<CreateEventPage> {
   Widget build(BuildContext context) {
     return BlocListener<BlocCreateEvent, BlocCreateEventState>(
       listener: (context, state) {
+        if (!mounted) return;
+
         if (state is BlocCreateStateLoading) {
           DialogLoading.showDialogLoading(context);
         }
+
         if (state is BlocCreateStateError) {
-          Navigator.pop(context);
+          Navigator.of(context, rootNavigator: true).pop();
           DialogError(
             description: state.errorMessage,
           ).showDialogError(context);
         }
+
         if (state is BlocCreateStateSuccessCreateEvent) {
-          Navigator.pop(context);
+          Navigator.of(context, rootNavigator: true).pop();
+
           DialogSuccess(
-            onOk: () => context.pushRoute(const HomeRoute()),
+            onOk: () {
+              Navigator.of(context, rootNavigator: true).pop();
+              context.router.replace(const HomeRoute());
+            },
             description: 'Event created successfully',
           ).showDialogSuccess(context);
         }

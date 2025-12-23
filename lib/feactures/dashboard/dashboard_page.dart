@@ -30,6 +30,16 @@ class _DashboardPageState extends State<DashboardPage> {
     };
   }
 
+  Future<void> _changeIndex(String name) async {
+    return switch (name) {
+      'Home' => setState(() => _currentIndex = 0),
+      'CreateEvent' => setState(() => _currentIndex = 1),
+      'Social' => setState(() => _currentIndex = 2),
+      'Profile' => setState(() => _currentIndex = 3),
+      _ => setState(() => _currentIndex = 0),
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     final supabase = context.supabase;
@@ -51,17 +61,19 @@ class _DashboardPageState extends State<DashboardPage> {
       ],
       child: AutoRouter(
         builder: (context, content) {
-          return switch (context.router.current.name) {
-            _ => SafeArea(
-              child: Scaffold(
-                body: content,
-                bottomNavigationBar: CustomBottomBar(
-                  currentIndex: _currentIndex,
-                  onTabSelected: _changePage,
+          switch (context.router.current.name) {
+            default:
+              _changeIndex(context.router.current.name);
+              return SafeArea(
+                child: Scaffold(
+                  body: content,
+                  bottomNavigationBar: CustomBottomBar(
+                    currentIndex: _currentIndex,
+                    onTabSelected: _changePage,
+                  ),
                 ),
-              ),
-            ),
-          };
+              );
+          }
         },
       ),
     );
@@ -74,7 +86,11 @@ class CustomBottomBar extends StatelessWidget {
     required this.onTabSelected,
     super.key,
   });
+
+  ///
   final int currentIndex;
+
+  ///
   final void Function(int) onTabSelected;
 
   @override

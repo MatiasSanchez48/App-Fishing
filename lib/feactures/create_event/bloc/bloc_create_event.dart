@@ -63,11 +63,13 @@ class BlocCreateEvent extends Bloc<BlocCreateEventEvent, BlocCreateEventState> {
   ) async {
     try {
       emit(BlocCreateStateLoading.from(state));
-      // TODO: Implement actual event creation logic here
-      final imageUrl = await _repositoryImages.createImage(
-        state.image ?? XFile(''),
-      );
+      String? imageUrl;
 
+      if (state.image != null) {
+        imageUrl = await _repositoryImages.createImage(
+          state.image ?? XFile(''),
+        );
+      }
       final newEvent = FishingEvent(
         id: 0,
         departureTime: state.departureTime,
@@ -79,7 +81,7 @@ class BlocCreateEvent extends Bloc<BlocCreateEventEvent, BlocCreateEventState> {
         startDate: state.startDate ?? DateTime.now(),
         endDate: state.endDate ?? DateTime.now(),
         status: state.status.index,
-        imageUrl: imageUrl,
+        imageUrl: imageUrl ?? '',
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       );
