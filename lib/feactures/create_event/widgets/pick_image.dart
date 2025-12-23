@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:chat_flutter_supabase/feactures/create_event/bloc/bloc_create_event.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PickImage extends StatefulWidget {
@@ -12,18 +14,26 @@ class PickImage extends StatefulWidget {
 }
 
 class _PickImageState extends State<PickImage> {
+  ///
   final ImagePicker _picker = ImagePicker();
+
+  ///
   XFile? _image;
 
   /// PICK IMAGE
   Future<void> _pickImage(ImageSource source) async {
     final pickedFile = await _picker.pickImage(source: source);
 
-    if (pickedFile != null) setState(() => _image = pickedFile);
+    if (pickedFile != null) {
+      setState(() => _image = pickedFile);
+      context.read<BlocCreateEvent>().add(
+        BlocCreateEventSaveEvent(image: _image),
+      );
+    }
   }
 
   Future<void> _showPickerOptions() async {
-    await showModalBottomSheet<bool>(
+    await showModalBottomSheet<void>(
       context: context,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -34,7 +44,7 @@ class _PickImageState extends State<PickImage> {
             children: [
               ListTile(
                 leading: const Icon(Icons.photo_camera),
-                title: const Text('Tomar foto'),
+                title: const Text('Take Photo'),
                 onTap: () async {
                   Navigator.pop(context);
                   await _pickImage(ImageSource.camera);
@@ -42,7 +52,7 @@ class _PickImageState extends State<PickImage> {
               ),
               ListTile(
                 leading: const Icon(Icons.photo_library),
-                title: const Text('Elegir desde galería'),
+                title: const Text('Pick from Gallery'),
                 onTap: () async {
                   Navigator.pop(context);
                   await _pickImage(ImageSource.gallery);
@@ -50,7 +60,7 @@ class _PickImageState extends State<PickImage> {
               ),
               ListTile(
                 leading: const Icon(Icons.close),
-                title: const Text('Cancelar'),
+                title: const Text('Cancel'),
                 onTap: () => Navigator.pop(context),
               ),
             ],

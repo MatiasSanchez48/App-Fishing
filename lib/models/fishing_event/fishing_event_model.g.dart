@@ -9,50 +9,39 @@ part of 'fishing_event_model.dart';
 _$FishingEventImpl _$$FishingEventImplFromJson(Map<String, dynamic> json) =>
     _$FishingEventImpl(
       id: (json['id'] as num).toInt(),
-      createdBy: json['createdBy'] as String,
-      imageUrl: json['imageUrl'] as String,
+      createdBy: json['created_by'] as String,
       title: json['title'] as String,
       description: json['description'] as String,
-      fishingType: (json['fishingType'] as List<dynamic>)
-          .map((e) => $enumDecode(_$FishingTypeEnumMap, e))
+      fishingType: (json['fishing_type'] as List<dynamic>)
+          .map((e) => e as String)
           .toList(),
       location: json['location'] as String,
-      startDate: DateTime.parse(json['startDate'] as String),
-      endDate: DateTime.parse(json['endDate'] as String),
-      status: $enumDecode(_$EventStatusEnumMap, json['status']),
-      createdAt: DateTime.parse(json['createdAt'] as String),
+      startDate: DateTime.parse(json['start_date'] as String),
+      endDate: DateTime.parse(json['end_date'] as String),
+      status: (json['status'] as num).toInt(),
+      departureTime: json['departure_time'] as String,
+      createdAt: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
+      updatedAt: json['updated_at'] == null
+          ? null
+          : DateTime.parse(json['updated_at'] as String),
+      imageUrl: json['image_url'] as String,
     );
 
 Map<String, dynamic> _$$FishingEventImplToJson(_$FishingEventImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'createdBy': instance.createdBy,
-      'imageUrl': instance.imageUrl,
+      'created_by': instance.createdBy,
       'title': instance.title,
       'description': instance.description,
-      'fishingType': instance.fishingType
-          .map((e) => _$FishingTypeEnumMap[e]!)
-          .toList(),
+      'fishing_type': instance.fishingType,
       'location': instance.location,
-      'startDate': instance.startDate.toIso8601String(),
-      'endDate': instance.endDate.toIso8601String(),
-      'status': _$EventStatusEnumMap[instance.status]!,
-      'createdAt': instance.createdAt.toIso8601String(),
+      'start_date': instance.startDate.toIso8601String(),
+      'end_date': instance.endDate.toIso8601String(),
+      'status': instance.status,
+      'departure_time': instance.departureTime,
+      'created_at': instance.createdAt?.toIso8601String(),
+      'updated_at': instance.updatedAt?.toIso8601String(),
+      'image_url': instance.imageUrl,
     };
-
-const _$FishingTypeEnumMap = {
-  FishingType.surubi: 'surubi',
-  FishingType.bagre: 'bagre',
-  FishingType.dorado: 'dorado',
-  FishingType.tararira: 'tararira',
-  FishingType.pejerrey: 'pejerrey',
-  FishingType.trucha: 'trucha',
-  FishingType.pacu: 'pacu',
-  FishingType.boga: 'boga',
-  FishingType.otro: 'otro',
-};
-
-const _$EventStatusEnumMap = {
-  EventStatus.public: 'public',
-  EventStatus.private: 'private',
-};

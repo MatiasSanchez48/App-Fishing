@@ -44,6 +44,7 @@ class _InputDateState extends State<InputDate> {
 
     if (picked != null) {
       selectedDate = picked;
+
       widget.onDateSelected(selectedDate);
       widget.controllerDate.text =
           '${picked.day}/${picked.month}/${picked.year}';
@@ -58,9 +59,16 @@ class _InputDateState extends State<InputDate> {
       child: TextFormField(
         enabled: widget.isDateSelected,
         autovalidateMode: AutovalidateMode.onUserInteraction,
+        textInputAction: TextInputAction.next,
         controller: widget.controllerDate,
         readOnly: true,
         onTap: () async => _pickDate(context),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please select a date';
+          }
+          return null;
+        },
         decoration: InputDecoration(
           prefixIcon: const Icon(
             Icons.calendar_today,

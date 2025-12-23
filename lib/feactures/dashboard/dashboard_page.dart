@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_flutter_supabase/auto_route/auto_route.gr.dart';
 import 'package:chat_flutter_supabase/extensions/extensions.dart';
+import 'package:chat_flutter_supabase/feactures/create_event/bloc/bloc_create_event.dart';
 import 'package:chat_flutter_supabase/feactures/dashboard/bloc/bloc_dashboard.dart';
 import 'package:chat_flutter_supabase/feactures/home/bloc/bloc_home.dart';
 import 'package:chat_flutter_supabase/feactures/message/bloc/bloc_message.dart';
@@ -29,6 +30,16 @@ class _DashboardPageState extends State<DashboardPage> {
     };
   }
 
+  Future<void> _changeIndex(String name) async {
+    return switch (name) {
+      'Home' => setState(() => _currentIndex = 0),
+      'CreateEvent' => setState(() => _currentIndex = 1),
+      'Social' => setState(() => _currentIndex = 2),
+      'Profile' => setState(() => _currentIndex = 3),
+      _ => setState(() => _currentIndex = 0),
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     final supabase = context.supabase;
@@ -39,29 +50,30 @@ class _DashboardPageState extends State<DashboardPage> {
           create: (context) => BlocDashboard(),
         ),
         BlocProvider<BlocHome>(
-          create: (context) => BlocHome(
-            supabase: supabase,
-          ),
+          create: (context) => BlocHome(supabase: supabase),
         ),
         BlocProvider<BlocMessage>(
-          create: (context) => BlocMessage(
-            supabase: supabase,
-          ),
+          create: (context) => BlocMessage(supabase: supabase),
+        ),
+        BlocProvider<BlocCreateEvent>(
+          create: (context) => BlocCreateEvent(supabase: supabase),
         ),
       ],
       child: AutoRouter(
         builder: (context, content) {
-          return switch (context.router.current.name) {
-            _ => SafeArea(
-              child: Scaffold(
-                body: content,
-                bottomNavigationBar: CustomBottomBar(
-                  currentIndex: _currentIndex,
-                  onTabSelected: _changePage,
+          switch (context.router.current.name) {
+            default:
+              _changeIndex(context.router.current.name);
+              return SafeArea(
+                child: Scaffold(
+                  body: content,
+                  bottomNavigationBar: CustomBottomBar(
+                    currentIndex: _currentIndex,
+                    onTabSelected: _changePage,
+                  ),
                 ),
-              ),
-            ),
-          };
+              );
+          }
         },
       ),
     );
@@ -74,7 +86,11 @@ class CustomBottomBar extends StatelessWidget {
     required this.onTabSelected,
     super.key,
   });
+
+  ///
   final int currentIndex;
+
+  ///
   final void Function(int) onTabSelected;
 
   @override

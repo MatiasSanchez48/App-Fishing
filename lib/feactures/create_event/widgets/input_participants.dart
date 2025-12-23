@@ -16,10 +16,18 @@ class InputParticipants extends StatelessWidget {
       child: TextFormField(
         controller: controllerParticipants,
         keyboardType: TextInputType.number,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         inputFormatters: [
           FilteringTextInputFormatter.digitsOnly, // solo números
           _NumberRangeFormatter(0, 10), // validación del rango
         ],
+        textInputAction: TextInputAction.next,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter the maximum number of participants';
+          }
+          return null;
+        },
         decoration: InputDecoration(
           hintText: 'Maximum participants',
           hintStyle: const TextStyle(

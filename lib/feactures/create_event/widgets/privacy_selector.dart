@@ -1,4 +1,7 @@
+import 'package:chat_flutter_supabase/feactures/create_event/bloc/bloc_create_event.dart';
+import 'package:chat_flutter_supabase/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PrivacySelector extends StatefulWidget {
   const PrivacySelector({super.key});
@@ -8,7 +11,7 @@ class PrivacySelector extends StatefulWidget {
 }
 
 class _PrivacySelectorState extends State<PrivacySelector> {
-  String selectedOption = 'Público';
+  EventStatus selectedOption = EventStatus.public;
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +29,25 @@ class _PrivacySelectorState extends State<PrivacySelector> {
         OptionCustom(
           title: 'Público',
           subTitle: 'Cualquier persona puede unirse',
-          isSelected: selectedOption == 'Público',
-          onTap: () => setState(() => selectedOption = 'Público'),
+          isSelected: selectedOption == EventStatus.public,
+          onTap: () {
+            setState(() => selectedOption = EventStatus.public);
+            context.read<BlocCreateEvent>().add(
+              const BlocCreateEventSaveEvent(status: EventStatus.public),
+            );
+          },
         ),
         const SizedBox(height: 10),
         OptionCustom(
           title: 'Privado',
           subTitle: 'Solo los invitados pueden unirse',
-          isSelected: selectedOption == 'Privado',
-          onTap: () => setState(() => selectedOption = 'Privado'),
+          isSelected: selectedOption == EventStatus.private,
+          onTap: () {
+            setState(() => selectedOption = EventStatus.private);
+            context.read<BlocCreateEvent>().add(
+              const BlocCreateEventSaveEvent(status: EventStatus.private),
+            );
+          },
         ),
       ],
     );

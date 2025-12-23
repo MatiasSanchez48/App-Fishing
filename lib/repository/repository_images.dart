@@ -1,21 +1,26 @@
+import 'package:chat_flutter_supabase/repository/base_repository.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
-class RepositoryImages {
-  RepositoryImages({
-    required SupabaseClient supabase,
-  }) : _supabase = supabase;
+/// {@template RepositoryImages}
+/// TODO: Add description.
+/// {@endtemplate}
+class RepositoryImages extends BaseRepository {
+  /// {@macro RepositoryImages}
+  const RepositoryImages({required super.supabase});
 
-  final SupabaseClient _supabase;
+  /// Crea una imagen en el almacenamiento de Supabase y devuelve su URL publica
+  Future<String> createImage(XFile imagen) async {
+    try {
+      final bytes = await imagen.readAsBytes();
+      final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
 
-  Future<String> crearPostConImagen(XFile imagen) async {
-    final bytes = await imagen.readAsBytes();
-    final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+      await supabase.storage.from('images').uploadBinary(fileName, bytes);
 
-    await _supabase.storage.from('images').uploadBinary(fileName, bytes);
+      final imageUrl = supabase.storage.from('images').getPublicUrl(fileName);
 
-    final imageUrl = _supabase.storage.from('images').getPublicUrl(fileName);
-
-    return imageUrl;
+      return imageUrl;
+    } catch (e) {
+      rethrow;
+    }
   }
 }
