@@ -86,6 +86,13 @@ class _SelectLocationState extends State<SelectLocation> {
   }
 
   @override
+  void dispose() {
+    widget.controllerLotaion.dispose();
+    widget.mapController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -136,7 +143,7 @@ class _SelectLocationState extends State<SelectLocation> {
               ),
             ),
           ),
-        if (_suggestions.isNotEmpty)
+        if (_suggestions.isNotEmpty && widget.withTextField)
           Container(
             margin: const EdgeInsets.only(top: 4),
             decoration: BoxDecoration(

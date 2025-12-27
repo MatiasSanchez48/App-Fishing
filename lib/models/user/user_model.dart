@@ -9,8 +9,8 @@ class Usuario with _$Usuario {
     required String uuid,
     required String email,
     required String username,
-    String? avatarUrl,
-    DateTime? createdAt,
+    @JsonKey(name: 'avatar_url') String? avatarUrl,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
   }) = _Usuario;
 
   factory Usuario.fromJson(Map<String, dynamic> json) =>

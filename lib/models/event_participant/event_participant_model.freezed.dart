@@ -22,9 +22,15 @@ EventParticipant _$EventParticipantFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$EventParticipant {
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'event_id')
   int get eventId => throw _privateConstructorUsedError;
-  int get userId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_id')
+  String get userId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'joined_at')
   DateTime get joinedAt => throw _privateConstructorUsedError;
+
+  /// 👇 relación
+  Usuario? get profiles => throw _privateConstructorUsedError;
 
   /// Serializes this EventParticipant to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,7 +49,15 @@ abstract class $EventParticipantCopyWith<$Res> {
     $Res Function(EventParticipant) then,
   ) = _$EventParticipantCopyWithImpl<$Res, EventParticipant>;
   @useResult
-  $Res call({int id, int eventId, int userId, DateTime joinedAt});
+  $Res call({
+    int id,
+    @JsonKey(name: 'event_id') int eventId,
+    @JsonKey(name: 'user_id') String userId,
+    @JsonKey(name: 'joined_at') DateTime joinedAt,
+    Usuario? profiles,
+  });
+
+  $UsuarioCopyWith<$Res>? get profiles;
 }
 
 /// @nodoc
@@ -65,6 +79,7 @@ class _$EventParticipantCopyWithImpl<$Res, $Val extends EventParticipant>
     Object? eventId = null,
     Object? userId = null,
     Object? joinedAt = null,
+    Object? profiles = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -79,14 +94,32 @@ class _$EventParticipantCopyWithImpl<$Res, $Val extends EventParticipant>
             userId: null == userId
                 ? _value.userId
                 : userId // ignore: cast_nullable_to_non_nullable
-                      as int,
+                      as String,
             joinedAt: null == joinedAt
                 ? _value.joinedAt
                 : joinedAt // ignore: cast_nullable_to_non_nullable
                       as DateTime,
+            profiles: freezed == profiles
+                ? _value.profiles
+                : profiles // ignore: cast_nullable_to_non_nullable
+                      as Usuario?,
           )
           as $Val,
     );
+  }
+
+  /// Create a copy of EventParticipant
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UsuarioCopyWith<$Res>? get profiles {
+    if (_value.profiles == null) {
+      return null;
+    }
+
+    return $UsuarioCopyWith<$Res>(_value.profiles!, (value) {
+      return _then(_value.copyWith(profiles: value) as $Val);
+    });
   }
 }
 
@@ -99,7 +132,16 @@ abstract class _$$EventParticipantImplCopyWith<$Res>
   ) = __$$EventParticipantImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, int eventId, int userId, DateTime joinedAt});
+  $Res call({
+    int id,
+    @JsonKey(name: 'event_id') int eventId,
+    @JsonKey(name: 'user_id') String userId,
+    @JsonKey(name: 'joined_at') DateTime joinedAt,
+    Usuario? profiles,
+  });
+
+  @override
+  $UsuarioCopyWith<$Res>? get profiles;
 }
 
 /// @nodoc
@@ -120,6 +162,7 @@ class __$$EventParticipantImplCopyWithImpl<$Res>
     Object? eventId = null,
     Object? userId = null,
     Object? joinedAt = null,
+    Object? profiles = freezed,
   }) {
     return _then(
       _$EventParticipantImpl(
@@ -134,11 +177,15 @@ class __$$EventParticipantImplCopyWithImpl<$Res>
         userId: null == userId
             ? _value.userId
             : userId // ignore: cast_nullable_to_non_nullable
-                  as int,
+                  as String,
         joinedAt: null == joinedAt
             ? _value.joinedAt
             : joinedAt // ignore: cast_nullable_to_non_nullable
                   as DateTime,
+        profiles: freezed == profiles
+            ? _value.profiles
+            : profiles // ignore: cast_nullable_to_non_nullable
+                  as Usuario?,
       ),
     );
   }
@@ -149,9 +196,10 @@ class __$$EventParticipantImplCopyWithImpl<$Res>
 class _$EventParticipantImpl implements _EventParticipant {
   const _$EventParticipantImpl({
     required this.id,
-    required this.eventId,
-    required this.userId,
-    required this.joinedAt,
+    @JsonKey(name: 'event_id') required this.eventId,
+    @JsonKey(name: 'user_id') required this.userId,
+    @JsonKey(name: 'joined_at') required this.joinedAt,
+    this.profiles,
   });
 
   factory _$EventParticipantImpl.fromJson(Map<String, dynamic> json) =>
@@ -160,15 +208,22 @@ class _$EventParticipantImpl implements _EventParticipant {
   @override
   final int id;
   @override
+  @JsonKey(name: 'event_id')
   final int eventId;
   @override
-  final int userId;
+  @JsonKey(name: 'user_id')
+  final String userId;
   @override
+  @JsonKey(name: 'joined_at')
   final DateTime joinedAt;
+
+  /// 👇 relación
+  @override
+  final Usuario? profiles;
 
   @override
   String toString() {
-    return 'EventParticipant(id: $id, eventId: $eventId, userId: $userId, joinedAt: $joinedAt)';
+    return 'EventParticipant(id: $id, eventId: $eventId, userId: $userId, joinedAt: $joinedAt, profiles: $profiles)';
   }
 
   @override
@@ -180,12 +235,15 @@ class _$EventParticipantImpl implements _EventParticipant {
             (identical(other.eventId, eventId) || other.eventId == eventId) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.joinedAt, joinedAt) ||
-                other.joinedAt == joinedAt));
+                other.joinedAt == joinedAt) &&
+            (identical(other.profiles, profiles) ||
+                other.profiles == profiles));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, eventId, userId, joinedAt);
+  int get hashCode =>
+      Object.hash(runtimeType, id, eventId, userId, joinedAt, profiles);
 
   /// Create a copy of EventParticipant
   /// with the given fields replaced by the non-null parameter values.
@@ -207,9 +265,10 @@ class _$EventParticipantImpl implements _EventParticipant {
 abstract class _EventParticipant implements EventParticipant {
   const factory _EventParticipant({
     required final int id,
-    required final int eventId,
-    required final int userId,
-    required final DateTime joinedAt,
+    @JsonKey(name: 'event_id') required final int eventId,
+    @JsonKey(name: 'user_id') required final String userId,
+    @JsonKey(name: 'joined_at') required final DateTime joinedAt,
+    final Usuario? profiles,
   }) = _$EventParticipantImpl;
 
   factory _EventParticipant.fromJson(Map<String, dynamic> json) =
@@ -218,11 +277,18 @@ abstract class _EventParticipant implements EventParticipant {
   @override
   int get id;
   @override
+  @JsonKey(name: 'event_id')
   int get eventId;
   @override
-  int get userId;
+  @JsonKey(name: 'user_id')
+  String get userId;
   @override
+  @JsonKey(name: 'joined_at')
   DateTime get joinedAt;
+
+  /// 👇 relación
+  @override
+  Usuario? get profiles;
 
   /// Create a copy of EventParticipant
   /// with the given fields replaced by the non-null parameter values.

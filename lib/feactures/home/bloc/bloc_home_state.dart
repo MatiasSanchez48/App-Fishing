@@ -3,20 +3,30 @@ part of 'bloc_home.dart';
 class BlocHomeState extends Equatable {
   const BlocHomeState._({
     this.users = const [],
+    this.events = const [],
   });
 
   BlocHomeState.from(
     BlocHomeState state, {
 
     List<Usuario>? users,
+    List<FishingEvent>? events,
   }) : this._(
          users: users ?? state.users,
+         events: events ?? state.events,
        );
 
+  ///
   final List<Usuario> users;
 
+  ///
+  final List<FishingEvent> events;
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [
+    users,
+    events,
+  ];
 }
 
 class BlocHomeStateInitial extends BlocHomeState {
@@ -28,7 +38,11 @@ class BlocHomeStateLoading extends BlocHomeState {
 }
 
 class BlocHomeStateSuccess extends BlocHomeState {
-  BlocHomeStateSuccess.from(super.state, {super.users}) : super.from();
+  BlocHomeStateSuccess.from(
+    super.state, {
+    super.users,
+    super.events,
+  }) : super.from();
 }
 
 class BlocHomeStateError extends BlocHomeState {
@@ -37,5 +51,6 @@ class BlocHomeStateError extends BlocHomeState {
     required this.errorMessage,
   }) : super.from();
 
+  ///
   final String errorMessage;
 }

@@ -61,19 +61,19 @@ class _DashboardPageState extends State<DashboardPage> {
       ],
       child: AutoRouter(
         builder: (context, content) {
-          switch (context.router.current.name) {
-            default:
-              _changeIndex(context.router.current.name);
-              return SafeArea(
-                child: Scaffold(
-                  body: content,
-                  bottomNavigationBar: CustomBottomBar(
-                    currentIndex: _currentIndex,
-                    onTabSelected: _changePage,
-                  ),
-                ),
-              );
-          }
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _changeIndex(context.router.current.name);
+          });
+
+          return SafeArea(
+            child: Scaffold(
+              body: content,
+              bottomNavigationBar: CustomBottomBar(
+                currentIndex: _currentIndex,
+                onTabSelected: _changePage,
+              ),
+            ),
+          );
         },
       ),
     );

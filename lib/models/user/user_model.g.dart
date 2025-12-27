@@ -11,10 +11,10 @@ _$UsuarioImpl _$$UsuarioImplFromJson(Map<String, dynamic> json) =>
       uuid: json['uuid'] as String,
       email: json['email'] as String,
       username: json['username'] as String,
-      avatarUrl: json['avatarUrl'] as String?,
-      createdAt: json['createdAt'] == null
+      avatarUrl: json['avatar_url'] as String?,
+      createdAt: json['created_at'] == null
           ? null
-          : DateTime.parse(json['createdAt'] as String),
+          : DateTime.parse(json['created_at'] as String),
     );
 
 Map<String, dynamic> _$$UsuarioImplToJson(_$UsuarioImpl instance) =>
@@ -22,6 +22,6 @@ Map<String, dynamic> _$$UsuarioImplToJson(_$UsuarioImpl instance) =>
       'uuid': instance.uuid,
       'email': instance.email,
       'username': instance.username,
-      'avatarUrl': instance.avatarUrl,
-      'createdAt': instance.createdAt?.toIso8601String(),
+      'avatar_url': instance.avatarUrl,
+      'created_at': instance.createdAt?.toIso8601String(),
     };

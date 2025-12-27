@@ -24,7 +24,9 @@ mixin _$Usuario {
   String get uuid => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
+  @JsonKey(name: 'avatar_url')
   String? get avatarUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
 
   /// Serializes this Usuario to a JSON map.
@@ -45,8 +47,8 @@ abstract class $UsuarioCopyWith<$Res> {
     String uuid,
     String email,
     String username,
-    String? avatarUrl,
-    DateTime? createdAt,
+    @JsonKey(name: 'avatar_url') String? avatarUrl,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
   });
 }
 
@@ -111,8 +113,8 @@ abstract class _$$UsuarioImplCopyWith<$Res> implements $UsuarioCopyWith<$Res> {
     String uuid,
     String email,
     String username,
-    String? avatarUrl,
-    DateTime? createdAt,
+    @JsonKey(name: 'avatar_url') String? avatarUrl,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
   });
 }
 
@@ -170,8 +172,8 @@ class _$UsuarioImpl implements _Usuario {
     required this.uuid,
     required this.email,
     required this.username,
-    this.avatarUrl,
-    this.createdAt,
+    @JsonKey(name: 'avatar_url') this.avatarUrl,
+    @JsonKey(name: 'created_at') this.createdAt,
   });
 
   factory _$UsuarioImpl.fromJson(Map<String, dynamic> json) =>
@@ -184,8 +186,10 @@ class _$UsuarioImpl implements _Usuario {
   @override
   final String username;
   @override
+  @JsonKey(name: 'avatar_url')
   final String? avatarUrl;
   @override
+  @JsonKey(name: 'created_at')
   final DateTime? createdAt;
 
   @override
@@ -232,8 +236,8 @@ abstract class _Usuario implements Usuario {
     required final String uuid,
     required final String email,
     required final String username,
-    final String? avatarUrl,
-    final DateTime? createdAt,
+    @JsonKey(name: 'avatar_url') final String? avatarUrl,
+    @JsonKey(name: 'created_at') final DateTime? createdAt,
   }) = _$UsuarioImpl;
 
   factory _Usuario.fromJson(Map<String, dynamic> json) = _$UsuarioImpl.fromJson;
@@ -245,8 +249,10 @@ abstract class _Usuario implements Usuario {
   @override
   String get username;
   @override
+  @JsonKey(name: 'avatar_url')
   String? get avatarUrl;
   @override
+  @JsonKey(name: 'created_at')
   DateTime? get createdAt;
 
   /// Create a copy of Usuario
