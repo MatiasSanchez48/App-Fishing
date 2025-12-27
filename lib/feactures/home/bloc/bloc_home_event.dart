@@ -11,6 +11,10 @@ class BlocHomeEventGetUsers extends BlocHomeEvent {
   const BlocHomeEventGetUsers();
 }
 
+class BlocHomeEventGetEvents extends BlocHomeEvent {
+  const BlocHomeEventGetEvents();
+}
+
 class BlocHomeEventLogOut extends BlocHomeEvent {
   const BlocHomeEventLogOut();
 }

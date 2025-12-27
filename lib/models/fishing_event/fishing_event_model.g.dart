@@ -20,13 +20,18 @@ _$FishingEventImpl _$$FishingEventImplFromJson(Map<String, dynamic> json) =>
       endDate: DateTime.parse(json['end_date'] as String),
       status: (json['status'] as num).toInt(),
       departureTime: json['departure_time'] as String,
+      imageUrl: json['image_url'] as String,
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
       updatedAt: json['updated_at'] == null
           ? null
           : DateTime.parse(json['updated_at'] as String),
-      imageUrl: json['image_url'] as String,
+      participants:
+          (json['participants'] as List<dynamic>?)
+              ?.map((e) => EventParticipant.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$FishingEventImplToJson(_$FishingEventImpl instance) =>
@@ -41,7 +46,8 @@ Map<String, dynamic> _$$FishingEventImplToJson(_$FishingEventImpl instance) =>
       'end_date': instance.endDate.toIso8601String(),
       'status': instance.status,
       'departure_time': instance.departureTime,
+      'image_url': instance.imageUrl,
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
-      'image_url': instance.imageUrl,
+      'participants': instance.participants,
     };

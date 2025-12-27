@@ -1,3 +1,4 @@
+import 'package:chat_flutter_supabase/models/models.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'fishing_event_model.freezed.dart';
@@ -23,9 +24,12 @@ class FishingEvent with _$FishingEvent {
     /// cancelled enum 'EventStatus'
     required int status,
     @JsonKey(name: 'departure_time') required String departureTime,
+    @JsonKey(name: 'image_url') required String imageUrl,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
-    @JsonKey(name: 'image_url') required String imageUrl,
+
+    /// 👇 relación
+    @Default([]) List<EventParticipant> participants,
   }) = _FishingEvent;
 
   factory FishingEvent.fromJson(Map<String, dynamic> json) =>

@@ -1,3 +1,4 @@
+import 'package:chat_flutter_supabase/models/models.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'event_participant_model.freezed.dart';
@@ -7,9 +8,12 @@ part 'event_participant_model.g.dart';
 class EventParticipant with _$EventParticipant {
   const factory EventParticipant({
     required int id,
-    required int eventId,
-    required int userId,
-    required DateTime joinedAt,
+    @JsonKey(name: 'event_id') required int eventId,
+    @JsonKey(name: 'user_id') required String userId,
+    @JsonKey(name: 'joined_at') required DateTime joinedAt,
+
+    /// 👇 relación
+    Usuario? profiles,
   }) = _EventParticipant;
 
   factory EventParticipant.fromJson(Map<String, dynamic> json) =>

@@ -87,7 +87,7 @@ class DashboardRoute extends _i13.PageRouteInfo<void> {
 /// [_i4.DetailsEventPage]
 class DetailsEventRoute extends _i13.PageRouteInfo<DetailsEventRouteArgs> {
   DetailsEventRoute({
-    required String idEvent,
+    required int idEvent,
     _i14.Key? key,
     List<_i13.PageRouteInfo>? children,
   }) : super(
@@ -104,8 +104,7 @@ class DetailsEventRoute extends _i13.PageRouteInfo<DetailsEventRouteArgs> {
     builder: (data) {
       final pathParams = data.inheritedPathParams;
       final args = data.argsAs<DetailsEventRouteArgs>(
-        orElse: () =>
-            DetailsEventRouteArgs(idEvent: pathParams.getString('id')),
+        orElse: () => DetailsEventRouteArgs(idEvent: pathParams.getInt('id')),
       );
       return _i4.DetailsEventPage(idEvent: args.idEvent, key: args.key);
     },
@@ -115,7 +114,7 @@ class DetailsEventRoute extends _i13.PageRouteInfo<DetailsEventRouteArgs> {
 class DetailsEventRouteArgs {
   const DetailsEventRouteArgs({required this.idEvent, this.key});
 
-  final String idEvent;
+  final int idEvent;
 
   final _i14.Key? key;
 

@@ -13,14 +13,22 @@ class RepositoryEventParticipant extends BaseRepository {
     return response.map(EventParticipant.fromJson).toList();
   }
 
-  Future<void> joinEvent(int eventId, int userId) async {
-    final participant = EventParticipant(
-      id: 0, // Supabase genera UUID si la tabla está configurada
-      eventId: eventId,
-      userId: userId,
-      joinedAt: DateTime.now(),
-    );
+  Future<void> joinEvent(int eventId, String userId) async {
+    final userId = supabase.auth.currentUser!.id;
 
-    await supabase.from('event_participants').insert(participant.toJson());
+    await supabase.from('event_participants').insert({
+      'event_id': eventId,
+      'user_id': userId,
+    });
+  }
+
+  Future<void> leaveEvent(int eventId) async {
+    final userId = supabase.auth.currentUser!.id;
+
+    await supabase
+        .from('event_participants')
+        .delete()
+        .eq('event_id', eventId)
+        .eq('user_id', userId);
   }
 }

@@ -4,15 +4,40 @@ import 'package:chat_flutter_supabase/repository/base_repository.dart';
 class RepositoryFishingEvent extends BaseRepository {
   const RepositoryFishingEvent({required super.supabase});
 
-  Future<List<FishingEvent>> getAllEvents() async {
+  ///
+  Future<List<FishingEvent>> getAllEvents({
+    int page = 0,
+    int pageSize = 10,
+  }) async {
+    ///
+    final from = page * pageSize;
+
+    ///
+    final to = from + pageSize - 1;
+
     final response = await supabase
         .from('fishing_events')
-        .select()
-        .order('start_date', ascending: true);
+        .select('''
+        *,
+        event_participants (
+          id,
+          event_id,
+          user_id,
+          joined_at,
+          users  (
+            uuid,
+            username,
+            avatar_url
+          )
+        )
+      ''')
+        .order('start_date', ascending: true)
+        .range(from, to);
 
     return response.map(FishingEvent.fromJson).toList();
   }
 
+  ///
   Future<FishingEvent?> getEventById(String id) async {
     final response = await supabase
         .from('fishing_events')
@@ -23,6 +48,7 @@ class RepositoryFishingEvent extends BaseRepository {
     return FishingEvent.fromJson(response);
   }
 
+  ///
   Future<FishingEvent> createEvent({required FishingEvent event}) async {
     try {
       // NO incluir 'id', 'created_at', 'updated_at'

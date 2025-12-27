@@ -10,16 +10,20 @@ _$EventParticipantImpl _$$EventParticipantImplFromJson(
   Map<String, dynamic> json,
 ) => _$EventParticipantImpl(
   id: (json['id'] as num).toInt(),
-  eventId: (json['eventId'] as num).toInt(),
-  userId: (json['userId'] as num).toInt(),
-  joinedAt: DateTime.parse(json['joinedAt'] as String),
+  eventId: (json['event_id'] as num).toInt(),
+  userId: json['user_id'] as String,
+  joinedAt: DateTime.parse(json['joined_at'] as String),
+  profiles: json['profiles'] == null
+      ? null
+      : Usuario.fromJson(json['profiles'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$$EventParticipantImplToJson(
   _$EventParticipantImpl instance,
 ) => <String, dynamic>{
   'id': instance.id,
-  'eventId': instance.eventId,
-  'userId': instance.userId,
-  'joinedAt': instance.joinedAt.toIso8601String(),
+  'event_id': instance.eventId,
+  'user_id': instance.userId,
+  'joined_at': instance.joinedAt.toIso8601String(),
+  'profiles': instance.profiles,
 };
