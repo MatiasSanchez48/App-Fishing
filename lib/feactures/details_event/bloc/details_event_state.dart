@@ -2,14 +2,24 @@ part of 'details_event.dart';
 
 @immutable
 abstract class BlocDetailsEventState extends Equatable {
-  const BlocDetailsEventState._();
+  const BlocDetailsEventState._({
+    this.event,
+  });
 
-  const BlocDetailsEventState.from(
-    BlocDetailsEventState state,
-  ) : this._();
+  BlocDetailsEventState.from(
+    BlocDetailsEventState state, {
+    FishingEvent? event,
+  }) : this._(
+         event: event ?? state.event,
+       );
+
+  ///
+  final FishingEvent? event;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [
+    event,
+  ];
 }
 
 class BlocDetailsEventStateInitial extends BlocDetailsEventState {
@@ -17,21 +27,33 @@ class BlocDetailsEventStateInitial extends BlocDetailsEventState {
 }
 
 class BlocDetailsEventStateSuccess extends BlocDetailsEventState {
-  const BlocDetailsEventStateSuccess.from(
-    super.state,
-  ) : super.from();
+  BlocDetailsEventStateSuccess.from(super.state, {super.event}) : super.from();
 }
 
-class BlocDetailsEventStateForgotPassword extends BlocDetailsEventState {
-  const BlocDetailsEventStateForgotPassword.from(super.state) : super.from();
+class BlocDetailsEventStateSuccessDeleteEvent extends BlocDetailsEventState {
+  BlocDetailsEventStateSuccessDeleteEvent.from(super.state, {super.event})
+    : super.from();
+}
+
+class BlocDetailsEventStateSuccessJoinEvent extends BlocDetailsEventState {
+  BlocDetailsEventStateSuccessJoinEvent.from(super.state, {super.event})
+    : super.from();
+}
+
+class BlocDetailsEventStateSuccessLeaveEvent extends BlocDetailsEventState {
+  BlocDetailsEventStateSuccessLeaveEvent.from(super.state, {super.event})
+    : super.from();
 }
 
 class BlocDetailsEventStateLoading extends BlocDetailsEventState {
-  const BlocDetailsEventStateLoading.from(super.state) : super.from();
+  BlocDetailsEventStateLoading.from(super.state) : super.from();
+}
+class BlocDetailsEventStateLoadingInitial extends BlocDetailsEventState {
+  BlocDetailsEventStateLoadingInitial.from(super.state) : super.from();
 }
 
 class BlocDetailsEventStateError extends BlocDetailsEventState {
-  const BlocDetailsEventStateError.from(
+  BlocDetailsEventStateError.from(
     super.state, {
     required this.errorMessage,
   }) : super.from();

@@ -12,5 +12,17 @@ class BlocDetailsEventGetEvent extends BlocDetailsEventEvent {
   const BlocDetailsEventGetEvent({required this.id});
 
   ///
-  final String id;
+  final int id;
+}
+
+class BlocDetailsEventEnterEvent extends BlocDetailsEventEvent {
+  const BlocDetailsEventEnterEvent();
+}
+
+class BlocDetailsEventDeleteEvent extends BlocDetailsEventEvent {
+  const BlocDetailsEventDeleteEvent();
+}
+
+class BlocDetailsEventLeaveEvent extends BlocDetailsEventEvent {
+  const BlocDetailsEventLeaveEvent();
 }

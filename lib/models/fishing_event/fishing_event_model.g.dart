@@ -12,15 +12,17 @@ _$FishingEventImpl _$$FishingEventImplFromJson(Map<String, dynamic> json) =>
       createdBy: json['created_by'] as String,
       title: json['title'] as String,
       description: json['description'] as String,
-      fishingType: (json['fishing_type'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
+      fishingType:
+          (json['fishing_type'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const <String>[],
       location: json['location'] as String,
       startDate: DateTime.parse(json['start_date'] as String),
       endDate: DateTime.parse(json['end_date'] as String),
       status: (json['status'] as num).toInt(),
       departureTime: json['departure_time'] as String,
-      imageUrl: json['image_url'] as String,
+      imageUrl: json['image_url'] as String?,
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),

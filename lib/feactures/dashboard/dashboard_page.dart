@@ -18,9 +18,9 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   int _currentIndex = 0;
-
   Future<void> _changePage(int index) {
     setState(() => _currentIndex = index);
+
     return switch (index) {
       0 => context.router.replace(const HomeRoute()),
       1 => context.router.replace(const CreateEventRoute()),
@@ -30,15 +30,15 @@ class _DashboardPageState extends State<DashboardPage> {
     };
   }
 
-  Future<void> _changeIndex(String name) async {
-    return switch (name) {
-      'Home' => setState(() => _currentIndex = 0),
-      'CreateEvent' => setState(() => _currentIndex = 1),
-      'Social' => setState(() => _currentIndex = 2),
-      'Profile' => setState(() => _currentIndex = 3),
-      _ => setState(() => _currentIndex = 0),
-    };
-  }
+  // void _changeIndex(String name) async {
+  //   return switch (name) {
+  //     'Home' => setState(() => _currentIndex = 0),
+  //     'CreateEvent' => setState(() => _currentIndex = 1),
+  //     'Social' => setState(() => _currentIndex = 2),
+  //     'Profile' => setState(() => _currentIndex = 3),
+  //     _ => setState(() => _currentIndex = 0),
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +61,9 @@ class _DashboardPageState extends State<DashboardPage> {
       ],
       child: AutoRouter(
         builder: (context, content) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            _changeIndex(context.router.current.name);
-          });
+          // WidgetsBinding.instance.addPostFrameCallback((_) {
+          //   _changeIndex(context.router.current.name);
+          // });
 
           return SafeArea(
             child: Scaffold(

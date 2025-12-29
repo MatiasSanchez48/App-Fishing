@@ -14,7 +14,9 @@ class FishingEvent with _$FishingEvent {
 
     /// Ejemplo: ['freshwater', 'saltwater']
     ///  Enum 'FishingType'
-    @JsonKey(name: 'fishing_type') required List<String> fishingType,
+    @JsonKey(name: 'fishing_type')
+    @Default(<String>[])
+    List<String> fishingType,
 
     required String location,
     @JsonKey(name: 'start_date') required DateTime startDate,
@@ -24,11 +26,10 @@ class FishingEvent with _$FishingEvent {
     /// cancelled enum 'EventStatus'
     required int status,
     @JsonKey(name: 'departure_time') required String departureTime,
-    @JsonKey(name: 'image_url') required String imageUrl,
+    @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
 
-    /// 👇 relación
     @Default([]) List<EventParticipant> participants,
   }) = _FishingEvent;
 

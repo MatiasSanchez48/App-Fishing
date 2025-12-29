@@ -51,7 +51,7 @@ class BlocHome extends Bloc<BlocHomeEvent, BlocHomeState> {
     try {
       // emit(BlocHomeStateLoading.from(state));
 
-      // final currentUserId = supabase.auth.currentUser!.id;
+      // final currentUserId = supabase.auth.currentUser?.id ?? '';
 
       // final response = await supabase
       //     .from('users')

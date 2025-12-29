@@ -13,7 +13,7 @@ class EventParticipant with _$EventParticipant {
     @JsonKey(name: 'joined_at') required DateTime joinedAt,
 
     /// 👇 relación
-    Usuario? profiles,
+    Usuario? users,
   }) = _EventParticipant;
 
   factory EventParticipant.fromJson(Map<String, dynamic> json) =>

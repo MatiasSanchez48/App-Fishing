@@ -43,13 +43,11 @@ mixin _$FishingEvent {
   @JsonKey(name: 'departure_time')
   String get departureTime => throw _privateConstructorUsedError;
   @JsonKey(name: 'image_url')
-  String get imageUrl => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt => throw _privateConstructorUsedError;
-
-  /// 👇 relación
   List<EventParticipant> get participants => throw _privateConstructorUsedError;
 
   /// Serializes this FishingEvent to a JSON map.
@@ -80,7 +78,7 @@ abstract class $FishingEventCopyWith<$Res> {
     @JsonKey(name: 'end_date') DateTime endDate,
     int status,
     @JsonKey(name: 'departure_time') String departureTime,
-    @JsonKey(name: 'image_url') String imageUrl,
+    @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
     List<EventParticipant> participants,
@@ -112,7 +110,7 @@ class _$FishingEventCopyWithImpl<$Res, $Val extends FishingEvent>
     Object? endDate = null,
     Object? status = null,
     Object? departureTime = null,
-    Object? imageUrl = null,
+    Object? imageUrl = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? participants = null,
@@ -159,10 +157,10 @@ class _$FishingEventCopyWithImpl<$Res, $Val extends FishingEvent>
                 ? _value.departureTime
                 : departureTime // ignore: cast_nullable_to_non_nullable
                       as String,
-            imageUrl: null == imageUrl
+            imageUrl: freezed == imageUrl
                 ? _value.imageUrl
                 : imageUrl // ignore: cast_nullable_to_non_nullable
-                      as String,
+                      as String?,
             createdAt: freezed == createdAt
                 ? _value.createdAt
                 : createdAt // ignore: cast_nullable_to_non_nullable
@@ -201,7 +199,7 @@ abstract class _$$FishingEventImplCopyWith<$Res>
     @JsonKey(name: 'end_date') DateTime endDate,
     int status,
     @JsonKey(name: 'departure_time') String departureTime,
-    @JsonKey(name: 'image_url') String imageUrl,
+    @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
     List<EventParticipant> participants,
@@ -232,7 +230,7 @@ class __$$FishingEventImplCopyWithImpl<$Res>
     Object? endDate = null,
     Object? status = null,
     Object? departureTime = null,
-    Object? imageUrl = null,
+    Object? imageUrl = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? participants = null,
@@ -279,10 +277,10 @@ class __$$FishingEventImplCopyWithImpl<$Res>
             ? _value.departureTime
             : departureTime // ignore: cast_nullable_to_non_nullable
                   as String,
-        imageUrl: null == imageUrl
+        imageUrl: freezed == imageUrl
             ? _value.imageUrl
             : imageUrl // ignore: cast_nullable_to_non_nullable
-                  as String,
+                  as String?,
         createdAt: freezed == createdAt
             ? _value.createdAt
             : createdAt // ignore: cast_nullable_to_non_nullable
@@ -308,13 +306,14 @@ class _$FishingEventImpl implements _FishingEvent {
     @JsonKey(name: 'created_by') required this.createdBy,
     required this.title,
     required this.description,
-    @JsonKey(name: 'fishing_type') required final List<String> fishingType,
+    @JsonKey(name: 'fishing_type')
+    final List<String> fishingType = const <String>[],
     required this.location,
     @JsonKey(name: 'start_date') required this.startDate,
     @JsonKey(name: 'end_date') required this.endDate,
     required this.status,
     @JsonKey(name: 'departure_time') required this.departureTime,
-    @JsonKey(name: 'image_url') required this.imageUrl,
+    @JsonKey(name: 'image_url') this.imageUrl,
     @JsonKey(name: 'created_at') this.createdAt,
     @JsonKey(name: 'updated_at') this.updatedAt,
     final List<EventParticipant> participants = const [],
@@ -366,18 +365,14 @@ class _$FishingEventImpl implements _FishingEvent {
   final String departureTime;
   @override
   @JsonKey(name: 'image_url')
-  final String imageUrl;
+  final String? imageUrl;
   @override
   @JsonKey(name: 'created_at')
   final DateTime? createdAt;
   @override
   @JsonKey(name: 'updated_at')
   final DateTime? updatedAt;
-
-  /// 👇 relación
   final List<EventParticipant> _participants;
-
-  /// 👇 relación
   @override
   @JsonKey()
   List<EventParticipant> get participants {
@@ -466,13 +461,13 @@ abstract class _FishingEvent implements FishingEvent {
     @JsonKey(name: 'created_by') required final String createdBy,
     required final String title,
     required final String description,
-    @JsonKey(name: 'fishing_type') required final List<String> fishingType,
+    @JsonKey(name: 'fishing_type') final List<String> fishingType,
     required final String location,
     @JsonKey(name: 'start_date') required final DateTime startDate,
     @JsonKey(name: 'end_date') required final DateTime endDate,
     required final int status,
     @JsonKey(name: 'departure_time') required final String departureTime,
-    @JsonKey(name: 'image_url') required final String imageUrl,
+    @JsonKey(name: 'image_url') final String? imageUrl,
     @JsonKey(name: 'created_at') final DateTime? createdAt,
     @JsonKey(name: 'updated_at') final DateTime? updatedAt,
     final List<EventParticipant> participants,
@@ -514,15 +509,13 @@ abstract class _FishingEvent implements FishingEvent {
   String get departureTime;
   @override
   @JsonKey(name: 'image_url')
-  String get imageUrl;
+  String? get imageUrl;
   @override
   @JsonKey(name: 'created_at')
   DateTime? get createdAt;
   @override
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt;
-
-  /// 👇 relación
   @override
   List<EventParticipant> get participants;
 

@@ -30,7 +30,7 @@ mixin _$EventParticipant {
   DateTime get joinedAt => throw _privateConstructorUsedError;
 
   /// 👇 relación
-  Usuario? get profiles => throw _privateConstructorUsedError;
+  Usuario? get users => throw _privateConstructorUsedError;
 
   /// Serializes this EventParticipant to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -54,10 +54,10 @@ abstract class $EventParticipantCopyWith<$Res> {
     @JsonKey(name: 'event_id') int eventId,
     @JsonKey(name: 'user_id') String userId,
     @JsonKey(name: 'joined_at') DateTime joinedAt,
-    Usuario? profiles,
+    Usuario? users,
   });
 
-  $UsuarioCopyWith<$Res>? get profiles;
+  $UsuarioCopyWith<$Res>? get users;
 }
 
 /// @nodoc
@@ -79,7 +79,7 @@ class _$EventParticipantCopyWithImpl<$Res, $Val extends EventParticipant>
     Object? eventId = null,
     Object? userId = null,
     Object? joinedAt = null,
-    Object? profiles = freezed,
+    Object? users = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -99,9 +99,9 @@ class _$EventParticipantCopyWithImpl<$Res, $Val extends EventParticipant>
                 ? _value.joinedAt
                 : joinedAt // ignore: cast_nullable_to_non_nullable
                       as DateTime,
-            profiles: freezed == profiles
-                ? _value.profiles
-                : profiles // ignore: cast_nullable_to_non_nullable
+            users: freezed == users
+                ? _value.users
+                : users // ignore: cast_nullable_to_non_nullable
                       as Usuario?,
           )
           as $Val,
@@ -112,13 +112,13 @@ class _$EventParticipantCopyWithImpl<$Res, $Val extends EventParticipant>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $UsuarioCopyWith<$Res>? get profiles {
-    if (_value.profiles == null) {
+  $UsuarioCopyWith<$Res>? get users {
+    if (_value.users == null) {
       return null;
     }
 
-    return $UsuarioCopyWith<$Res>(_value.profiles!, (value) {
-      return _then(_value.copyWith(profiles: value) as $Val);
+    return $UsuarioCopyWith<$Res>(_value.users!, (value) {
+      return _then(_value.copyWith(users: value) as $Val);
     });
   }
 }
@@ -137,11 +137,11 @@ abstract class _$$EventParticipantImplCopyWith<$Res>
     @JsonKey(name: 'event_id') int eventId,
     @JsonKey(name: 'user_id') String userId,
     @JsonKey(name: 'joined_at') DateTime joinedAt,
-    Usuario? profiles,
+    Usuario? users,
   });
 
   @override
-  $UsuarioCopyWith<$Res>? get profiles;
+  $UsuarioCopyWith<$Res>? get users;
 }
 
 /// @nodoc
@@ -162,7 +162,7 @@ class __$$EventParticipantImplCopyWithImpl<$Res>
     Object? eventId = null,
     Object? userId = null,
     Object? joinedAt = null,
-    Object? profiles = freezed,
+    Object? users = freezed,
   }) {
     return _then(
       _$EventParticipantImpl(
@@ -182,9 +182,9 @@ class __$$EventParticipantImplCopyWithImpl<$Res>
             ? _value.joinedAt
             : joinedAt // ignore: cast_nullable_to_non_nullable
                   as DateTime,
-        profiles: freezed == profiles
-            ? _value.profiles
-            : profiles // ignore: cast_nullable_to_non_nullable
+        users: freezed == users
+            ? _value.users
+            : users // ignore: cast_nullable_to_non_nullable
                   as Usuario?,
       ),
     );
@@ -199,7 +199,7 @@ class _$EventParticipantImpl implements _EventParticipant {
     @JsonKey(name: 'event_id') required this.eventId,
     @JsonKey(name: 'user_id') required this.userId,
     @JsonKey(name: 'joined_at') required this.joinedAt,
-    this.profiles,
+    this.users,
   });
 
   factory _$EventParticipantImpl.fromJson(Map<String, dynamic> json) =>
@@ -219,11 +219,11 @@ class _$EventParticipantImpl implements _EventParticipant {
 
   /// 👇 relación
   @override
-  final Usuario? profiles;
+  final Usuario? users;
 
   @override
   String toString() {
-    return 'EventParticipant(id: $id, eventId: $eventId, userId: $userId, joinedAt: $joinedAt, profiles: $profiles)';
+    return 'EventParticipant(id: $id, eventId: $eventId, userId: $userId, joinedAt: $joinedAt, users: $users)';
   }
 
   @override
@@ -236,14 +236,13 @@ class _$EventParticipantImpl implements _EventParticipant {
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.joinedAt, joinedAt) ||
                 other.joinedAt == joinedAt) &&
-            (identical(other.profiles, profiles) ||
-                other.profiles == profiles));
+            (identical(other.users, users) || other.users == users));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, eventId, userId, joinedAt, profiles);
+      Object.hash(runtimeType, id, eventId, userId, joinedAt, users);
 
   /// Create a copy of EventParticipant
   /// with the given fields replaced by the non-null parameter values.
@@ -268,7 +267,7 @@ abstract class _EventParticipant implements EventParticipant {
     @JsonKey(name: 'event_id') required final int eventId,
     @JsonKey(name: 'user_id') required final String userId,
     @JsonKey(name: 'joined_at') required final DateTime joinedAt,
-    final Usuario? profiles,
+    final Usuario? users,
   }) = _$EventParticipantImpl;
 
   factory _EventParticipant.fromJson(Map<String, dynamic> json) =
@@ -288,7 +287,7 @@ abstract class _EventParticipant implements EventParticipant {
 
   /// 👇 relación
   @override
-  Usuario? get profiles;
+  Usuario? get users;
 
   /// Create a copy of EventParticipant
   /// with the given fields replaced by the non-null parameter values.

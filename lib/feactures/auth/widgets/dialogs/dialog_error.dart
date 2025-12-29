@@ -40,7 +40,7 @@ class DialogError extends StatelessWidget {
             size: 50,
           ),
           const SizedBox(height: 10),
-          Text(
+          SelectableText(
             description,
             textAlign: TextAlign.center,
           ),

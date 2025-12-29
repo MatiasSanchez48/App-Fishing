@@ -1,13 +1,14 @@
+import 'package:chat_flutter_supabase/models/models.dart';
 import 'package:flutter/material.dart';
 
 class ParticipantWidget extends StatelessWidget {
   const ParticipantWidget({
-    required this.participantes,
+    required this.participants,
     super.key,
   });
 
   /// Participantes
-  final List<String> participantes;
+  final List<EventParticipant> participants;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class ParticipantWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Participantes',
+          'Participants',
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
@@ -26,16 +27,34 @@ class ParticipantWidget extends StatelessWidget {
           height: 56, // alto del contenedor de avatares
           child: Stack(
             children: [
-              for (int i = 0; i < participantes.length; i++)
+              for (int i = 0; i < participants.length; i++)
                 Positioned(
                   left: i * 36,
                   child: CircleAvatar(
                     radius: 28,
                     backgroundColor: Colors.white,
-                    child: CircleAvatar(
-                      radius: 26,
-                      backgroundImage: NetworkImage(participantes[i]),
-                    ),
+                    child:
+                        (participants[i].users?.avatarUrl == null ||
+                            participants[i].users?.avatarUrl == '')
+                        ? const CircleAvatar(
+                            radius: 26,
+                            child: Text(
+                              '?',
+                            ),
+                          )
+                        : CircleAvatar(
+                            radius: 26,
+                            backgroundImage: NetworkImage(
+                              participants[i].users?.avatarUrl ?? '',
+                            ),
+                            onBackgroundImageError: (exception, stackTrace) =>
+                                const CircleAvatar(
+                                  radius: 26,
+                                  child: Text(
+                                    '?',
+                                  ),
+                                ),
+                          ),
                   ),
                 ),
             ],

@@ -1,7 +1,18 @@
+import 'package:chat_flutter_supabase/models/event_participant/event_participant_model.dart';
 import 'package:flutter/material.dart';
 
 class ParticipantGroup extends StatelessWidget {
-  const ParticipantGroup({super.key});
+  const ParticipantGroup({
+    required this.participant,
+    this.isAdmin = false,
+    super.key,
+  });
+
+  ///
+  final EventParticipant participant;
+
+  ///
+  final bool isAdmin;
 
   @override
   Widget build(BuildContext context) {
@@ -17,25 +28,26 @@ class ParticipantGroup extends StatelessWidget {
         onTap: () {
           /// TODO : Navegar a la pantalla del perfil
         },
-        child: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
             children: [
               Text(
-                'Juan Perez',
+                participant.users?.username ?? '',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              Spacer(),
-              Icon(
-                Icons.star,
-                size: 25,
-                color: Colors.orangeAccent,
-              ),
+              const Spacer(),
+              if (isAdmin)
+                const Icon(
+                  Icons.star,
+                  size: 25,
+                  color: Colors.orangeAccent,
+                ),
             ],
           ),
         ),

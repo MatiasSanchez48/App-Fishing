@@ -37,7 +37,7 @@ class CardLeave extends StatelessWidget {
                     color: Colors.red,
                   ),
 
-                  image: NetworkImage(event.imageUrl),
+                  image: NetworkImage(event.imageUrl ?? ''),
                 ),
               ),
             ),
