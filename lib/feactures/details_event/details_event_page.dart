@@ -81,7 +81,7 @@ class DetailsEventPage extends StatelessWidget {
             AppbarCustom(
               title: 'Details event',
               iconLeft: Icons.arrow_back_ios_outlined,
-              onPressed: () => context.router.pop(),
+              onPressed: () => context.router.push(const HomeRoute()),
             ),
             const SizedBox(height: 15),
             BlocConsumer<BlocDetailsEvent, BlocDetailsEventState>(
@@ -273,35 +273,6 @@ class DetailsEventPage extends StatelessWidget {
                                           color: Colors.white,
                                           fontSize: 16,
                                           fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 30),
-                              Expanded(
-                                child: TextButton(
-                                  style: TextButton.styleFrom(
-                                    backgroundColor: Colors.blue[100],
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                        10,
-                                      ),
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    /// TODO : Navegar a la pantalla del perfil
-                                  },
-                                  child: const SizedBox(
-                                    height: 50,
-                                    child: Center(
-                                      child: Text(
-                                        'Chat',
-                                        style: TextStyle(
-                                          color: Colors.blue,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
                                         ),
                                       ),
                                     ),

@@ -43,6 +43,38 @@ class RepositoryFishingEvent extends BaseRepository {
     return response.map(FishingEvent.fromJson).toList();
   }
 
+  Future<List<FishingEvent>> getMyEvents({
+    int page = 0,
+    int pageSize = 10,
+  }) async {
+    final userId = supabase.auth.currentUser!.id;
+
+    final from = page * pageSize;
+    final to = from + pageSize - 1;
+
+    final response = await supabase
+        .from('fishing_events')
+        .select('''
+        *,
+        event_participants!inner (
+          id,
+          event_id,
+          user_id,
+          joined_at,
+          users (
+            uuid,
+            username,
+            avatar_url
+          )
+        )
+      ''')
+        .eq('event_participants.user_id', userId)
+        .order('start_date', ascending: true)
+        .range(from, to);
+
+    return response.map(FishingEvent.fromJson).toList();
+  }
+
   ///
   Future<FishingEvent?> getEventById(int id) async {
     final response = await supabase

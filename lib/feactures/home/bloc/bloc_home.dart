@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:chat_flutter_supabase/extensions/extensions.dart';
 import 'package:chat_flutter_supabase/models/models.dart';
-import 'package:chat_flutter_supabase/models/user/user_model.dart';
 import 'package:chat_flutter_supabase/repository/repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -35,9 +34,16 @@ class BlocHome extends Bloc<BlocHomeEvent, BlocHomeState> {
       emit(BlocHomeStateLoading.from(state));
 
       final events = await _repositoryFishingEvent.getAllEvents();
+      final myEvents = await _repositoryFishingEvent.getMyEvents();
       final formattedEvents = FishingEventExtension.sortByDate(events);
 
-      emit(BlocHomeStateSuccess.from(state, events: formattedEvents));
+      emit(
+        BlocHomeStateSuccess.from(
+          state,
+          events: formattedEvents,
+          myEvents: myEvents,
+        ),
+      );
     } on Exception catch (e, st) {
       emit(BlocHomeStateError.from(state, errorMessage: '$e $st'));
     }

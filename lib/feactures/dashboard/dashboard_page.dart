@@ -3,7 +3,6 @@ import 'package:chat_flutter_supabase/auto_route/auto_route.gr.dart';
 import 'package:chat_flutter_supabase/extensions/extensions.dart';
 import 'package:chat_flutter_supabase/feactures/create_event/bloc/bloc_create_event.dart';
 import 'package:chat_flutter_supabase/feactures/dashboard/bloc/bloc_dashboard.dart';
-import 'package:chat_flutter_supabase/feactures/home/bloc/bloc_home.dart';
 import 'package:chat_flutter_supabase/feactures/message/bloc/bloc_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +24,11 @@ class _DashboardPageState extends State<DashboardPage> {
       0 => context.router.replace(const HomeRoute()),
       1 => context.router.replace(const CreateEventRoute()),
       2 => context.router.replace(const SocialRoute()),
-      3 => context.router.replace(const ProfileRoute()),
+      3 => context.router.replace(
+        ProfileRoute(
+          id: context.supabase.auth.currentUser?.id ?? '',
+        ),
+      ),
       _ => context.router.replace(const HomeRoute()),
     };
   }
@@ -48,9 +51,6 @@ class _DashboardPageState extends State<DashboardPage> {
       providers: [
         BlocProvider<BlocDashboard>(
           create: (context) => BlocDashboard(),
-        ),
-        BlocProvider<BlocHome>(
-          create: (context) => BlocHome(supabase: supabase),
         ),
         BlocProvider<BlocMessage>(
           create: (context) => BlocMessage(supabase: supabase),

@@ -5,7 +5,13 @@ import 'package:flutter/material.dart';
 
 @RoutePage()
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({
+    @PathParam('id') required this.id,
+    super.key,
+  });
+
+  /// id del usuario
+  final String id;
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();

@@ -71,8 +71,12 @@ class BlocDetailsEvent
         state.event!.id,
       );
       final newEvent = state.event?.copyWith(
-        participants: [...state.event?.participants ?? [], joinEvent],
+        participants: [
+          ...state.event?.participants ?? [],
+          joinEvent,
+        ],
       );
+      
       emit(
         BlocDetailsEventStateSuccessJoinEvent.from(
           state,

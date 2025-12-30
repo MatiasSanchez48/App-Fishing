@@ -4,6 +4,7 @@ class BlocHomeState extends Equatable {
   const BlocHomeState._({
     this.users = const [],
     this.events = const [],
+    this.myEvents = const [],
   });
 
   BlocHomeState.from(
@@ -11,9 +12,11 @@ class BlocHomeState extends Equatable {
 
     List<Usuario>? users,
     List<FishingEvent>? events,
+    List<FishingEvent>? myEvents,
   }) : this._(
          users: users ?? state.users,
          events: events ?? state.events,
+         myEvents: myEvents ?? state.myEvents,
        );
 
   ///
@@ -22,10 +25,14 @@ class BlocHomeState extends Equatable {
   ///
   final List<FishingEvent> events;
 
+  ///
+  final List<FishingEvent> myEvents;
+
   @override
   List<Object?> get props => [
     users,
     events,
+    myEvents,
   ];
 }
 
@@ -42,6 +49,7 @@ class BlocHomeStateSuccess extends BlocHomeState {
     super.state, {
     super.users,
     super.events,
+    super.myEvents,
   }) : super.from();
 }
 
