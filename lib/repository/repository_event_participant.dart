@@ -13,16 +13,33 @@ class RepositoryEventParticipant extends BaseRepository {
     return response.map(EventParticipant.fromJson).toList();
   }
 
-  Future<void> joinEvent(int eventId, String userId) async {
-    final userId = supabase.auth.currentUser!.id;
+  Future<EventParticipant> joinEvent(int eventId) async {
+    final userId = supabase.auth.currentUser?.id ?? '';
 
-    await supabase.from('event_participants').insert({
-      'event_id': eventId,
-      'user_id': userId,
-    });
+    final response = await supabase
+        .from('event_participants')
+        .insert({
+          'event_id': eventId,
+          'user_id': userId,
+        })
+        .select('''
+      id,
+      event_id,
+      user_id,
+      joined_at,
+      users (
+        uuid,
+        username,
+        avatar_url,
+        email
+      )
+    ''')
+        .single();
+
+    return EventParticipant.fromJson(response);
   }
 
-  Future<void> leaveEvent(int eventId) async {
+  Future<FishingEvent> leaveEvent(int eventId) async {
     final userId = supabase.auth.currentUser!.id;
 
     await supabase
@@ -30,5 +47,27 @@ class RepositoryEventParticipant extends BaseRepository {
         .delete()
         .eq('event_id', eventId)
         .eq('user_id', userId);
+
+    final response = await supabase
+        .from('fishing_events')
+        .select('''
+        *,
+        participants:event_participants (
+          id,
+          event_id,
+          user_id,
+          joined_at,
+          users (
+            uuid,
+            username,
+            avatar_url,
+            email
+          )
+        )
+      ''')
+        .eq('id', eventId)
+        .single();
+
+    return FishingEvent.fromJson(response);
   }
 }

@@ -219,18 +219,53 @@ class MessageRouteArgs {
 
 /// generated route for
 /// [_i8.ProfilePage]
-class ProfileRoute extends _i13.PageRouteInfo<void> {
-  const ProfileRoute({List<_i13.PageRouteInfo>? children})
-    : super(ProfileRoute.name, initialChildren: children);
+class ProfileRoute extends _i13.PageRouteInfo<ProfileRouteArgs> {
+  ProfileRoute({
+    required String id,
+    _i14.Key? key,
+    List<_i13.PageRouteInfo>? children,
+  }) : super(
+         ProfileRoute.name,
+         args: ProfileRouteArgs(id: id, key: key),
+         rawPathParams: {'id': id},
+         initialChildren: children,
+       );
 
   static const String name = 'ProfileRoute';
 
   static _i13.PageInfo page = _i13.PageInfo(
     name,
     builder: (data) {
-      return const _i8.ProfilePage();
+      final pathParams = data.inheritedPathParams;
+      final args = data.argsAs<ProfileRouteArgs>(
+        orElse: () => ProfileRouteArgs(id: pathParams.getString('id')),
+      );
+      return _i8.ProfilePage(id: args.id, key: args.key);
     },
   );
+}
+
+class ProfileRouteArgs {
+  const ProfileRouteArgs({required this.id, this.key});
+
+  final String id;
+
+  final _i14.Key? key;
+
+  @override
+  String toString() {
+    return 'ProfileRouteArgs{id: $id, key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ProfileRouteArgs) return false;
+    return id == other.id && key == other.key;
+  }
+
+  @override
+  int get hashCode => id.hashCode ^ key.hashCode;
 }
 
 /// generated route for

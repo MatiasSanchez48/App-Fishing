@@ -1,8 +1,14 @@
 import 'package:chat_flutter_supabase/models/models.dart';
 import 'package:chat_flutter_supabase/repository/base_repository.dart';
+import 'package:chat_flutter_supabase/repository/repository.dart';
 
 class RepositoryFishingEvent extends BaseRepository {
-  const RepositoryFishingEvent({required super.supabase});
+  RepositoryFishingEvent({required super.supabase})
+    : _repositoryEventParticipant = RepositoryEventParticipant(
+        supabase: supabase,
+      );
+
+  final RepositoryEventParticipant _repositoryEventParticipant;
 
   ///
   Future<List<FishingEvent>> getAllEvents({
@@ -37,11 +43,57 @@ class RepositoryFishingEvent extends BaseRepository {
     return response.map(FishingEvent.fromJson).toList();
   }
 
-  ///
-  Future<FishingEvent?> getEventById(String id) async {
+  Future<List<FishingEvent>> getMyEvents({
+    int page = 0,
+    int pageSize = 10,
+  }) async {
+    final userId = supabase.auth.currentUser!.id;
+
+    final from = page * pageSize;
+    final to = from + pageSize - 1;
+
     final response = await supabase
         .from('fishing_events')
-        .select()
+        .select('''
+        *,
+        event_participants!inner (
+          id,
+          event_id,
+          user_id,
+          joined_at,
+          users (
+            uuid,
+            username,
+            avatar_url
+          )
+        )
+      ''')
+        .eq('event_participants.user_id', userId)
+        .order('start_date', ascending: true)
+        .range(from, to);
+
+    return response.map(FishingEvent.fromJson).toList();
+  }
+
+  ///
+  Future<FishingEvent?> getEventById(int id) async {
+    final response = await supabase
+        .from('fishing_events')
+        .select('''
+        *,
+        participants:event_participants (
+        id,
+        event_id,
+        user_id,
+        joined_at,
+        users (
+          uuid,
+          username,
+          avatar_url,
+          email
+        )
+      )
+      ''')
         .eq('id', id)
         .single();
 
@@ -72,9 +124,18 @@ class RepositoryFishingEvent extends BaseRepository {
           .select()
           .single();
 
-      return FishingEvent.fromJson(response);
+      final createdEvent = FishingEvent.fromJson(response);
+
+      await _repositoryEventParticipant.joinEvent(createdEvent.id);
+
+      return createdEvent;
     } catch (e) {
       rethrow;
     }
+  }
+
+  ///
+  Future<void> deleteEvent(int eventId) async {
+    await supabase.from('fishing_events').delete().eq('id', eventId);
   }
 }

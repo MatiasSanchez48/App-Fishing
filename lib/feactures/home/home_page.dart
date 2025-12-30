@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:chat_flutter_supabase/extensions/extensions.dart';
 import 'package:chat_flutter_supabase/feactures/home/bloc/bloc_home.dart';
 import 'package:chat_flutter_supabase/feactures/home/widgets/widgets.dart';
 import 'package:chat_flutter_supabase/feactures/widgets/widgets.dart';
@@ -6,75 +7,165 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  ///
+  bool _seeMore = false;
+
+  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const AppbarCustom(
-              title: 'Home',
-              iconRight: Icons.settings_outlined,
-            ),
-            const SizedBox(height: 30),
+    final supabase = context.supabase;
 
-            const Text(
-              'Proximas Salidas',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+    return BlocProvider<BlocHome>(
+      create: (context) => BlocHome(supabase: supabase),
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const AppbarCustom(
+                title: 'Home',
+                iconRight: Icons.settings_outlined,
               ),
-            ),
-
-            const SizedBox(height: 10),
-            BlocBuilder<BlocHome, BlocHomeState>(
-              builder: (context, state) {
-                if (state is BlocHomeStateLoading) {
-                  return const SizedBox(
-                    height: 230,
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                }
-
-                return SizedBox(
-                  height: 230,
-                  child: ListView.builder(
-                    itemCount: state.events.take(3).length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => CardLeave(
-                      event: state.events[index],
+              const SizedBox(height: 30),
+              Row(
+                children: [
+                  const Text(
+                    'My next outings',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                );
-              },
-            ),
-            const Text(
-              'Evento Mas Cercanos',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+                  const Spacer(),
+                  SizedBox(
+                    width: 100,
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: () => setState(() => _seeMore = !_seeMore),
+                      child: Text(
+                        _seeMore ? 'See less' : 'See more',
+                        style: const TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            const CardEventEarly(),
-            const SizedBox(height: 20),
-            const Text(
-              'Publicaciones',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+              const SizedBox(height: 10),
+              BlocBuilder<BlocHome, BlocHomeState>(
+                builder: (context, state) {
+                  if (state is BlocHomeStateLoading) {
+                    return const SizedBox(
+                      height: 210,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+
+                  if (state.myEvents.isEmpty) {
+                    return SizedBox(
+                      height: 210,
+                      child: Center(
+                        child: Text(
+                          'No outings yet',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+
+                  return SizedBox(
+                    height: _seeMore ? (state.myEvents.length * 210) : 210,
+                    child: ListView.builder(
+                      itemCount: _seeMore ? state.myEvents.length : 1,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) => CardEventEarly(
+                        event: state.myEvents[index],
+                      ),
+                    ),
+                  );
+                },
               ),
-            ),
-            const SizedBox(height: 15),
-            const SocialCardEvent(),
-            const SizedBox(height: 20),
-          ],
+
+              const SizedBox(height: 10),
+              const Text(
+                'Events near today',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 10),
+              BlocBuilder<BlocHome, BlocHomeState>(
+                builder: (context, state) {
+                  if (state is BlocHomeStateLoading) {
+                    return const SizedBox(
+                      height: 230,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+                  if (state.events.isEmpty) {
+                    return SizedBox(
+                      height: 230,
+                      child: Center(
+                        child: Text(
+                          'No outings yet',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                  return SizedBox(
+                    height: 230,
+                    child: ListView.builder(
+                      itemCount: state.events.take(3).length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => CardLeave(
+                        event: state.events[index],
+                      ),
+                    ),
+                  );
+                },
+              ),
+
+              const SizedBox(height: 20),
+              const Text(
+                'Recent activity',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 15),
+              const SocialCardEvent(),
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );

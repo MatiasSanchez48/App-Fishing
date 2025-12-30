@@ -22,8 +22,8 @@ Usuario _$UsuarioFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Usuario {
   String get uuid => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
   @JsonKey(name: 'avatar_url')
   String? get avatarUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
@@ -45,8 +45,8 @@ abstract class $UsuarioCopyWith<$Res> {
   @useResult
   $Res call({
     String uuid,
-    String email,
     String username,
+    String? email,
     @JsonKey(name: 'avatar_url') String? avatarUrl,
     @JsonKey(name: 'created_at') DateTime? createdAt,
   });
@@ -68,8 +68,8 @@ class _$UsuarioCopyWithImpl<$Res, $Val extends Usuario>
   @override
   $Res call({
     Object? uuid = null,
-    Object? email = null,
     Object? username = null,
+    Object? email = freezed,
     Object? avatarUrl = freezed,
     Object? createdAt = freezed,
   }) {
@@ -79,14 +79,14 @@ class _$UsuarioCopyWithImpl<$Res, $Val extends Usuario>
                 ? _value.uuid
                 : uuid // ignore: cast_nullable_to_non_nullable
                       as String,
-            email: null == email
-                ? _value.email
-                : email // ignore: cast_nullable_to_non_nullable
-                      as String,
             username: null == username
                 ? _value.username
                 : username // ignore: cast_nullable_to_non_nullable
                       as String,
+            email: freezed == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
+                      as String?,
             avatarUrl: freezed == avatarUrl
                 ? _value.avatarUrl
                 : avatarUrl // ignore: cast_nullable_to_non_nullable
@@ -111,8 +111,8 @@ abstract class _$$UsuarioImplCopyWith<$Res> implements $UsuarioCopyWith<$Res> {
   @useResult
   $Res call({
     String uuid,
-    String email,
     String username,
+    String? email,
     @JsonKey(name: 'avatar_url') String? avatarUrl,
     @JsonKey(name: 'created_at') DateTime? createdAt,
   });
@@ -133,8 +133,8 @@ class __$$UsuarioImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? uuid = null,
-    Object? email = null,
     Object? username = null,
+    Object? email = freezed,
     Object? avatarUrl = freezed,
     Object? createdAt = freezed,
   }) {
@@ -144,14 +144,14 @@ class __$$UsuarioImplCopyWithImpl<$Res>
             ? _value.uuid
             : uuid // ignore: cast_nullable_to_non_nullable
                   as String,
-        email: null == email
-            ? _value.email
-            : email // ignore: cast_nullable_to_non_nullable
-                  as String,
         username: null == username
             ? _value.username
             : username // ignore: cast_nullable_to_non_nullable
                   as String,
+        email: freezed == email
+            ? _value.email
+            : email // ignore: cast_nullable_to_non_nullable
+                  as String?,
         avatarUrl: freezed == avatarUrl
             ? _value.avatarUrl
             : avatarUrl // ignore: cast_nullable_to_non_nullable
@@ -170,8 +170,8 @@ class __$$UsuarioImplCopyWithImpl<$Res>
 class _$UsuarioImpl implements _Usuario {
   const _$UsuarioImpl({
     required this.uuid,
-    required this.email,
     required this.username,
+    this.email,
     @JsonKey(name: 'avatar_url') this.avatarUrl,
     @JsonKey(name: 'created_at') this.createdAt,
   });
@@ -182,9 +182,9 @@ class _$UsuarioImpl implements _Usuario {
   @override
   final String uuid;
   @override
-  final String email;
-  @override
   final String username;
+  @override
+  final String? email;
   @override
   @JsonKey(name: 'avatar_url')
   final String? avatarUrl;
@@ -194,7 +194,7 @@ class _$UsuarioImpl implements _Usuario {
 
   @override
   String toString() {
-    return 'Usuario(uuid: $uuid, email: $email, username: $username, avatarUrl: $avatarUrl, createdAt: $createdAt)';
+    return 'Usuario(uuid: $uuid, username: $username, email: $email, avatarUrl: $avatarUrl, createdAt: $createdAt)';
   }
 
   @override
@@ -203,9 +203,9 @@ class _$UsuarioImpl implements _Usuario {
         (other.runtimeType == runtimeType &&
             other is _$UsuarioImpl &&
             (identical(other.uuid, uuid) || other.uuid == uuid) &&
-            (identical(other.email, email) || other.email == email) &&
             (identical(other.username, username) ||
                 other.username == username) &&
+            (identical(other.email, email) || other.email == email) &&
             (identical(other.avatarUrl, avatarUrl) ||
                 other.avatarUrl == avatarUrl) &&
             (identical(other.createdAt, createdAt) ||
@@ -215,7 +215,7 @@ class _$UsuarioImpl implements _Usuario {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, uuid, email, username, avatarUrl, createdAt);
+      Object.hash(runtimeType, uuid, username, email, avatarUrl, createdAt);
 
   /// Create a copy of Usuario
   /// with the given fields replaced by the non-null parameter values.
@@ -234,8 +234,8 @@ class _$UsuarioImpl implements _Usuario {
 abstract class _Usuario implements Usuario {
   const factory _Usuario({
     required final String uuid,
-    required final String email,
     required final String username,
+    final String? email,
     @JsonKey(name: 'avatar_url') final String? avatarUrl,
     @JsonKey(name: 'created_at') final DateTime? createdAt,
   }) = _$UsuarioImpl;
@@ -245,9 +245,9 @@ abstract class _Usuario implements Usuario {
   @override
   String get uuid;
   @override
-  String get email;
-  @override
   String get username;
+  @override
+  String? get email;
   @override
   @JsonKey(name: 'avatar_url')
   String? get avatarUrl;

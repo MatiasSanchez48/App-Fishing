@@ -9,6 +9,7 @@ class Publications extends StatefulWidget {
 
 class _PublicationsState extends State<Publications>
     with SingleTickerProviderStateMixin {
+  ///
   late TabController _tabController;
 
   @override
@@ -101,6 +102,7 @@ class _EventosTabState extends State<_EventosTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          ///! LLAMAR A LOS EVENTOS QUE CREE! QUE SOY DUEÑO (CREATED BY ME)
           const Text(
             'Eventos creados',
             style: TextStyle(
@@ -111,6 +113,7 @@ class _EventosTabState extends State<_EventosTab> {
           const SizedBox(height: 10),
           _buildGrid(eventosCreados),
           const SizedBox(height: 20),
+          //! LLAMAR A LOS EVENTOS QUE ME UNI que no soy dueño
           const Text(
             'Eventos a los que se ha unido',
             style: TextStyle(

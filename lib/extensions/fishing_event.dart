@@ -15,4 +15,8 @@ extension FishingEventExtension on FishingEvent {
 
     return [...upcoming, ...past];
   }
+
+  bool isUnited(String userId) => participants.any((e) => e.userId == userId);
+
+  bool isHost(String userId) => createdBy == userId;
 }
