@@ -24,6 +24,8 @@ mixin _$Usuario {
   String get uuid => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError; // bio
+  String? get handle => throw _privateConstructorUsedError; // @nombre_ejemplo
   @JsonKey(name: 'avatar_url')
   String? get avatarUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
@@ -47,6 +49,8 @@ abstract class $UsuarioCopyWith<$Res> {
     String uuid,
     String username,
     String? email,
+    String? description,
+    String? handle,
     @JsonKey(name: 'avatar_url') String? avatarUrl,
     @JsonKey(name: 'created_at') DateTime? createdAt,
   });
@@ -70,6 +74,8 @@ class _$UsuarioCopyWithImpl<$Res, $Val extends Usuario>
     Object? uuid = null,
     Object? username = null,
     Object? email = freezed,
+    Object? description = freezed,
+    Object? handle = freezed,
     Object? avatarUrl = freezed,
     Object? createdAt = freezed,
   }) {
@@ -86,6 +92,14 @@ class _$UsuarioCopyWithImpl<$Res, $Val extends Usuario>
             email: freezed == email
                 ? _value.email
                 : email // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            description: freezed == description
+                ? _value.description
+                : description // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            handle: freezed == handle
+                ? _value.handle
+                : handle // ignore: cast_nullable_to_non_nullable
                       as String?,
             avatarUrl: freezed == avatarUrl
                 ? _value.avatarUrl
@@ -113,6 +127,8 @@ abstract class _$$UsuarioImplCopyWith<$Res> implements $UsuarioCopyWith<$Res> {
     String uuid,
     String username,
     String? email,
+    String? description,
+    String? handle,
     @JsonKey(name: 'avatar_url') String? avatarUrl,
     @JsonKey(name: 'created_at') DateTime? createdAt,
   });
@@ -135,6 +151,8 @@ class __$$UsuarioImplCopyWithImpl<$Res>
     Object? uuid = null,
     Object? username = null,
     Object? email = freezed,
+    Object? description = freezed,
+    Object? handle = freezed,
     Object? avatarUrl = freezed,
     Object? createdAt = freezed,
   }) {
@@ -151,6 +169,14 @@ class __$$UsuarioImplCopyWithImpl<$Res>
         email: freezed == email
             ? _value.email
             : email // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        description: freezed == description
+            ? _value.description
+            : description // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        handle: freezed == handle
+            ? _value.handle
+            : handle // ignore: cast_nullable_to_non_nullable
                   as String?,
         avatarUrl: freezed == avatarUrl
             ? _value.avatarUrl
@@ -172,6 +198,8 @@ class _$UsuarioImpl implements _Usuario {
     required this.uuid,
     required this.username,
     this.email,
+    this.description,
+    this.handle,
     @JsonKey(name: 'avatar_url') this.avatarUrl,
     @JsonKey(name: 'created_at') this.createdAt,
   });
@@ -186,6 +214,12 @@ class _$UsuarioImpl implements _Usuario {
   @override
   final String? email;
   @override
+  final String? description;
+  // bio
+  @override
+  final String? handle;
+  // @nombre_ejemplo
+  @override
   @JsonKey(name: 'avatar_url')
   final String? avatarUrl;
   @override
@@ -194,7 +228,7 @@ class _$UsuarioImpl implements _Usuario {
 
   @override
   String toString() {
-    return 'Usuario(uuid: $uuid, username: $username, email: $email, avatarUrl: $avatarUrl, createdAt: $createdAt)';
+    return 'Usuario(uuid: $uuid, username: $username, email: $email, description: $description, handle: $handle, avatarUrl: $avatarUrl, createdAt: $createdAt)';
   }
 
   @override
@@ -206,6 +240,9 @@ class _$UsuarioImpl implements _Usuario {
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.email, email) || other.email == email) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.handle, handle) || other.handle == handle) &&
             (identical(other.avatarUrl, avatarUrl) ||
                 other.avatarUrl == avatarUrl) &&
             (identical(other.createdAt, createdAt) ||
@@ -214,8 +251,16 @@ class _$UsuarioImpl implements _Usuario {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, uuid, username, email, avatarUrl, createdAt);
+  int get hashCode => Object.hash(
+    runtimeType,
+    uuid,
+    username,
+    email,
+    description,
+    handle,
+    avatarUrl,
+    createdAt,
+  );
 
   /// Create a copy of Usuario
   /// with the given fields replaced by the non-null parameter values.
@@ -236,6 +281,8 @@ abstract class _Usuario implements Usuario {
     required final String uuid,
     required final String username,
     final String? email,
+    final String? description,
+    final String? handle,
     @JsonKey(name: 'avatar_url') final String? avatarUrl,
     @JsonKey(name: 'created_at') final DateTime? createdAt,
   }) = _$UsuarioImpl;
@@ -248,6 +295,10 @@ abstract class _Usuario implements Usuario {
   String get username;
   @override
   String? get email;
+  @override
+  String? get description; // bio
+  @override
+  String? get handle; // @nombre_ejemplo
   @override
   @JsonKey(name: 'avatar_url')
   String? get avatarUrl;

@@ -6,3 +6,46 @@ class BlocProfileEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class BlocProfileEventGetProfile extends BlocProfileEvent {
+  const BlocProfileEventGetProfile({required this.id});
+
+  ///
+  final String id;
+}
+
+class BlocProfileEventGetMyEvents extends BlocProfileEvent {
+  const BlocProfileEventGetMyEvents({required this.id});
+
+  ///
+  final String id;
+}
+
+class BlocProfileEventSaveDataProfile extends BlocProfileEvent {
+  const BlocProfileEventSaveDataProfile({
+    this.id,
+    this.name,
+    this.handle,
+    this.imageUrl,
+    this.description,
+  });
+
+  ///
+  final String? id;
+
+  ///
+  final String? name;
+
+  ///
+  final String? description;
+
+  ///
+  final String? handle;
+
+  ///
+  final XFile? imageUrl;
+}
+
+class BlocProfileEventEditProfile extends BlocProfileEvent {
+  const BlocProfileEventEditProfile();
+}

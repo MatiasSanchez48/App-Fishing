@@ -4,6 +4,7 @@ import 'package:chat_flutter_supabase/extensions/extensions.dart';
 import 'package:chat_flutter_supabase/feactures/create_event/bloc/bloc_create_event.dart';
 import 'package:chat_flutter_supabase/feactures/dashboard/bloc/bloc_dashboard.dart';
 import 'package:chat_flutter_supabase/feactures/message/bloc/bloc_message.dart';
+import 'package:chat_flutter_supabase/feactures/profile/bloc/bloc_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,15 +34,17 @@ class _DashboardPageState extends State<DashboardPage> {
     };
   }
 
-  // void _changeIndex(String name) async {
-  //   return switch (name) {
-  //     'Home' => setState(() => _currentIndex = 0),
-  //     'CreateEvent' => setState(() => _currentIndex = 1),
-  //     'Social' => setState(() => _currentIndex = 2),
-  //     'Profile' => setState(() => _currentIndex = 3),
-  //     _ => setState(() => _currentIndex = 0),
-  //   };
-  // }
+  Future<void> _changeIndex(String name) async {
+    return switch (name) {
+      'HomeRoute' => setState(() => _currentIndex = 0),
+      'CreateEventRoute' => setState(() => _currentIndex = 1),
+      ('SocialRoute' || 'CreateSocialRoute') => setState(
+        () => _currentIndex = 2,
+      ),
+      'ProfileRoute' => setState(() => _currentIndex = 3),
+      _ => setState(() => _currentIndex = 0),
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,16 +61,21 @@ class _DashboardPageState extends State<DashboardPage> {
         BlocProvider<BlocCreateEvent>(
           create: (context) => BlocCreateEvent(supabase: supabase),
         ),
+        BlocProvider<BlocProfile>(
+          create: (context) => BlocProfile(
+            supabase: context.supabase,
+          ),
+        ),
       ],
       child: AutoRouter(
-        builder: (context, content) {
-          // WidgetsBinding.instance.addPostFrameCallback((_) {
-          //   _changeIndex(context.router.current.name);
-          // });
+        builder: (context, child) {
+          context.router.addListener(
+            () => _changeIndex(context.router.current.name),
+          );
 
           return SafeArea(
             child: Scaffold(
-              body: content,
+              body: child,
               bottomNavigationBar: CustomBottomBar(
                 currentIndex: _currentIndex,
                 onTabSelected: _changePage,

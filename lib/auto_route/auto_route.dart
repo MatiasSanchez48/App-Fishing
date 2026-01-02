@@ -30,7 +30,7 @@ class AppRouter extends RootStackRouter {
         ),
         AutoRoute(
           page: ProfileRoute.page,
-          path: 'Profile/',
+          path: 'Profile/:id',
         ),
         AutoRoute(
           page: SocialRoute.page,

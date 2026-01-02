@@ -62,7 +62,7 @@ class _CreateSocialPageState extends State<CreateSocialPage> {
             children: [
               IconButton(
                 icon: const Icon(Icons.close_rounded),
-                onPressed: () {},
+                onPressed: () => context.router.pop(),
               ),
               const SizedBox(width: 30),
               const Expanded(

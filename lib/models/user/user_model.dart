@@ -9,6 +9,8 @@ class Usuario with _$Usuario {
     required String uuid,
     required String username,
     String? email,
+    String? description, // bio
+    String? handle, // @nombre_ejemplo
     @JsonKey(name: 'avatar_url') String? avatarUrl,
     @JsonKey(name: 'created_at') DateTime? createdAt,
   }) = _Usuario;

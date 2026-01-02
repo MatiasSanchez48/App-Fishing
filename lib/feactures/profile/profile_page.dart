@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:chat_flutter_supabase/feactures/profile/bloc/bloc_profile.dart';
 import 'package:chat_flutter_supabase/feactures/profile/widgets/widgets.dart';
 import 'package:chat_flutter_supabase/feactures/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
 class ProfilePage extends StatefulWidget {
@@ -19,6 +21,14 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   @override
+  void initState() {
+    super.initState();
+    context.read<BlocProfile>()
+      ..add(BlocProfileEventGetProfile(id: widget.id))
+      ..add(BlocProfileEventGetMyEvents(id: widget.id));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
@@ -30,19 +40,19 @@ class _ProfilePageState extends State<ProfilePage> {
             onPressed: () {},
           ),
 
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(
               children: [
-                SizedBox(height: 30),
-                FotoNameAndDescription(),
-                SizedBox(height: 10),
-                ButtonsFollowAndChat(),
-                SizedBox(height: 20),
-                InfoProfile(),
-                SizedBox(height: 20),
-                Publications(),
-                SizedBox(height: 20),
+                const SizedBox(height: 30),
+                const FotoNameAndDescription(),
+                const SizedBox(height: 10),
+                ButtonChat(id: widget.id),
+                const SizedBox(height: 20),
+                const InfoProfile(),
+                const SizedBox(height: 20),
+                const Publications(),
+                const SizedBox(height: 20),
               ],
             ),
           ),

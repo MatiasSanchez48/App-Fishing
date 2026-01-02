@@ -24,8 +24,8 @@ class _MessagePageState extends State<MessagePage> {
   final ScrollController _scrollController = ScrollController();
   final SupabaseClient supabase = Supabase.instance.client;
 
-  void _onSendMessage(String? v, BuildContext _context) {
-    _context.read<BlocMessage>().add(
+  void _onSendMessage(String? v, BuildContext context) {
+    context.read<BlocMessage>().add(
       BlocMessageSendMessagesEvent(
         text: _controller.text,
         idPerson: widget.idPerson,
