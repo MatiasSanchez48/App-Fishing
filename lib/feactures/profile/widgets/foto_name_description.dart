@@ -21,7 +21,9 @@ class FotoNameAndDescription extends StatelessWidget {
               width: 300,
               child: Center(
                 child: Text(
-                  state.user?.username ?? state.name ?? '...',
+                  (state.user?.username ?? '').isEmpty
+                      ? '...'
+                      : state.user?.username ?? state.name ?? '...',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
@@ -35,7 +37,9 @@ class FotoNameAndDescription extends StatelessWidget {
               width: 300,
               child: Center(
                 child: Text(
-                  state.user?.handle ?? state.handle ?? '@Handle_empty',
+                  (state.user?.handle ?? '').isEmpty
+                      ? '@Handle_empty'
+                      : '@${state.user?.handle ?? state.handle ?? 'Handle_empty'}',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
@@ -53,9 +57,11 @@ class FotoNameAndDescription extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Center(
                   child: Text(
-                    state.user?.description ??
-                        state.description ??
-                        'Descripcion empty...',
+                    (state.user?.description ?? '').isEmpty
+                        ? 'Descripcion empty...'
+                        : state.user?.description ??
+                              state.description ??
+                              'Descripcion empty...',
                     textAlign: TextAlign.center,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

@@ -90,12 +90,16 @@ class BlocProfile extends Bloc<BlocProfileEvent, BlocProfileState> {
       state,
       name: event.name ?? state.name,
       description: event.description ?? state.description,
-      imageUrl: event.imageUrl ?? state.imageUrl,
+      imageXFile: event.imageXFile ?? state.imageXFile,
       handle: event.handle ?? state.handle,
       user: state.user?.copyWith(
         username: event.name ?? state.name ?? state.user?.username ?? '',
-        description: event.description ?? state.description,
-        handle: event.handle ?? state.handle,
+        description:
+            event.description ??
+            state.description ??
+            state.user?.description ??
+            '',
+        handle: event.handle ?? state.handle ?? state.user?.handle ?? '',
       ),
     ),
   );
@@ -105,12 +109,13 @@ class BlocProfile extends Bloc<BlocProfileEvent, BlocProfileState> {
     Emitter<BlocProfileState> emit,
   ) async {
     try {
-      emit(BlocProfileStateLoading.from(state));
-      // get user
+      emit(BlocProfileStateLoadingEditProfile.from(state));
+
       String? imageUrl;
-      if (state.imageUrl != null) {
+
+      if (state.imageXFile != null && state.imageUrl != state.user?.avatarUrl) {
         imageUrl = await _repositoryImage.createImage(
-          state.imageUrl!,
+          state.imageXFile!,
         );
       }
       final user = await _repositoryUser.updateUser(
@@ -121,7 +126,13 @@ class BlocProfile extends Bloc<BlocProfileEvent, BlocProfileState> {
         handle: state.handle ?? state.user?.handle ?? '',
       );
 
-      emit(BlocProfileStateSuccess.from(state, user: user));
+      emit(
+        BlocProfileStateSuccessEditProfile.from(
+          state,
+          user: user,
+          imageUrl: imageUrl ?? '',
+        ),
+      );
     } on Exception catch (e) {
       emit(
         BlocProfileStateError.from(

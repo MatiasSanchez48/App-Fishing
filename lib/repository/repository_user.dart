@@ -42,21 +42,25 @@ class RepositoryUser extends BaseRepository {
     String? handle,
     String? avatarUrl,
   }) async {
-    final updates = <String, dynamic>{
-      if (username != null) 'username': username,
-      if (email != null) 'email': email,
-      if (description != null) 'description': description,
-      if (handle != null) 'handle': handle,
-      if (avatarUrl != null) 'avatar_url': avatarUrl,
-    };
+    try {
+      final updates = <String, dynamic>{
+        if (username != null) 'username': username,
+        if (email != null) 'email': email,
+        if (description != null) 'description': description,
+        if (handle != null) 'handle': handle,
+        if (avatarUrl != null) 'avatar_url': avatarUrl,
+      };
 
-    final response = await supabase
-        .from('users')
-        .update(updates)
-        .eq('uuid', uuid)
-        .select()
-        .single();
+      final response = await supabase
+          .from('users')
+          .update(updates)
+          .eq('uuid', uuid)
+          .select()
+          .single();
 
-    return Usuario.fromJson(response);
+      return Usuario.fromJson(response);
+    } on Exception catch (e) {
+      throw Exception(e);
+    }
   }
 }

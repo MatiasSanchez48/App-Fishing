@@ -26,7 +26,7 @@ class BlocProfileEventSaveDataProfile extends BlocProfileEvent {
     this.id,
     this.name,
     this.handle,
-    this.imageUrl,
+    this.imageXFile,
     this.description,
   });
 
@@ -43,7 +43,7 @@ class BlocProfileEventSaveDataProfile extends BlocProfileEvent {
   final String? handle;
 
   ///
-  final XFile? imageUrl;
+  final XFile? imageXFile;
 }
 
 class BlocProfileEventEditProfile extends BlocProfileEvent {

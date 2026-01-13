@@ -17,17 +17,13 @@ class _PickImageProfileState extends State<PickImageProfile> {
   ///
   final ImagePicker _picker = ImagePicker();
 
-  ///
-  XFile? _image;
-
   /// PICK IMAGE
   Future<void> _pickImage(ImageSource source) async {
     final pickedFile = await _picker.pickImage(source: source);
 
     if (pickedFile != null) {
-      setState(() => _image = pickedFile);
       context.read<BlocProfile>().add(
-        BlocProfileEventSaveDataProfile(imageUrl: _image),
+        BlocProfileEventSaveDataProfile(imageXFile: pickedFile),
       );
     }
   }
@@ -72,19 +68,60 @@ class _PickImageProfileState extends State<PickImageProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: _showPickerOptions,
-      child: Container(
-        height: 200,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Colors.white,
-          border: Border.all(
-            color: Colors.grey.shade300,
-          ),
-          image: _image != null
-              ? DecorationImage(
-                  onError: (exception, stackTrace) => const Center(
+    return BlocBuilder<BlocProfile, BlocProfileState>(
+      builder: (context, state) {
+        return InkWell(
+          onTap: _showPickerOptions,
+          child: Container(
+            height: 200,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: Colors.white,
+              border: Border.all(
+                color: Colors.grey.shade300,
+              ),
+              image: state.user?.avatarUrl != null || state.imageXFile != null
+                  ? DecorationImage(
+                      onError: (exception, stackTrace) => const Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.image_outlined,
+                              color: Colors.grey,
+                              size: 50,
+                            ),
+                            SizedBox(height: 15),
+                            Text(
+                              'Add Image',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      fit: BoxFit.cover,
+                      image: kIsWeb
+                          ? NetworkImage(
+                              state.imageXFile?.path ??
+                                  state.user?.avatarUrl ??
+                                  '',
+                            )
+                          : FileImage(
+                              File(
+                                state.imageXFile?.path ??
+                                    state.user?.avatarUrl ??
+                                    '',
+                              ),
+                            ),
+                    )
+                  : null,
+            ),
+            child: state.user?.avatarUrl == null && state.imageXFile == null
+                ? const Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -104,38 +141,11 @@ class _PickImageProfileState extends State<PickImageProfile> {
                         ),
                       ],
                     ),
-                  ),
-                  fit: BoxFit.cover,
-                  image: kIsWeb
-                      ? NetworkImage(_image!.path)
-                      : FileImage(File(_image!.path)),
-                )
-              : null,
-        ),
-        child: _image == null
-            ? const Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.image_outlined,
-                      color: Colors.grey,
-                      size: 50,
-                    ),
-                    SizedBox(height: 15),
-                    Text(
-                      'Add Image',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            : null,
-      ),
+                  )
+                : null,
+          ),
+        );
+      },
     );
   }
 }

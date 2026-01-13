@@ -129,7 +129,12 @@ class _CreateEventPageState extends State<CreateEventPage> {
                 const SizedBox(height: 30),
                 const PickImage(),
                 const SizedBox(height: 10),
-                InputName(controllerName: _controllerName),
+                InputName(
+                  controllerName: _controllerName,
+                  onChanged: (v) => context.read<BlocCreateEvent>().add(
+                    BlocCreateEventSaveEvent(title: v),
+                  ),
+                ),
                 const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

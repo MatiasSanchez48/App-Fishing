@@ -1,16 +1,21 @@
-import 'package:chat_flutter_supabase/feactures/create_event/bloc/bloc_create_event.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class InputName extends StatelessWidget {
   const InputName({
     required this.controllerName,
+    this.hintText = 'Name',
+    this.onChanged,
     super.key,
   });
 
   ///
   final TextEditingController controllerName;
 
+  ///
+  final String hintText;
+
+  ///
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +26,10 @@ class InputName extends StatelessWidget {
         autofillHints: const [AutofillHints.name],
         textInputAction: TextInputAction.next,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        onChanged: (value) => context.read<BlocCreateEvent>().add(
-            BlocCreateEventSaveEvent(title: value),
-          ),
+        onChanged: (value) => onChanged?.call(value),
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Please enter a name/title';
+            return 'Please enter a $hintText/title';
           }
           return null;
         },
@@ -34,7 +37,7 @@ class InputName extends StatelessWidget {
         maxLength: 50,
         decoration: InputDecoration(
           counterText: '',
-          hintText: 'Name',
+          hintText: hintText,
           hintStyle: const TextStyle(
             color: Colors.grey,
             fontSize: 16,

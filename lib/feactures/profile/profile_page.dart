@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:chat_flutter_supabase/extensions/extensions.dart';
+import 'package:chat_flutter_supabase/feactures/auth/widgets/widget.dart';
 import 'package:chat_flutter_supabase/feactures/profile/bloc/bloc_profile.dart';
 import 'package:chat_flutter_supabase/feactures/profile/widgets/widgets.dart';
 import 'package:chat_flutter_supabase/feactures/widgets/widgets.dart';
@@ -21,23 +23,60 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   @override
-  void initState() {
-    super.initState();
-    context.read<BlocProfile>()
-      ..add(BlocProfileEventGetProfile(id: widget.id))
-      ..add(BlocProfileEventGetMyEvents(id: widget.id));
+  Widget build(BuildContext context) {
+    final supabase = context.supabase;
+
+    return BlocProvider(
+      create: (_) => BlocProfile(supabase: supabase)
+        ..add(BlocProfileEventGetProfile(id: widget.id))
+        ..add(BlocProfileEventGetMyEvents(id: widget.id)),
+      child: SingleChildScrollView(
+        child: ContentProfile(id: widget.id),
+      ),
+    );
   }
+}
+
+class ContentProfile extends StatelessWidget {
+  const ContentProfile({
+    required this.id,
+    super.key,
+  });
+
+  ///
+  final String id;
+
+  ///
+  void _dialogEditProfile(BuildContext context) => showDialog<void>(
+    context: context,
+    builder: (_) => BlocProvider.value(
+      value: context.read<BlocProfile>(),
+      child: const DialogEditProfile(),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return BlocListener<BlocProfile, BlocProfileState>(
+      listener: (context, state) {
+        if (state is BlocProfileStateLoadingEditProfile) {
+          DialogLoading.showDialogLoading(context);
+        }
+        if (state is BlocProfileStateSuccessEditProfile) {
+          Navigator.of(context, rootNavigator: true).pop();
+          DialogSuccess(
+            onOk: () => Navigator.of(context, rootNavigator: true).pop(),
+            description: 'Edit profile successful!',
+          ).showDialogSuccess(context);
+        }
+      },
       child: Column(
         children: [
           const SizedBox(height: 5),
           AppbarCustom(
             title: 'Profile',
-            iconRight: Icons.settings_outlined,
-            onPressed: () {},
+            iconRight: Icons.edit_outlined,
+            onPressed: () => _dialogEditProfile(context),
           ),
 
           Padding(
@@ -47,7 +86,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(height: 30),
                 const FotoNameAndDescription(),
                 const SizedBox(height: 10),
-                ButtonChat(id: widget.id),
+                ButtonChat(id: id),
                 const SizedBox(height: 20),
                 const InfoProfile(),
                 const SizedBox(height: 20),

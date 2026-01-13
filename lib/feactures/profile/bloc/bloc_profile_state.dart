@@ -8,7 +8,8 @@ class BlocProfileState extends Equatable {
     this.name,
     this.description,
     this.handle,
-    this.imageUrl,
+    this.imageXFile,
+    this.imageUrl = '',
   });
 
   BlocProfileState.from(
@@ -19,7 +20,8 @@ class BlocProfileState extends Equatable {
     String? name,
     String? description,
     String? handle,
-    XFile? imageUrl,
+    XFile? imageXFile,
+    String? imageUrl,
   }) : this._(
          user: user ?? state.user,
          eventsCreated: eventsCreated ?? state.eventsCreated,
@@ -27,6 +29,7 @@ class BlocProfileState extends Equatable {
          name: name ?? state.name,
          description: description ?? state.description,
          handle: handle ?? state.handle,
+         imageXFile: imageXFile ?? state.imageXFile,
          imageUrl: imageUrl ?? state.imageUrl,
        );
 
@@ -49,7 +52,16 @@ class BlocProfileState extends Equatable {
   final String? handle;
 
   ///
-  final XFile? imageUrl;
+  final XFile? imageXFile;
+
+  final String imageUrl;
+
+  ///
+  bool get isNotEmpty =>
+      (name != null && name!.isNotEmpty) ||
+      (description != null && description!.isNotEmpty) ||
+      (handle != null && handle!.isNotEmpty) ||
+      (imageXFile != null && imageXFile!.path.isNotEmpty);
 
   @override
   List<Object?> get props => [
@@ -59,6 +71,7 @@ class BlocProfileState extends Equatable {
     name,
     description,
     handle,
+    imageXFile,
     imageUrl,
   ];
 }
@@ -69,6 +82,10 @@ class BlocProfileStateInitial extends BlocProfileState {
 
 class BlocProfileStateLoading extends BlocProfileState {
   BlocProfileStateLoading.from(super.state) : super.from();
+}
+
+class BlocProfileStateLoadingEditProfile extends BlocProfileState {
+  BlocProfileStateLoadingEditProfile.from(super.state) : super.from();
 }
 
 class BlocProfileStateLoadingEvents extends BlocProfileState {
@@ -84,6 +101,20 @@ class BlocProfileStateSuccess extends BlocProfileState {
     super.name,
     super.description,
     super.handle,
+    super.imageXFile,
+  }) : super.from();
+}
+
+class BlocProfileStateSuccessEditProfile extends BlocProfileState {
+  BlocProfileStateSuccessEditProfile.from(
+    super.state, {
+    super.user,
+    super.eventsCreated,
+    super.eventsUnited,
+    super.name,
+    super.description,
+    super.handle,
+    super.imageXFile,
     super.imageUrl,
   }) : super.from();
 }
