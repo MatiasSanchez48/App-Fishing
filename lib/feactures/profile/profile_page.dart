@@ -66,32 +66,33 @@ class ContentProfile extends StatelessWidget {
           Navigator.of(context, rootNavigator: true).pop();
           DialogSuccess(
             onOk: () => Navigator.of(context, rootNavigator: true).pop(),
-            description: 'Edit profile successful!',
+            description: 'Perfil actualizado!',
           ).showDialogSuccess(context);
         }
       },
+
       child: Column(
         children: [
           const SizedBox(height: 5),
           AppbarCustom(
-            title: 'Profile',
+            title: 'Perfil',
             iconRight: Icons.edit_outlined,
             onPressed: () => _dialogEditProfile(context),
           ),
 
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
             child: Column(
               children: [
-                const SizedBox(height: 30),
-                const FotoNameAndDescription(),
-                const SizedBox(height: 10),
-                ButtonChat(id: id),
-                const SizedBox(height: 20),
-                const InfoProfile(),
-                const SizedBox(height: 20),
-                const Publications(),
-                const SizedBox(height: 20),
+                SizedBox(height: 30),
+                FotoNameAndDescription(),
+                // const SizedBox(height: 10),
+                // ButtonChat(id: id),
+                SizedBox(height: 20),
+                InfoProfile(),
+                SizedBox(height: 20),
+                Publications(),
+                SizedBox(height: 20),
               ],
             ),
           ),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class InputName extends StatelessWidget {
   const InputName({
     required this.controllerName,
-    this.hintText = 'Name',
+    this.hintText = 'Nombre',
     this.onChanged,
     super.key,
   });
@@ -29,7 +29,7 @@ class InputName extends StatelessWidget {
         onChanged: (value) => onChanged?.call(value),
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Please enter a $hintText/title';
+            return 'Escriba $hintText/Titulo';
           }
           return null;
         },

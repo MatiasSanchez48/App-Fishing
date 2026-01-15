@@ -6,7 +6,7 @@ import 'package:chat_flutter_supabase/feactures/create_event/widgets/widgets.dar
 import 'package:chat_flutter_supabase/feactures/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_map/flutter_map.dart';
+// import 'package:flutter_map/flutter_map.dart';
 
 @RoutePage()
 class CreateEventPage extends StatefulWidget {
@@ -42,7 +42,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
   final TextEditingController _controllerDescription = TextEditingController();
 
   ///
-  final MapController _mapController = MapController();
+  // final MapController _mapController = MapController();
 
   ///
   DateTime? dateStart;
@@ -73,7 +73,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
 
   @override
   void dispose() {
-    _mapController.dispose();
+    // _mapController.dispose();
     _controllerName.dispose();
     _controllerTime.dispose();
     _controllerLocation.dispose();
@@ -109,7 +109,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
               Navigator.of(context, rootNavigator: true).pop();
               context.router.replace(const HomeRoute());
             },
-            description: 'Event created successfully',
+            description: 'Evento creado exitosamente',
           ).showDialogSuccess(context);
         }
       },
@@ -122,7 +122,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AppbarCustom(
-                  title: 'Create Event',
+                  title: 'Crear evento',
                   onPressed: () => Navigator.pop(context),
                   iconLeft: Icons.close_outlined,
                 ),
@@ -142,14 +142,14 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     InputDate(
                       controllerDate: _controllerDateStart,
                       onDateSelected: _selectDateStart,
-                      hintText: 'Start Date',
+                      hintText: 'Fecha de inicio',
                       isDateSelected: true,
                     ),
                     InputDate(
                       isDateSelected: dateStart != null,
                       controllerDate: _controllerDateFinish,
                       firstDate: dateStart,
-                      hintText: 'Finish Date',
+                      hintText: 'Fecha final',
                       onDateSelected: (date) {
                         context.read<BlocCreateEvent>().add(
                           BlocCreateEventSaveEvent(endDate: date),
@@ -163,7 +163,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                 const SizedBox(height: 10),
                 SelectLocation(
                   controllerLotaion: _controllerLocation,
-                  mapController: _mapController,
+                  // mapController: _mapController,
                 ),
                 const SizedBox(height: 10),
                 InputDescription(controllerDescription: _controllerDescription),
@@ -213,7 +213,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                               ),
                             ] else
                               const Text(
-                                'Create event',
+                                'Crear evento',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,

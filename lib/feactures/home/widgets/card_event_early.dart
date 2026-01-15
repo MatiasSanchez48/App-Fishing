@@ -17,7 +17,7 @@ class CardEventEarly extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Container(
-        height: 200,
+        height: 220,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
@@ -41,7 +41,7 @@ class CardEventEarly extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   SizedBox(
-                    width: 250,
+                    width: 150,
                     child: Text(
                       event.title,
                       maxLines: 2,
@@ -55,7 +55,7 @@ class CardEventEarly extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   SizedBox(
-                    width: 250,
+                    width: 150,
                     child: Text(
                       event.description,
                       maxLines: 1,

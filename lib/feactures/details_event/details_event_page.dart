@@ -2,14 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:chat_flutter_supabase/auto_route/auto_route.gr.dart';
 import 'package:chat_flutter_supabase/extensions/extensions.dart';
 import 'package:chat_flutter_supabase/feactures/auth/widgets/dialogs/dialogs.dart';
-import 'package:chat_flutter_supabase/feactures/create_event/widgets/widgets.dart';
 import 'package:chat_flutter_supabase/feactures/details_event/bloc/details_event.dart';
 import 'package:chat_flutter_supabase/feactures/details_event/widgets/widgets.dart';
 import 'package:chat_flutter_supabase/feactures/widgets/widgets.dart';
 import 'package:chat_flutter_supabase/models/fishing_event/fishing_event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_map/flutter_map.dart';
 
 @RoutePage()
 class DetailsEventPage extends StatelessWidget {
@@ -79,7 +77,7 @@ class DetailsEventPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppbarCustom(
-              title: 'Details event',
+              title: 'Detalle ',
               iconLeft: Icons.arrow_back_ios_outlined,
               onPressed: () => context.router.push(const HomeRoute()),
             ),
@@ -93,7 +91,7 @@ class DetailsEventPage extends StatelessWidget {
                   Navigator.of(context, rootNavigator: true).pop();
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('You have joined the event'),
+                      content: Text('Te has unido al evento'),
                     ),
                   );
                 }
@@ -101,7 +99,7 @@ class DetailsEventPage extends StatelessWidget {
                   Navigator.of(context, rootNavigator: true).pop();
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('You have left the event'),
+                      content: Text('Saliste del evento'),
                     ),
                   );
                 }
@@ -113,8 +111,13 @@ class DetailsEventPage extends StatelessWidget {
                   );
                 }
                 if (state is BlocDetailsEventStateSuccessDeleteEvent) {
+                  Navigator.of(context, rootNavigator: true).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Evento Elminado'),
+                    ),
+                  );
                   context.router.replace(const HomeRoute());
-                  Navigator.pop(context);
                 }
               },
               builder: (context, state) {
@@ -127,19 +130,6 @@ class DetailsEventPage extends StatelessWidget {
                     ),
                   );
                 }
-                final isRed =
-                    state.event?.isUnited(
-                      context.supabase.auth.currentUser!.id,
-                    ) ??
-                    false ||
-                        (state.event?.isHost(
-                              context.supabase.auth.currentUser!.id,
-                            ) ??
-                            false);
-
-                final controller = TextEditingController(
-                  text: state.event?.location ?? '',
-                );
 
                 return Column(
                   children: [
@@ -187,7 +177,7 @@ class DetailsEventPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 5),
                           Text(
-                            state.event?.startDate.formatTimeSpanish ?? '...',
+                            'Fecha de inicio: ${state.event?.startDate.formatTimeSpanish ?? '...'}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -197,14 +187,36 @@ class DetailsEventPage extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 5),
-                          SelectLocation(
-                            controllerLotaion: controller,
-                            mapController: MapController(),
-                            withTextField: false,
+                          Text(
+                            'Fecha de Finalizacion: ${state.event?.endDate.formatTimeSpanish ?? '...'}',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
+                          const SizedBox(height: 5),
+                          Text(
+                            'Ubicacion: ${state.event?.location ?? '...'}',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+
+                          // SelectLocation(
+                          //   controllerLotaion: controller,
+                          //   mapController: MapController(),
+                          //   withTextField: false,
+                          // ),
                           const SizedBox(height: 15),
                           Text(
-                            state.event?.description ?? '...',
+                            'Descripcion: ${state.event?.description ?? '...'}',
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -235,7 +247,23 @@ class DetailsEventPage extends StatelessWidget {
                               Expanded(
                                 child: TextButton(
                                   style: TextButton.styleFrom(
-                                    backgroundColor: isRed
+                                    backgroundColor:
+                                        state.event?.isUnited(
+                                              context
+                                                  .supabase
+                                                  .auth
+                                                  .currentUser!
+                                                  .id,
+                                            ) ??
+                                            false ||
+                                                (state.event?.isHost(
+                                                      context
+                                                          .supabase
+                                                          .auth
+                                                          .currentUser!
+                                                          .id,
+                                                    ) ??
+                                                    false)
                                         ? Colors.redAccent
                                         : Colors.blue,
                                     shape: RoundedRectangleBorder(
@@ -258,7 +286,7 @@ class DetailsEventPage extends StatelessWidget {
                                                       .id,
                                                 ) ??
                                                 false)
-                                            ? 'Delete'
+                                            ? 'Eliminar'
                                             : (state.event?.isUnited(
                                                     context
                                                         .supabase
@@ -267,8 +295,8 @@ class DetailsEventPage extends StatelessWidget {
                                                         .id,
                                                   ) ??
                                                   false)
-                                            ? 'Leave'
-                                            : 'Join',
+                                            ? 'Salir'
+                                            : 'Unirse',
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 16,

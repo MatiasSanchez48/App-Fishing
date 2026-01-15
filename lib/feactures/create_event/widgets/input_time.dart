@@ -49,7 +49,7 @@ class _ImputTimeState extends State<ImputTime> {
         textInputAction: TextInputAction.next,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Please enter a time';
+            return 'Selecciona un horario';
           }
           return null;
         },
@@ -58,7 +58,7 @@ class _ImputTimeState extends State<ImputTime> {
             Icons.access_time,
             color: Colors.grey,
           ),
-          hintText: 'Time',
+          hintText: 'Horario',
           hintStyle: const TextStyle(
             color: Colors.grey,
             fontSize: 16,

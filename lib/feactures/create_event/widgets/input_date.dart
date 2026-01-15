@@ -55,7 +55,7 @@ class _InputDateState extends State<InputDate> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50,
-      width: 220,
+      width: 200,
       child: TextFormField(
         enabled: widget.isDateSelected,
         autovalidateMode: AutovalidateMode.onUserInteraction,

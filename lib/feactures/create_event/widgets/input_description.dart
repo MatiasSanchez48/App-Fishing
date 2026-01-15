@@ -25,13 +25,13 @@ class InputDescription extends StatelessWidget {
         textInputAction: TextInputAction.newline,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Please enter a description';
+            return 'Ingrese una descripción';
           }
           return null;
         },
         maxLines: 5,
         decoration: InputDecoration(
-          hintText: 'Description',
+          hintText: 'Descripcion',
           hintStyle: const TextStyle(
             color: Colors.grey,
             fontSize: 16,

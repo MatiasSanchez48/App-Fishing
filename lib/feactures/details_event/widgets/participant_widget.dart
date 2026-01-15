@@ -16,7 +16,7 @@ class ParticipantWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Participants',
+          'Participantes',
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,

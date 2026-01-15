@@ -24,12 +24,12 @@ class InputParticipants extends StatelessWidget {
         textInputAction: TextInputAction.next,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Please enter the maximum number of participants';
+            return 'Ingrese un número de participantes';
           }
           return null;
         },
         decoration: InputDecoration(
-          hintText: 'Maximum participants',
+          hintText: 'Max. Participantes',
           hintStyle: const TextStyle(
             color: Colors.grey,
             fontSize: 16,

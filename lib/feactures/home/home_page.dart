@@ -30,15 +30,13 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const AppbarCustom(
-                title: 'Home',
-                iconRight: Icons.settings_outlined,
-              ),
+              const SizedBox(height: 10),
+              const AppbarCustom(title: 'Inicio'),
               const SizedBox(height: 30),
               Row(
                 children: [
                   const Text(
-                    'My next outings',
+                    'Proximas salidas',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -55,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       onPressed: () => setState(() => _seeMore = !_seeMore),
                       child: Text(
-                        _seeMore ? 'See less' : 'See more',
+                        _seeMore ? 'Ver menos' : 'Ver Mas',
                         style: const TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,
@@ -82,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                       height: 210,
                       child: Center(
                         child: Text(
-                          'No outings yet',
+                          'No tienes eventos creados',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -94,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                   }
 
                   return SizedBox(
-                    height: _seeMore ? (state.myEvents.length * 210) : 210,
+                    height: _seeMore ? (state.myEvents.length * 220) : 220,
                     child: ListView.builder(
                       itemCount: _seeMore ? state.myEvents.length : 1,
                       shrinkWrap: true,
@@ -108,7 +106,7 @@ class _HomePageState extends State<HomePage> {
 
               const SizedBox(height: 10),
               const Text(
-                'Events near today',
+                'Eventos cercas de hoy',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -130,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                       height: 230,
                       child: Center(
                         child: Text(
-                          'No outings yet',
+                          'No hay eventos cerca de hoy',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -155,15 +153,25 @@ class _HomePageState extends State<HomePage> {
 
               const SizedBox(height: 20),
               const Text(
-                'Recent activity',
+                'Eventos populares',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 15),
-              const SocialCardEvent(),
-              const SizedBox(height: 20),
+              BlocBuilder<BlocHome, BlocHomeState>(
+                builder: (context, state) {
+                  return ListView.builder(
+                    itemCount: state.events.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) => CardEventEarly(
+                      event: state.events[index],
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),

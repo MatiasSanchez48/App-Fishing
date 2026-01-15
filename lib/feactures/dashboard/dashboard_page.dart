@@ -24,8 +24,7 @@ class _DashboardPageState extends State<DashboardPage> {
     return switch (index) {
       0 => context.router.replace(const HomeRoute()),
       1 => context.router.replace(const CreateEventRoute()),
-      2 => context.router.replace(const SocialRoute()),
-      3 => context.router.replace(
+      2 => context.router.replace(
         ProfileRoute(
           id: context.supabase.auth.currentUser?.id ?? '',
         ),
@@ -38,10 +37,7 @@ class _DashboardPageState extends State<DashboardPage> {
     return switch (name) {
       'HomeRoute' => setState(() => _currentIndex = 0),
       'CreateEventRoute' => setState(() => _currentIndex = 1),
-      ('SocialRoute' || 'CreateSocialRoute') => setState(
-        () => _currentIndex = 2,
-      ),
-      'ProfileRoute' => setState(() => _currentIndex = 3),
+      'ProfileRoute' => setState(() => _currentIndex = 2),
       _ => setState(() => _currentIndex = 0),
     };
   }
@@ -120,29 +116,29 @@ class CustomBottomBar extends StatelessWidget {
         children: [
           _TabItem(
             icon: Icons.home,
-            title: 'Home',
+            title: 'Inicio',
             index: 0,
             currentIndex: currentIndex,
             onTabSelected: onTabSelected,
           ),
           _TabItem(
             icon: Icons.add_box_outlined,
-            title: 'New Event',
+            title: 'Crear Evento',
             index: 1,
             currentIndex: currentIndex,
             onTabSelected: onTabSelected,
           ),
-          _TabItem(
-            icon: Icons.store_mall_directory_sharp,
-            title: 'Social',
-            index: 2,
-            currentIndex: currentIndex,
-            onTabSelected: onTabSelected,
-          ),
+          // _TabItem(
+          //   icon: Icons.store_mall_directory_sharp,
+          //   title: 'Social',
+          //   index: 2,
+          //   currentIndex: currentIndex,
+          //   onTabSelected: onTabSelected,
+          // ),
           _TabItem(
             icon: Icons.person,
-            title: 'Profile',
-            index: 3,
+            title: 'Perfil',
+            index: 2,
             currentIndex: currentIndex,
             onTabSelected: onTabSelected,
           ),

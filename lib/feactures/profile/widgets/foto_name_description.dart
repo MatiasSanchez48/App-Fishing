@@ -38,7 +38,7 @@ class FotoNameAndDescription extends StatelessWidget {
               child: Center(
                 child: Text(
                   (state.user?.handle ?? '').isEmpty
-                      ? '@Handle_empty'
+                      ? '@Handle'
                       : '@${state.user?.handle ?? state.handle ?? 'Handle_empty'}',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -58,10 +58,10 @@ class FotoNameAndDescription extends StatelessWidget {
                 child: Center(
                   child: Text(
                     (state.user?.description ?? '').isEmpty
-                        ? 'Descripcion empty...'
+                        ? 'Descripcion...'
                         : state.user?.description ??
                               state.description ??
-                              'Descripcion empty...',
+                              'Descripcion...',
                     textAlign: TextAlign.center,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
