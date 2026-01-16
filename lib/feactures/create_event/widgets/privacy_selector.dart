@@ -1,5 +1,5 @@
-import 'package:chat_flutter_supabase/feactures/create_event/bloc/bloc_create_event.dart';
-import 'package:chat_flutter_supabase/utils/utils.dart';
+import 'package:app_fishing/feactures/create_event/bloc/bloc_create_event.dart';
+import 'package:app_fishing/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

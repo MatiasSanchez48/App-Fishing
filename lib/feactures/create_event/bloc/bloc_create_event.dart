@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:chat_flutter_supabase/extensions/extensions.dart';
-import 'package:chat_flutter_supabase/models/models.dart';
-import 'package:chat_flutter_supabase/repository/repository.dart';
-import 'package:chat_flutter_supabase/utils/utils.dart';
+import 'package:app_fishing/extensions/extensions.dart';
+import 'package:app_fishing/models/models.dart';
+import 'package:app_fishing/repository/repository.dart';
+import 'package:app_fishing/utils/utils.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';

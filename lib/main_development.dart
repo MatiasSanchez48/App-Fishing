@@ -1,5 +1,5 @@
-import 'package:chat_flutter_supabase/app/app.dart';
-import 'package:chat_flutter_supabase/bootstrap.dart';
+import 'package:app_fishing/app/app.dart';
+import 'package:app_fishing/bootstrap.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:chat_flutter_supabase/auto_route/auto_route.gr.dart';
+import 'package:app_fishing/auto_route/auto_route.gr.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthGuard extends AutoRouteGuard {

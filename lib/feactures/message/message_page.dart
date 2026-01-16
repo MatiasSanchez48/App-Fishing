@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:chat_flutter_supabase/extensions/context.dart';
-import 'package:chat_flutter_supabase/feactures/message/bloc/bloc_message.dart';
+import 'package:app_fishing/extensions/context.dart';
+import 'package:app_fishing/feactures/message/bloc/bloc_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

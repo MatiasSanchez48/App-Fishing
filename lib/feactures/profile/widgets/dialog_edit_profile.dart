@@ -1,5 +1,5 @@
-import 'package:chat_flutter_supabase/feactures/create_event/widgets/widgets.dart';
-import 'package:chat_flutter_supabase/feactures/profile/bloc/bloc_profile.dart';
+import 'package:app_fishing/feactures/create_event/widgets/widgets.dart';
+import 'package:app_fishing/feactures/profile/bloc/bloc_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,9 +38,9 @@ class _DialogEditProfileState extends State<DialogEditProfile> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Center(child: Text('Edit profile')),
+            const Center(child: Text('Editar perfil')),
             const SizedBox(height: 5),
-            const Text('Name'),
+            const Text('Nombre'),
             const SizedBox(height: 5),
             InputName(
               controllerName: _controllerName,
@@ -59,14 +59,14 @@ class _DialogEditProfileState extends State<DialogEditProfile> {
               hintText: '@handle',
             ),
             const SizedBox(height: 5),
-            const Text('Description'),
+            const Text('Descripcion'),
             const SizedBox(height: 5),
             InputName(
               controllerName: _controllerDescription,
               onChanged: (v) => context.read<BlocProfile>().add(
                 BlocProfileEventSaveDataProfile(description: v),
               ),
-              hintText: 'Description',
+              hintText: 'Descripcion',
             ),
             const SizedBox(height: 15),
             Row(
@@ -84,7 +84,7 @@ class _DialogEditProfileState extends State<DialogEditProfile> {
                       height: 50,
                       child: Center(
                         child: Text(
-                          'Cancel',
+                          'Cancelar',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 16,
@@ -102,7 +102,9 @@ class _DialogEditProfileState extends State<DialogEditProfile> {
                     return Expanded(
                       child: TextButton(
                         style: TextButton.styleFrom(
-                          backgroundColor: Colors.blue,
+                          backgroundColor: !state.isNotEmpty
+                              ? Colors.grey[300]
+                              : Colors.blue,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -117,14 +119,16 @@ class _DialogEditProfileState extends State<DialogEditProfile> {
                             const BlocProfileEventEditProfile(),
                           );
                         },
-                        child: const SizedBox(
+                        child: SizedBox(
                           height: 50,
                           child: Center(
                             child: Text(
-                              'Save',
+                              'Guardar',
                               style: TextStyle(
                                 fontSize: 16,
-                                color: Colors.white,
+                                color: !state.isNotEmpty
+                                    ? Colors.grey
+                                    : Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

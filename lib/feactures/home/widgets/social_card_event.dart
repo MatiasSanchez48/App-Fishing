@@ -1,4 +1,4 @@
-import 'package:chat_flutter_supabase/feactures/home/bloc/bloc_home.dart';
+import 'package:app_fishing/feactures/home/bloc/bloc_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

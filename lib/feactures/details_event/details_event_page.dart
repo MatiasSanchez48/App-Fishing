@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:chat_flutter_supabase/auto_route/auto_route.gr.dart';
-import 'package:chat_flutter_supabase/extensions/extensions.dart';
-import 'package:chat_flutter_supabase/feactures/auth/widgets/dialogs/dialogs.dart';
-import 'package:chat_flutter_supabase/feactures/details_event/bloc/details_event.dart';
-import 'package:chat_flutter_supabase/feactures/details_event/widgets/widgets.dart';
-import 'package:chat_flutter_supabase/feactures/widgets/widgets.dart';
-import 'package:chat_flutter_supabase/models/fishing_event/fishing_event_model.dart';
+import 'package:app_fishing/auto_route/auto_route.gr.dart';
+import 'package:app_fishing/extensions/extensions.dart';
+import 'package:app_fishing/feactures/auth/widgets/dialogs/dialogs.dart';
+import 'package:app_fishing/feactures/details_event/bloc/details_event.dart';
+import 'package:app_fishing/feactures/details_event/widgets/widgets.dart';
+import 'package:app_fishing/feactures/widgets/widgets.dart';
+import 'package:app_fishing/models/fishing_event/fishing_event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

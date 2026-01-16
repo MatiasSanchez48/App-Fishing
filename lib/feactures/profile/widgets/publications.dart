@@ -1,5 +1,5 @@
-import 'package:chat_flutter_supabase/feactures/profile/bloc/bloc_profile.dart';
-import 'package:chat_flutter_supabase/feactures/profile/widgets/widgets.dart';
+import 'package:app_fishing/feactures/profile/bloc/bloc_profile.dart';
+import 'package:app_fishing/feactures/profile/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

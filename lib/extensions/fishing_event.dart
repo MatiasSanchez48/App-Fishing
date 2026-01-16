@@ -1,4 +1,4 @@
-import 'package:chat_flutter_supabase/models/fishing_event/fishing_event_model.dart';
+import 'package:app_fishing/models/fishing_event/fishing_event_model.dart';
 
 extension FishingEventExtension on FishingEvent {
   static List<FishingEvent> sortByDate(List<FishingEvent> events) {

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:chat_flutter_supabase/auto_route/auto_route.gr.dart';
-import 'package:chat_flutter_supabase/extensions/extensions.dart';
-import 'package:chat_flutter_supabase/models/fishing_event/fishing_event_model.dart';
+import 'package:app_fishing/auto_route/auto_route.gr.dart';
+import 'package:app_fishing/extensions/extensions.dart';
+import 'package:app_fishing/models/fishing_event/fishing_event_model.dart';
 import 'package:flutter/material.dart';
 
 class CardLeave extends StatelessWidget {

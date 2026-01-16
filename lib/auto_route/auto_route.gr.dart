@@ -10,29 +10,22 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i13;
-import 'package:chat_flutter_supabase/feactures/auth/login/login_page.dart'
-    as _i6;
-import 'package:chat_flutter_supabase/feactures/auth/register/register_page.dart'
-    as _i9;
-import 'package:chat_flutter_supabase/feactures/auth/reset_password/reset_password_page.dart'
+import 'package:app_fishing/feactures/auth/login/login_page.dart' as _i6;
+import 'package:app_fishing/feactures/auth/register/register_page.dart' as _i9;
+import 'package:app_fishing/feactures/auth/reset_password/reset_password_page.dart'
     as _i10;
-import 'package:chat_flutter_supabase/feactures/create_event/create_event_page.dart'
+import 'package:app_fishing/feactures/create_event/create_event_page.dart'
     as _i1;
-import 'package:chat_flutter_supabase/feactures/create_social/create_social_page.dart'
+import 'package:app_fishing/feactures/create_social/create_social_page.dart'
     as _i2;
-import 'package:chat_flutter_supabase/feactures/dashboard/dashboard_page.dart'
-    as _i3;
-import 'package:chat_flutter_supabase/feactures/details_event/details_event_page.dart'
+import 'package:app_fishing/feactures/dashboard/dashboard_page.dart' as _i3;
+import 'package:app_fishing/feactures/details_event/details_event_page.dart'
     as _i4;
-import 'package:chat_flutter_supabase/feactures/home/home_page.dart' as _i5;
-import 'package:chat_flutter_supabase/feactures/message/message_page.dart'
-    as _i7;
-import 'package:chat_flutter_supabase/feactures/profile/profile_page.dart'
-    as _i8;
-import 'package:chat_flutter_supabase/feactures/settings/settings_page.dart'
-    as _i11;
-import 'package:chat_flutter_supabase/feactures/social/social_page.dart'
-    as _i12;
+import 'package:app_fishing/feactures/home/home_page.dart' as _i5;
+import 'package:app_fishing/feactures/message/message_page.dart' as _i7;
+import 'package:app_fishing/feactures/profile/profile_page.dart' as _i8;
+import 'package:app_fishing/feactures/settings/settings_page.dart' as _i11;
+import 'package:app_fishing/feactures/social/social_page.dart' as _i12;
 import 'package:flutter/material.dart' as _i14;
 
 /// generated route for

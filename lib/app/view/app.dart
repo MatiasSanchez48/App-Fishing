@@ -1,10 +1,10 @@
-import 'package:chat_flutter_supabase/auto_route/auto_route.dart';
-import 'package:chat_flutter_supabase/extensions/extensions.dart';
-import 'package:chat_flutter_supabase/feactures/auth/auth_observer.dart';
-import 'package:chat_flutter_supabase/feactures/auth/login/bloc/bloc_login.dart';
-import 'package:chat_flutter_supabase/feactures/auth/register/bloc/bloc_register.dart';
-import 'package:chat_flutter_supabase/feactures/auth/reset_password/bloc/bloc_reset_password.dart';
-import 'package:chat_flutter_supabase/l10n/l10n.dart';
+import 'package:app_fishing/auto_route/auto_route.dart';
+import 'package:app_fishing/extensions/extensions.dart';
+import 'package:app_fishing/feactures/auth/auth_observer.dart';
+import 'package:app_fishing/feactures/auth/login/bloc/bloc_login.dart';
+import 'package:app_fishing/feactures/auth/register/bloc/bloc_register.dart';
+import 'package:app_fishing/feactures/auth/reset_password/bloc/bloc_reset_password.dart';
+import 'package:app_fishing/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
         ),
         useMaterial3: true,
       ),
-      
+
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       routeInformationParser: appRouter.defaultRouteParser(),
       supportedLocales: AppLocalizations.supportedLocales,

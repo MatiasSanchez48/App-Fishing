@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:chat_flutter_supabase/feactures/create_social/widgets/widgets.dart';
+import 'package:app_fishing/feactures/create_social/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()

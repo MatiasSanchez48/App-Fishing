@@ -1,4 +1,4 @@
-import 'package:chat_flutter_supabase/extensions/extensions.dart';
+import 'package:app_fishing/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 
 class ButtonChat extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:chat_flutter_supabase/auto_route/auto_route.gr.dart';
-import 'package:chat_flutter_supabase/auto_route/auto_route_guard.dart';
+import 'package:app_fishing/auto_route/auto_route.gr.dart';
+import 'package:app_fishing/auto_route/auto_route_guard.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Screen|Page,Route')

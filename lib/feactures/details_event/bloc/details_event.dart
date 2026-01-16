@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:chat_flutter_supabase/models/models.dart';
-import 'package:chat_flutter_supabase/repository/repository.dart';
+import 'package:app_fishing/models/models.dart';
+import 'package:app_fishing/repository/repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -76,7 +76,7 @@ class BlocDetailsEvent
           joinEvent,
         ],
       );
-      
+
       emit(
         BlocDetailsEventStateSuccessJoinEvent.from(
           state,

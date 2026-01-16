@@ -1,5 +1,5 @@
-import 'package:chat_flutter_supabase/feactures/auth/login/bloc/bloc_login.dart';
-import 'package:chat_flutter_supabase/feactures/auth/widgets/inputs.dart';
+import 'package:app_fishing/feactures/auth/login/bloc/bloc_login.dart';
+import 'package:app_fishing/feactures/auth/widgets/inputs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

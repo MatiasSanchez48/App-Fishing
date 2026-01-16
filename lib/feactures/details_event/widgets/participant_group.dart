@@ -1,4 +1,4 @@
-import 'package:chat_flutter_supabase/models/event_participant/event_participant_model.dart';
+import 'package:app_fishing/models/event_participant/event_participant_model.dart';
 import 'package:flutter/material.dart';
 
 class ParticipantGroup extends StatelessWidget {

@@ -1,5 +1,5 @@
-import 'package:chat_flutter_supabase/models/models.dart';
-import 'package:chat_flutter_supabase/repository/base_repository.dart';
+import 'package:app_fishing/models/models.dart';
+import 'package:app_fishing/repository/base_repository.dart';
 
 class RepositoryEventParticipant extends BaseRepository {
   const RepositoryEventParticipant({required super.supabase});

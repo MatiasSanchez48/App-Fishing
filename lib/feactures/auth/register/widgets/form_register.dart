@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:chat_flutter_supabase/auto_route/auto_route.gr.dart';
-import 'package:chat_flutter_supabase/feactures/auth/register/bloc/bloc_register.dart';
-import 'package:chat_flutter_supabase/feactures/auth/widgets/widget.dart';
+import 'package:app_fishing/auto_route/auto_route.gr.dart';
+import 'package:app_fishing/feactures/auth/register/bloc/bloc_register.dart';
+import 'package:app_fishing/feactures/auth/widgets/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

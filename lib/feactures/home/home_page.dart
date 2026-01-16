@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:chat_flutter_supabase/extensions/extensions.dart';
-import 'package:chat_flutter_supabase/feactures/home/bloc/bloc_home.dart';
-import 'package:chat_flutter_supabase/feactures/home/widgets/widgets.dart';
-import 'package:chat_flutter_supabase/feactures/widgets/widgets.dart';
+import 'package:app_fishing/extensions/extensions.dart';
+import 'package:app_fishing/feactures/home/bloc/bloc_home.dart';
+import 'package:app_fishing/feactures/home/widgets/widgets.dart';
+import 'package:app_fishing/feactures/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -96,6 +96,7 @@ class _HomePageState extends State<HomePage> {
                     child: ListView.builder(
                       itemCount: _seeMore ? state.myEvents.length : 1,
                       shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) => CardEventEarly(
                         event: state.myEvents[index],
                       ),

@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:chat_flutter_supabase/models/models.dart';
-import 'package:chat_flutter_supabase/repository/repository.dart';
-import 'package:chat_flutter_supabase/repository/repository_user.dart';
+import 'package:app_fishing/models/models.dart';
+import 'package:app_fishing/repository/repository.dart';
+import 'package:app_fishing/repository/repository_user.dart';
 import 'package:equatable/equatable.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

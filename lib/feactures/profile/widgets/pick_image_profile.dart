@@ -1,7 +1,6 @@
 import 'dart:io';
 
-import 'package:chat_flutter_supabase/feactures/profile/bloc/bloc_profile.dart';
-import 'package:flutter/foundation.dart';
+import 'package:app_fishing/feactures/profile/bloc/bloc_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -66,6 +65,20 @@ class _PickImageProfileState extends State<PickImageProfile> {
     );
   }
 
+  ImageProvider _imageProvider(String? avatarUrl, XFile? imageXFile) {
+    ImageProvider imageProvider;
+
+    if (imageXFile != null) {
+      imageProvider = FileImage(File(imageXFile.path));
+    } else if (avatarUrl != null && avatarUrl.isNotEmpty) {
+      imageProvider = NetworkImage(avatarUrl);
+    } else {
+      imageProvider = const AssetImage('');
+    }
+
+    return imageProvider;
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BlocProfile, BlocProfileState>(
@@ -93,7 +106,7 @@ class _PickImageProfileState extends State<PickImageProfile> {
                             ),
                             SizedBox(height: 15),
                             Text(
-                              'Add Image',
+                              'Agregar imagen',
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
@@ -104,19 +117,10 @@ class _PickImageProfileState extends State<PickImageProfile> {
                         ),
                       ),
                       fit: BoxFit.cover,
-                      image: kIsWeb
-                          ? NetworkImage(
-                              state.imageXFile?.path ??
-                                  state.user?.avatarUrl ??
-                                  '',
-                            )
-                          : FileImage(
-                              File(
-                                state.imageXFile?.path ??
-                                    state.user?.avatarUrl ??
-                                    '',
-                              ),
-                            ),
+                      image: _imageProvider(
+                        state.user?.avatarUrl,
+                        state.imageXFile,
+                      ),
                     )
                   : null,
             ),
@@ -132,7 +136,7 @@ class _PickImageProfileState extends State<PickImageProfile> {
                         ),
                         SizedBox(height: 15),
                         Text(
-                          'Add Image',
+                          'Agregar imagen',
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 16,

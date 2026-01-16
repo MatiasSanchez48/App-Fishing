@@ -1,4 +1,4 @@
-import 'package:chat_flutter_supabase/models/models.dart';
+import 'package:app_fishing/models/models.dart';
 import 'package:flutter/material.dart';
 
 class ParticipantWidget extends StatelessWidget {

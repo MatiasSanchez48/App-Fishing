@@ -1,4 +1,4 @@
-import 'package:chat_flutter_supabase/utils/utils.dart';
+import 'package:app_fishing/utils/utils.dart';
 
 extension FishingTypeExtension on FishingType {
   String get name {

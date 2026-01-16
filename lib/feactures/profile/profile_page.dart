@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:chat_flutter_supabase/extensions/extensions.dart';
-import 'package:chat_flutter_supabase/feactures/auth/widgets/widget.dart';
-import 'package:chat_flutter_supabase/feactures/profile/bloc/bloc_profile.dart';
-import 'package:chat_flutter_supabase/feactures/profile/widgets/widgets.dart';
-import 'package:chat_flutter_supabase/feactures/widgets/widgets.dart';
+import 'package:app_fishing/extensions/extensions.dart';
+import 'package:app_fishing/feactures/auth/widgets/widget.dart';
+import 'package:app_fishing/feactures/profile/bloc/bloc_profile.dart';
+import 'package:app_fishing/feactures/profile/widgets/widgets.dart';
+import 'package:app_fishing/feactures/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
