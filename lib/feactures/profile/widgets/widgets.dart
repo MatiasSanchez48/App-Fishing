@@ -1,4 +1,4 @@
-export 'buttons__follow_chat.dart';
+export 'buttons_follow_chat.dart';
 export 'dialog_edit_profile.dart';
 export 'foto_name_description.dart';
 export 'grid_card_event.dart';

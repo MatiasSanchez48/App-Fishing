@@ -80,19 +80,19 @@ class ContentProfile extends StatelessWidget {
             onPressed: () => _dialogEditProfile(context),
           ),
 
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(
               children: [
-                SizedBox(height: 30),
-                FotoNameAndDescription(),
-                // const SizedBox(height: 10),
-                // ButtonChat(id: id),
-                SizedBox(height: 20),
-                InfoProfile(),
-                SizedBox(height: 20),
-                Publications(),
-                SizedBox(height: 20),
+                const SizedBox(height: 30),
+                const FotoNameAndDescription(),
+                const SizedBox(height: 10),
+                ButtonChat(id: id),
+                const SizedBox(height: 20),
+                const InfoProfile(),
+                const SizedBox(height: 20),
+                const Publications(),
+                const SizedBox(height: 20),
               ],
             ),
           ),

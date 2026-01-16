@@ -80,17 +80,17 @@ android {
         production {
             dimension "default"
             applicationIdSuffix ""
-            manifestPlaceholders = [appName: "Chat Flutter Supabase"]
+            manifestPlaceholders = [appName: "App Fishing"]
         }
         staging {
             dimension "default"
             applicationIdSuffix ".stg"
-            manifestPlaceholders = [appName: "[STG] Chat Flutter Supabase"]
+            manifestPlaceholders = [appName: "[STG] App Fishing"]
         }
         development {
             dimension "default"
             applicationIdSuffix ".dev"
-            manifestPlaceholders = [appName: "[DEV] Chat Flutter Supabase"]
+            manifestPlaceholders = [appName: "[DEV] App Fishing"]
         }
     }
 

@@ -53,9 +53,10 @@ class _PublicationsState extends State<Publications>
           ],
         ),
         SizedBox(
-          height: 500,
+          height: MediaQuery.of(context).size.height * 0.54,
           child: TabBarView(
             controller: _tabController,
+            physics: const NeverScrollableScrollPhysics(),
             children: const [
               _EventosTab(),
               Center(child: Text('Actividad reciente')),
