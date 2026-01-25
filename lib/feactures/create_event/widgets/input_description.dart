@@ -14,7 +14,7 @@ class InputDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 150,
+      height: 180,
       child: TextFormField(
         controller: controllerDescription,
         onChanged: (value) => context.read<BlocCreateEvent>().add(
@@ -32,6 +32,7 @@ class InputDescription extends StatelessWidget {
         maxLines: 5,
         decoration: InputDecoration(
           hintText: 'Descripcion',
+          helperText: ' ', // 👈 reserva espacio SIEMPRE
           hintStyle: const TextStyle(
             color: Colors.grey,
             fontSize: 16,

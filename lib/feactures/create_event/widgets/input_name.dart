@@ -20,7 +20,7 @@ class InputName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
+      height: 80,
       child: TextFormField(
         controller: controllerName,
         autofillHints: const [AutofillHints.name],
@@ -37,6 +37,7 @@ class InputName extends StatelessWidget {
         maxLength: 50,
         decoration: InputDecoration(
           counterText: '',
+          helperText: ' ',
           hintText: hintText,
           hintStyle: const TextStyle(
             color: Colors.grey,

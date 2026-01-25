@@ -40,7 +40,7 @@ class _ImputTimeState extends State<ImputTime> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
+      height: 80,
       child: TextFormField(
         controller: widget.controllerTime,
         readOnly: true,
@@ -54,6 +54,7 @@ class _ImputTimeState extends State<ImputTime> {
           return null;
         },
         decoration: InputDecoration(
+          helperText: ' ',
           prefixIcon: const Icon(
             Icons.access_time,
             color: Colors.grey,

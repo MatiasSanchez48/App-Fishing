@@ -55,6 +55,7 @@ class _FormRegisterState extends State<FormRegister> {
       child: Form(
         key: _formKey,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 15),
             const Text(

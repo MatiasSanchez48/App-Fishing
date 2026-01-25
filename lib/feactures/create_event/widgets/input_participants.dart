@@ -12,7 +12,7 @@ class InputParticipants extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
+      height: 80,
       child: TextFormField(
         controller: controllerParticipants,
         keyboardType: TextInputType.number,
@@ -30,6 +30,7 @@ class InputParticipants extends StatelessWidget {
         },
         decoration: InputDecoration(
           hintText: 'Max. Participantes',
+          helperText: ' ',
           hintStyle: const TextStyle(
             color: Colors.grey,
             fontSize: 16,

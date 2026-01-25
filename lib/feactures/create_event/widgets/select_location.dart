@@ -98,7 +98,7 @@ class _SelectLocationState extends State<SelectLocation> {
       children: [
         if (widget.withTextField)
           SizedBox(
-            height: 50,
+            height: 80,
             child: TextFormField(
               autovalidateMode: AutovalidateMode.onUserInteraction,
               controller: widget.controllerLotaion,
@@ -112,6 +112,7 @@ class _SelectLocationState extends State<SelectLocation> {
                 return null;
               },
               decoration: InputDecoration(
+                helperText: ' ',
                 prefixIcon: const Icon(
                   Icons.location_on_outlined,
                   color: Colors.grey,

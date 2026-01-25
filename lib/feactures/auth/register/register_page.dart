@@ -32,22 +32,25 @@ class RegisterPage extends StatelessWidget {
             ).showDialogSuccess(context);
           }
         },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            DefaultTextStyle(
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
-              child: const Center(
-                child: BoxForm(
-                  child: FormRegister(),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 80),
+              DefaultTextStyle(
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+                child: const Center(
+                  child: BoxForm(
+                    child: FormRegister(),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
